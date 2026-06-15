@@ -1,9 +1,13 @@
 import React from 'react';
 
-export default function IntelligenceMap() {
+export default function IntelligenceMap({ decisions }) {
   const handleOpenMap = () => {
     alert('Full Governance Map — integration with GIS layer pending. This would open the city-wide spatial command interface.');
   };
+
+  const isDc1Resolved = decisions?.dc1?.status === 'authorized';
+  const isDc2Resolved = decisions?.dc2?.status === 'authorized';
+  const isDc3Resolved = decisions?.dc3?.status === 'authorized';
 
   return (
     <section className="section map-section" id="s-map">
@@ -41,49 +45,73 @@ export default function IntelligenceMap() {
                 <line x1="80" y1="60" x2="620" y2="420" stroke="#1a2030" strokeWidth="3"/>
                 <line x1="620" y1="60" x2="80" y2="420" stroke="#1a2030" strokeWidth="3"/>
 
-                {/* Water body (lake Bhopal style) */}
+                {/* Upper Lake */}
                 <ellipse cx="170" cy="160" rx="95" ry="60" fill="#0d1f35" stroke="#1a3050" strokeWidth="1.5"/>
                 <text x="170" y="165" textAnchor="middle" fill="#2a4060" fontSize="9" fontFamily="IBM Plex Mono">UPPER LAKE</text>
 
                 {/* Zone areas */}
-                <rect x="300" y="90" width="180" height="130" rx="4" fill="#b5451b" fillOpacity="0.08" stroke="#b5451b" strokeWidth="1" strokeDasharray="4 3"/>
+                <rect 
+                  x="300" y="90" width="180" height="130" rx="4" 
+                  fill={isDc1Resolved ? '#2d6a4f' : '#b5451b'} 
+                  fillOpacity="0.08" 
+                  stroke={isDc1Resolved ? '#2d6a4f' : '#b5451b'} 
+                  strokeWidth="1" 
+                  strokeDasharray="4 3"
+                />
                 <rect x="180" y="250" width="140" height="110" rx="4" fill="#c8a84b" fillOpacity="0.08" stroke="#c8a84b" strokeWidth="1" strokeDasharray="4 3"/>
                 <rect x="450" y="280" width="160" height="140" rx="4" fill="#2d6a4f" fillOpacity="0.08" stroke="#2d6a4f" strokeWidth="1" strokeDasharray="4 3"/>
 
                 {/* Zone labels */}
-                <text x="390" y="115" textAnchor="middle" fill="#c8a84b" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">MP NAGAR</text>
+                <text x="390" y="115" textAnchor="middle" fill={isDc1Resolved ? '#3a8c66' : '#c8a84b'} fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">MP NAGAR</text>
                 <text x="250" y="275" textAnchor="middle" fill="#c8a84b" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">ARERA COLONY</text>
                 <text x="530" y="305" textAnchor="middle" fill="#c8a84b" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">KOLAR</text>
 
-                {/* MP Nagar critical marker */}
-                <circle cx="390" cy="155" r="14" fill="#b5451b" fillOpacity="0.2" stroke="#b5451b" strokeWidth="2"/>
-                <circle cx="390" cy="155" r="6" fill="#b5451b"/>
-                <circle cx="390" cy="155" r="20" fill="none" stroke="#b5451b" strokeWidth="1" strokeDasharray="3 3" opacity="0.5">
-                  <animate attributeName="r" from="14" to="30" dur="2s" repeatCount="indefinite"/>
-                  <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
-                </circle>
+                {/* MP Nagar marker */}
+                <circle cx="390" cy="155" r="14" fill={isDc1Resolved ? '#2d6a4f' : '#b5451b'} fillOpacity="0.2" stroke={isDc1Resolved ? '#3a8c66' : '#b5451b'} strokeWidth="2"/>
+                <circle cx="390" cy="155" r="6" fill={isDc1Resolved ? '#3a8c66' : '#b5451b'}/>
+                {!isDc1Resolved && (
+                  <circle cx="390" cy="155" r="20" fill="none" stroke="#b5451b" strokeWidth="1" strokeDasharray="3 3" opacity="0.5">
+                    <animate attributeName="r" from="14" to="30" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                )}
 
-                {/* Arera Colony moderate marker */}
+                {/* Arera Colony marker */}
                 <circle cx="250" cy="305" r="10" fill="#c8a84b" fillOpacity="0.2" stroke="#c8a84b" strokeWidth="2"/>
                 <circle cx="250" cy="305" r="5" fill="#c8a84b"/>
 
-                {/* Kolar moderate marker */}
-                <circle cx="530" cy="340" r="10" fill="#c8a84b" fillOpacity="0.2" stroke="#c8a84b" strokeWidth="2"/>
-                <circle cx="530" cy="340" r="5" fill="#c8a84b"/>
+                {/* Kolar marker */}
+                <circle cx="530" cy="340" r="10" fill={isDc3Resolved ? '#2d6a4f' : '#c8a84b'} fillOpacity="0.2" stroke={isDc3Resolved ? '#3a8c66' : '#c8a84b'} strokeWidth="2"/>
+                <circle cx="530" cy="340" r="5" fill={isDc3Resolved ? '#3a8c66' : '#c8a84b'}/>
 
-                {/* AIIMS Bhopal marker (critical - Health/Water conflict) */}
-                <circle cx="200" cy="330" r="16" fill="#d4521f" fillOpacity="0.15" stroke="#d4521f" strokeWidth="2"/>
-                <circle cx="200" cy="330" r="7" fill="#d4521f"/>
-                <circle cx="200" cy="330" r="22" fill="none" stroke="#d4521f" strokeWidth="1" strokeDasharray="3 3" opacity="0.6">
-                  <animate attributeName="r" from="16" to="32" dur="1.8s" repeatCount="indefinite"/>
-                  <animate attributeName="opacity" from="0.6" to="0" dur="1.8s" repeatCount="indefinite"/>
-                </circle>
-                <text x="200" y="356" textAnchor="middle" fill="#d4521f" fontSize="9" fontFamily="IBM Plex Mono" fontWeight="600">AIIMS BHOPAL</text>
+                {/* AIIMS Bhopal marker */}
+                <circle cx="200" cy="330" r="16" fill={isDc2Resolved ? '#2d6a4f' : '#d4521f'} fillOpacity="0.15" stroke={isDc2Resolved ? '#3a8c66' : '#d4521f'} strokeWidth="2"/>
+                <circle cx="200" cy="330" r="7" fill={isDc2Resolved ? '#3a8c66' : '#d4521f'}/>
+                {!isDc2Resolved && (
+                  <circle cx="200" cy="330" r="22" fill="none" stroke="#d4521f" strokeWidth="1" strokeDasharray="3 3" opacity="0.6">
+                    <animate attributeName="r" from="16" to="32" dur="1.8s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.6" to="0" dur="1.8s" repeatCount="indefinite"/>
+                  </circle>
+                )}
+                <text x="200" y="356" textAnchor="middle" fill={isDc2Resolved ? '#3a8c66' : '#d4521f'} fontSize="9" fontFamily="IBM Plex Mono" fontWeight="600">AIIMS BHOPAL</text>
 
-                {/* Emergency Route overlay (Kolar Road narrowed) */}
-                <line x1="390" y1="155" x2="530" y2="340" stroke="#d4521f" strokeWidth="2.5" strokeDasharray="8,4" opacity="0.5"/>
-                <text x="485" y="255" textAnchor="middle" fill="#c8a84b" fontSize="8" fontFamily="IBM Plex Mono" transform="rotate(-42 485 255)">EMERGENCY ROUTE RISK</text>
-                {/* Road label overlays */}
+                {/* Emergency Route overlay */}
+                <line 
+                  x1="390" y1="155" x2="530" y2="340" 
+                  stroke={isDc3Resolved ? '#3a8c66' : '#d4521f'} 
+                  strokeWidth="2.5" 
+                  strokeDasharray={isDc3Resolved ? 'none' : '8,4'} 
+                  opacity={isDc3Resolved ? 0.35 : 0.5}
+                />
+                <text 
+                  x="485" y="255" textAnchor="middle" 
+                  fill={isDc3Resolved ? '#3a8c66' : '#c8a84b'} 
+                  fontSize="8" fontFamily="IBM Plex Mono" 
+                  transform="rotate(-42 485 255)"
+                >
+                  {isDc3Resolved ? 'ROUTE SECURED' : 'EMERGENCY ROUTE RISK'}
+                </text>
+                
                 <text x="390" y="240" fill="#2a3850" fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">KOLAR ROAD</text>
                 <text x="200" y="240" fill="#2a3850" fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">DB CITY</text>
 
@@ -122,36 +150,40 @@ export default function IntelligenceMap() {
 
             <div className="map-zones-panel">
               <div className="mzp-title">COORDINATION CONFLICT ZONES</div>
-              <div className="mzp-zone mzp-critical">
+              
+              <div className={`mzp-zone ${isDc1Resolved ? 'mzp-nominal' : 'mzp-critical'}`}>
                 <div className="mzp-zone-header">
-                  <span className="mzp-dot mzp-dot-critical"></span>
+                  <span className={`mzp-dot ${isDc1Resolved ? 'mzp-dot-nominal' : 'mzp-dot-critical'}`}></span>
                   <span className="mzp-zone-name">MP Nagar</span>
-                  <span className="mzp-zone-badge">CONFLICT</span>
+                  <span className="mzp-zone-badge" style={isDc1Resolved ? { background: 'var(--nominal-bg)', color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)' } : {}}>{isDc1Resolved ? 'RESOLVED' : 'CONFLICT'}</span>
                 </div>
-                <div className="mzp-zone-desc">Revenue to PWD -- 12-day land clearance stall</div>
-                <div className="mzp-zone-count">2 dept conflicts -- 3 projects blocked</div>
-                <div className="mzp-zone-action">Action: Revenue Commissioner clearance today</div>
+                <div className="mzp-zone-desc">{isDc1Resolved ? 'Revenue to PWD clearance authorized.' : 'Revenue to PWD -- 12-day land clearance stall'}</div>
+                <div className="mzp-zone-count">{isDc1Resolved ? 'Recovery in progress' : '2 dept conflicts -- 3 projects blocked'}</div>
+                <div className="mzp-zone-action">{isDc1Resolved ? 'Action: Logged directive' : 'Action: Revenue Commissioner clearance today'}</div>
               </div>
-              <div className="mzp-zone mzp-critical">
+
+              <div className={`mzp-zone ${isDc2Resolved ? 'mzp-nominal' : 'mzp-critical'}`}>
                 <div className="mzp-zone-header">
-                  <span className="mzp-dot mzp-dot-critical"></span>
+                  <span className={`mzp-dot ${isDc2Resolved ? 'mzp-dot-nominal' : 'mzp-dot-critical'}`}></span>
                   <span className="mzp-zone-name">AIIMS Bhopal</span>
-                  <span className="mzp-zone-badge">HOSPITAL RISK</span>
+                  <span className="mzp-zone-badge" style={isDc2Resolved ? { background: 'var(--nominal-bg)', color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)' } : {}}>{isDc2Resolved ? 'RESOLVED' : 'HOSPITAL RISK'}</span>
                 </div>
-                <div className="mzp-zone-desc">Water Supply to Health -- pipeline schedule conflict</div>
-                <div className="mzp-zone-count">400+ patients at risk -- OT/ICU water supply overlap</div>
-                <div className="mzp-zone-action">Action: Reschedule maintenance to 23:00-04:00</div>
+                <div className="mzp-zone-desc">{isDc2Resolved ? 'Maintenance window rescheduled.' : 'Water Supply to Health -- pipeline schedule conflict'}</div>
+                <div className="mzp-zone-count">{isDc2Resolved ? 'Access corridor secured' : '400+ patients at risk -- OT/ICU water supply overlap'}</div>
+                <div className="mzp-zone-action">{isDc2Resolved ? 'Action: Shifted to 23:00' : 'Action: Reschedule maintenance to 23:00-04:00'}</div>
               </div>
-              <div className="mzp-zone mzp-watch">
+
+              <div className={`mzp-zone ${isDc3Resolved ? 'mzp-nominal' : 'mzp-watch'}`}>
                 <div className="mzp-zone-header">
-                  <span className="mzp-dot mzp-dot-watch"></span>
+                  <span className={`mzp-dot ${isDc3Resolved ? 'mzp-dot-nominal' : 'mzp-dot-watch'}`}></span>
                   <span className="mzp-zone-name">Kolar Corridor</span>
-                  <span className="mzp-zone-badge mzp-badge-watch">ROUTE RISK</span>
+                  <span className="mzp-zone-badge mzp-badge-watch" style={isDc3Resolved ? { background: 'var(--nominal-bg)', color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)' } : {}}>{isDc3Resolved ? 'RESOLVED' : 'ROUTE RISK'}</span>
                 </div>
-                <div className="mzp-zone-desc">Energy to PWD -- 19-day pole relocation stall</div>
-                <div className="mzp-zone-count">Emergency route narrowed -- Rs 80K/day idle cost</div>
-                <div className="mzp-zone-action">Action: 48-hr compliance notice to Energy Dept</div>
+                <div className="mzp-zone-desc">{isDc3Resolved ? 'Compliance notice issued to Energy Dept.' : 'Energy to PWD -- 19-day pole relocation stall'}</div>
+                <div className="mzp-zone-count">{isDc3Resolved ? 'Relocation in progress' : 'Emergency route narrowed -- Rs 80K/day idle cost'}</div>
+                <div className="mzp-zone-action">{isDc3Resolved ? 'Action: Directive dispatched' : 'Action: 48-hr compliance notice to Energy Dept'}</div>
               </div>
+
               <div className="mzp-zone mzp-watch">
                 <div className="mzp-zone-header">
                   <span className="mzp-dot mzp-dot-watch"></span>
@@ -162,6 +194,7 @@ export default function IntelligenceMap() {
                 <div className="mzp-zone-count">2 projects blocked -- 12,000 vehicles/day affected</div>
                 <div className="mzp-zone-action">Action: BMC Traffic Cell sign-off within 48 hrs</div>
               </div>
+
               <button className="map-full-btn" onClick={handleOpenMap}>Open UNITY Intelligence Map</button>
             </div>
           </div>

@@ -17,31 +17,7 @@ import NetworkGraph from './components/NetworkGraph';
 import InterventionTimeline from './components/InterventionTimeline';
 import InsightsForecast from './components/InsightsForecast';
 import DecisionModal from './components/DecisionModal';
-
-const initialEvents = [
-  { type: 'completed', text: 'Land compensation approved — Plot 47-B, MP Nagar extension.',    dept: 'Revenue Dept',       time: '07:42' },
-  { type: 'completed', text: 'Utility relocation completed — Sector 12 water main diverted.',   dept: 'Water Supply',       time: '07:31' },
-  { type: 'flagged',   text: 'New conflict detected — MP Nagar road widening, pole zone B.',    dept: 'Energy Dept',        time: '07:18' },
-  { type: 'completed', text: 'Sewer maintenance completed — Arera Colony Ward 4.',              dept: 'Health & Sanitation',time: '07:05' },
-  { type: 'critical',  text: 'Revenue clearance overdue — 12-day threshold breached.',          dept: 'Revenue Dept',       time: '06:55' },
-  { type: 'completed', text: 'Traffic signal installation approved — Kolar–Hoshangabad Rd.',    dept: 'Public Works',       time: '06:40' },
-  { type: 'flagged',   text: 'AIIMS pipeline schedule conflict escalated to Water Department.',  dept: 'Water Supply',       time: '06:28' },
-  { type: 'info',      text: 'Morning operational briefing generated at 06:00 hours.',          dept: 'Command Center',     time: '06:00' },
-  { type: 'completed', text: 'Contractor payment released — Phase 2, Kolar road.',              dept: 'Finance Dept',       time: '05:48' },
-  { type: 'completed', text: 'NOC issued — JP Hospital building expansion, Block D.',           dept: 'Urban Planning',     time: '05:30' },
-  { type: 'info',      text: 'Shift handover completed — Night operations transferred.',        dept: 'Operations',         time: '05:00' },
-  { type: 'flagged',   text: 'Street lighting fault reported — Bhopal Taal embankment.',       dept: 'Energy Dept',        time: '04:33' },
-  { type: 'completed', text: 'Water pressure normalised — Zone 6, after overnight maintenance.',dept: 'Water Supply',       time: '03:55' },
-  { type: 'critical',  text: 'Energy pole relocation SLA breached — Kolar corridor, Day 19.',  dept: 'Energy Dept',        time: '00:01' },
-];
-
-const liveEvents = [
-  { type: 'completed', text: 'Tree relocation clearance granted — Phase 1, MG Road.',          dept: 'Urban Planning' },
-  { type: 'flagged',   text: 'Footpath encroachment detected — Arera Colony crossing.',        dept: 'Public Works' },
-  { type: 'completed', text: 'Drainage inspection cleared — Ward 7, Kolar extension.',         dept: 'Health & Sanitation' },
-  { type: 'info',      text: 'Contractor mobilization confirmed — Bridge repair, Lake Road.',   dept: 'Public Works' },
-  { type: 'flagged',   text: 'Permit delay reported — Commercial building, Zone 3B.',          dept: 'Urban Planning' },
-];
+import { api } from './services/api';
 
 const sectionIds = [
   's-brief', 's-attention', 's-decisions', 's-pulse', 's-risk', 's-pressure',
@@ -56,13 +32,67 @@ export default function App() {
     dc3: { status: 'idle' }
   });
 
-  const [events, setEvents] = useState(initialEvents);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [events, setEvents] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeModalKey, setActiveModalKey] = useState(null);
   const [activeSection, setActiveSection] = useState('s-brief');
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [syncTime, setSyncTime] = useState('--:--:--');
-  const [liveIdx, setLiveIdx] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchDecisions = async () => {
+    try {
+      const data = await api.getActiveDecisions();
+      const mapped = {};
+      data.forEach((d, idx) => {
+        let key = `dc${idx + 1}`;
+        if (d.project.includes('MP Nagar')) key = 'dc1';
+        else if (d.project.includes('AIIMS')) key = 'dc2';
+        else if (d.project.includes('Kolar')) key = 'dc3';
+
+        mapped[key] = {
+          dbId: d.id,
+          status: d.escalationStatus,
+          project: d.project,
+          situation: d.situation,
+          blockingDept: d.blockingDept,
+          waitingDept: d.waitingDept,
+          daysPending: d.daysPending
+        };
+      });
+      setDecisions(mapped);
+      setRefreshKey(prev => prev + 1);
+    } catch (err) {
+      console.error('Error fetching decisions:', err);
+      setError('Server connection failed. Please verify the backend is running.');
+    }
+  };
+
+  const fetchEvents = async (filter) => {
+    try {
+      const data = await api.getEvents(filter);
+      setEvents(data);
+    } catch (err) {
+      console.error('Error fetching events:', err);
+    }
+  };
+
+  // Initial load
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+      setLoading(false);
+    };
+    loadData();
+  }, []);
+
+  // Fetch events when filter changes
+  useEffect(() => {
+    fetchEvents(activeFilter);
+  }, [activeFilter]);
 
   // Sync running clock in footer
   useEffect(() => {
@@ -78,20 +108,14 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Periodic live events simulation
+  // Periodic live events refresh
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = new Date();
-      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-      const baseEvt = liveEvents[liveIdx % liveEvents.length];
-      const newEvt = { ...baseEvt, time: timeStr };
-
-      setEvents((prev) => [newEvt, ...prev]);
-      setLiveIdx((prev) => prev + 1);
+      fetchEvents(activeFilter);
     }, 14000);
 
     return () => clearInterval(interval);
-  }, [liveIdx]);
+  }, [activeFilter]);
 
   // Scroll spy & back to top listener
   useEffect(() => {
@@ -146,50 +170,62 @@ export default function App() {
     };
   }, []);
 
-  const addEvent = (type, text, dept) => {
-    const now = new Date();
-    const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    setEvents((prev) => [
-      { type, text, dept, time: timeStr },
-      ...prev
-    ]);
+  const handleEscalate = async (key, title, dept) => {
+    const dbId = decisions[key]?.dbId;
+    if (!dbId) return;
+    try {
+      const res = await api.executeDecisionAction({
+        dependencyId: dbId,
+        action: 'escalate',
+        reason: `Escalated — ${title}. Awaiting response from ${dept}.`,
+        authorizedBy: 'District Collector'
+      });
+      if (res.success) {
+        await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleEscalate = (key, title, dept) => {
-    setDecisions((prev) => ({
-      ...prev,
-      [key]: { status: 'escalated' }
-    }));
-    addEvent('flagged', `Escalation logged — ${title}. Awaiting response from ${dept}.`, 'Command Center');
+  const handleDefer = async (key) => {
+    const dbId = decisions[key]?.dbId;
+    if (!dbId) return;
+    try {
+      const res = await api.executeDecisionAction({
+        dependencyId: dbId,
+        action: 'defer',
+        reason: 'Scheduled review deferred.',
+        authorizedBy: 'District Collector'
+      });
+      if (res.success) {
+        await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleDefer = (key) => {
-    setDecisions((prev) => ({
-      ...prev,
-      [key]: { status: 'deferred' }
-    }));
-  };
-
-  const handleAuthorize = (key, actionLabel) => {
-    setDecisions((prev) => ({
-      ...prev,
-      [key]: { status: 'authorized' }
-    }));
-    const projectTitle = key === 'dc1' 
-      ? 'MP Nagar Road Widening' 
-      : key === 'dc2' 
-      ? 'AIIMS Pipeline Upgrade' 
-      : 'Kolar Road Utility Relocation';
-    addEvent('completed', `Direction Issued: ${actionLabel} authorized for ${projectTitle}.`, 'District Collector');
+  const handleAuthorize = async (key, actionLabel) => {
+    const dbId = decisions[key]?.dbId;
+    if (!dbId) return;
+    try {
+      const res = await api.executeDecisionAction({
+        dependencyId: dbId,
+        action: 'authorize',
+        reason: actionLabel,
+        authorizedBy: 'District Collector'
+      });
+      if (res.success) {
+        await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleLogModalAction = (key, actionLabel) => {
-    const projectTitle = key === 'dc1' 
-      ? 'MP Nagar Road Widening' 
-      : key === 'dc2' 
-      ? 'AIIMS Pipeline Upgrade' 
-      : 'Kolar Road Utility Relocation';
-    addEvent('info', `Action Logged: ${actionLabel} for ${projectTitle}.`, 'Command Center');
+    console.log(`Log modal action: ${actionLabel}`);
   };
 
   const openModal = (key) => setActiveModalKey(key);
@@ -213,9 +249,9 @@ export default function App() {
       <TopBar />
 
       <main>
-        <MorningBrief />
+        <MorningBrief refreshKey={refreshKey} decisions={decisions} />
 
-        <AttentionPanel />
+        <AttentionPanel refreshKey={refreshKey} />
 
         <DecisionsBoard 
           decisions={decisions}
@@ -231,11 +267,11 @@ export default function App() {
           onDefer={handleDefer}
         />
 
-        <DependenciesMatrix />
+        <DependenciesMatrix refreshKey={refreshKey} />
 
-        <BottleneckIndex />
+        <BottleneckIndex refreshKey={refreshKey} />
 
-        <CitizenImpact />
+        <CitizenImpact refreshKey={refreshKey} />
 
         <EventLog 
           events={events}
@@ -243,7 +279,7 @@ export default function App() {
           setActiveFilter={setActiveFilter}
         />
 
-        <IntelligenceMap />
+        <IntelligenceMap decisions={decisions} />
 
         {/* LAYER 2 DIVIDER */}
         <div className="layer-divider">
@@ -261,17 +297,17 @@ export default function App() {
           onDefer={handleDefer}
         />
 
-        <PublicServiceImpact />
+        <PublicServiceImpact refreshKey={refreshKey} />
 
-        <CostIntelligence />
+        <CostIntelligence refreshKey={refreshKey} />
 
-        <RippleEffect onIssueDirection={openModal} />
+        <RippleEffect refreshKey={refreshKey} onIssueDirection={openModal} />
 
-        <NetworkGraph />
+        <NetworkGraph decisions={decisions} />
 
-        <InterventionTimeline />
+        <InterventionTimeline decisions={decisions} />
 
-        <InsightsForecast />
+        <InsightsForecast decisions={decisions} />
       </main>
 
       {/* FOOTER */}

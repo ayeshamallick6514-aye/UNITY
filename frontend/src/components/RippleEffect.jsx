@@ -1,108 +1,72 @@
 import React, { useState, useEffect } from 'react';
+import { api } from '../services/api';
 
 const RIPPLE_ORDER = ['revenue', 'land', 'road', 'utility', 'traffic', 'hospital'];
 
-const rippleData = {
-  revenue: {
-    badge: 'ORIGIN — REVENUE DEPT',
-    title: 'Revenue Clearance Delay',
-    origin: 'Land acquisition counter-signature not issued by Revenue Commissioner — 12 days overdue',
-    depts: 'PWD, Energy, Water Supply, Transport, Urban Planning (5 departments cascading)',
-    projects: '11 projects blocked — MP Nagar Road Widening, Kolar Corridor, 9 downstream projects',
-    delay: '45+ days if unresolved by Friday',
-    citizen: '3,750+ citizens — 800 hospital patients, 2,400 students, 350 traders',
-    financial: '₹2.3 Cr penalty clause activates Friday — ₹80,000/day idle contractor costs',
-    decisionKey: 'dc1'
-  },
-  land: {
-    badge: 'CASCADE 1 — LAND ACQUISITION',
-    title: 'Land Acquisition Pending',
-    origin: 'Revenue clearance not issued — title transfer blocked for MP Nagar Plot 47-B',
-    depts: 'Revenue Department, Public Works Department',
-    projects: 'MP Nagar Road Widening, Plot 47-B compensation case',
-    delay: '12–20 days depending on Revenue response speed',
-    citizen: '2,400 students on disrupted school transport routes',
-    financial: '₹40,000/day contractor idle cost — penalty clause approaching activation',
-    decisionKey: 'dc1'
-  },
-  road: {
-    badge: 'CASCADE 2 — PWD',
-    title: 'Road Widening Delayed',
-    origin: 'Foundation work halted — contractor M/s Patel Infrastructure demobilized',
-    depts: 'Public Works Department',
-    projects: 'MP Nagar Road Widening Phase 2 — 3 downstream utility projects also held',
-    delay: '45 days projected total delay from contract start',
-    citizen: '800+ residents — emergency vehicle route narrowed',
-    financial: '₹2.3 Cr contract penalty + ₹80,000/day idle costs accumulating',
-    decisionKey: 'dc1'
-  },
-  utility: {
-    badge: 'CASCADE 3 — ENERGY DEPT',
-    title: 'Utility Relocation Delayed',
-    origin: '15 MPEB poles unshifted — Energy field teams not deployed for 19 days',
-    depts: 'Energy Department (MPEB), Public Works Department',
-    projects: 'Kolar Road Utility Relocation, Traffic Signal Infrastructure, Emergency Route Widening',
-    delay: '19 days elapsed — 30+ days projected if compliance notice not issued today',
-    citizen: 'Emergency route effectively narrowed — ambulance response time at risk',
-    financial: '₹80,000/day idle contractor cost — total exposure Rs 15.2 Lakh so far',
-    decisionKey: 'dc3'
-  },
-  traffic: {
-    badge: 'CASCADE 4 — TRAFFIC + URBAN',
-    title: 'Traffic Diversion Delayed',
-    origin: 'BMC Traffic Cell has not processed diversion sign-off — 6 days in queue',
-    depts: 'Transport Department, Municipal Corporation, Urban Planning',
-    projects: '2 active contractor sites blocked — Kolar signal infrastructure, Arera Colony diversion',
-    delay: '6 days elapsed — escalates to critical within 3 days',
-    citizen: 'Daily commuters on 2 major corridors affected — estimated 12,000 vehicles/day',
-    financial: 'Contractor extensions required — ₹18 Lakh in avoidable rescheduling costs',
-    decisionKey: 'dc3'
-  },
-  hospital: {
-    badge: 'TERMINAL IMPACT — CITIZENS',
-    title: 'Hospital Access Risk Increased',
-    origin: 'Cascading failures from Revenue, Energy, and Water Supply unresolved decisions',
-    depts: 'All 5 blocked departments — Revenue, PWD, Energy, Water Supply, Health',
-    projects: 'AIIMS Pipeline, Kolar Road Widening, MP Nagar Road Widening, Water Main Maintenance',
-    delay: 'Immediate — ongoing right now',
-    citizen: 'AIIMS Bhopal: 400+ daily patients. 3 schools: 2,400 students. Emergency route: ambulance risk. 4 market zones: 350 traders.',
-    financial: 'Total projected liability: ₹3.7 Cr — avoidable with decisions taken today',
-    decisionKey: 'dc2'
-  },
+const DEPT_MAP = {
+  revenue: 'revenue',
+  land: 'revenue',
+  road: 'pwd',
+  utility: 'energy',
+  traffic: 'transport',
+  hospital: 'water_supply'
 };
 
-export default function RippleEffect({ onIssueDirection }) {
+const DECISION_KEYS = {
+  revenue: 'dc1',
+  land: 'dc1',
+  road: 'dc1',
+  utility: 'dc3',
+  traffic: 'dc3',
+  hospital: 'dc2'
+};
+
+const DEPT_DISPLAY_NAMES = {
+  revenue: 'Revenue Dept',
+  pwd: 'Public Works Dept',
+  energy: 'Energy Dept (MPEB)',
+  water_supply: 'Water Supply Dept',
+  transport: 'Traffic Cell/Transport'
+};
+
+export default function RippleEffect({ refreshKey, onIssueDirection }) {
   const [selectedNode, setSelectedNode] = useState(null);
   const [activeCascade, setActiveCascade] = useState({});
   const [timers, setTimers] = useState([]);
+  const [simData, setSimData] = useState(null);
+  const [simLoading, setSimLoading] = useState(false);
+  const [simError, setSimError] = useState(null);
 
   useEffect(() => {
-    // Clean up timers on unmount
     return () => timers.forEach(clearTimeout);
   }, [timers]);
 
-  // Auto-trigger revenue node on first load to match the vanilla behavior
+  // Auto-trigger revenue node on first load to match vanilla behavior
   useEffect(() => {
     const autoTriggerTimer = setTimeout(() => {
       handleNodeClick('revenue');
     }, 800);
     return () => clearTimeout(autoTriggerTimer);
-  }, []);
+  }, [refreshKey]);
 
-  const handleNodeClick = (key) => {
+  const handleNodeClick = async (key) => {
     setSelectedNode(key);
     setActiveCascade({});
+    setSimError(null);
+    setSimLoading(true);
 
     const clickedIdx = RIPPLE_ORDER.indexOf(key);
-    if (clickedIdx === -1) return;
+    if (clickedIdx === -1) {
+      setSimLoading(false);
+      return;
+    }
 
-    // Clear previous timers
+    // Trigger visual cascade animation
     timers.forEach(clearTimeout);
     const newTimers = [];
 
     RIPPLE_ORDER.forEach((nodeKey, idx) => {
       if (idx <= clickedIdx) return;
-
       const delay = (idx - clickedIdx) * 320;
       const timer = setTimeout(() => {
         setActiveCascade((prev) => ({
@@ -112,11 +76,33 @@ export default function RippleEffect({ onIssueDirection }) {
       }, delay);
       newTimers.push(timer);
     });
-
     setTimers(newTimers);
+
+    // Run backend BFS cascade simulation
+    try {
+      const deptId = DEPT_MAP[key] || 'revenue';
+      let delayDays = 12;
+      if (key === 'utility' || key === 'traffic') delayDays = 19;
+      else if (key === 'hospital') delayDays = 8;
+
+      const result = await api.simulateRipple(deptId, delayDays);
+      setSimData(result);
+    } catch (err) {
+      console.error('Simulation error:', err);
+      setSimError('Simulation pipeline offline.');
+    } finally {
+      setSimLoading(false);
+    }
   };
 
-  const selectedData = rippleData[selectedNode];
+  const getDeptFriendlyList = (cascadePath) => {
+    if (!cascadePath || cascadePath.length === 0) return 'None';
+    const depts = new Set(cascadePath.flatMap(p => [
+      DEPT_DISPLAY_NAMES[p.from] || p.from,
+      DEPT_DISPLAY_NAMES[p.to] || p.to
+    ]));
+    return Array.from(depts).join(', ');
+  };
 
   return (
     <section className="section l2-section ripple-section" id="s-ripple">
@@ -228,45 +214,71 @@ export default function RippleEffect({ onIssueDirection }) {
           </div>
           {/* Ripple Detail Panel */}
           <div className="ripple-detail-panel" id="rippleDetail">
-            {!selectedNode ? (
+            {simLoading ? (
+              <div className="rdp-empty">
+                <div className="live-dot"></div>
+                <div className="rdp-empty-label">SIMULATING CASCADE PROPAGATION...</div>
+              </div>
+            ) : simError ? (
+              <div className="rdp-empty" style={{ color: 'var(--critical-light)' }}>
+                <div className="rdp-empty-icon">⚠</div>
+                <div className="rdp-empty-label">{simError}</div>
+              </div>
+            ) : !selectedNode || !simData ? (
               <div className="rdp-empty" id="rdpEmpty">
                 <div className="rdp-empty-icon">⬡</div>
                 <div className="rdp-empty-label">Select any node in the chain to view its impact analysis</div>
               </div>
             ) : (
               <div className="rdp-content" id="rdpContent">
-                <div className="rdp-badge" id="rdpBadge">{selectedData.badge}</div>
-                <h3 className="rdp-title" id="rdpTitle">{selectedData.title}</h3>
+                <div className="rdp-badge" id="rdpBadge">
+                  {selectedNode === 'revenue' ? 'ORIGIN — REVENUE DEPT' : selectedNode === 'hospital' ? 'TERMINAL IMPACT — CITIZENS' : `CASCADE STAGE — ${selectedNode.toUpperCase()}`}
+                </div>
+                <h3 className="rdp-title" id="rdpTitle">
+                  {selectedNode === 'revenue' ? 'Revenue Clearance Delay' : selectedNode === 'hospital' ? 'Hospital Access Risk Increased' : `${DEPT_DISPLAY_NAMES[DEPT_MAP[selectedNode]] || 'Department'} Stalled`}
+                </h3>
                 <div className="rdp-grid">
                   <div className="rdp-item">
-                    <span className="rdp-item-label">ORIGIN PROBLEM</span>
-                    <span className="rdp-item-value" id="rdpOrigin">{selectedData.origin}</span>
+                    <span className="rdp-item-label">SIMULATED PROBLEM</span>
+                    <span className="rdp-item-value" id="rdpOrigin">
+                      {simData.simulated_delay_days} days delay in {DEPT_DISPLAY_NAMES[simData.root_department] || simData.root_department} propagating downstream.
+                    </span>
                   </div>
                   <div className="rdp-item">
-                    <span className="rdp-item-label">AFFECTED DEPARTMENTS</span>
-                    <span className="rdp-item-value" id="rdpDepts">{selectedData.depts}</span>
+                    <span className="rdp-item-label">AFFECTED SECTORS</span>
+                    <span className="rdp-item-value" id="rdpDepts">
+                      {getDeptFriendlyList(simData.cascade_path)}
+                    </span>
                   </div>
                   <div className="rdp-item">
                     <span className="rdp-item-label">AFFECTED PROJECTS</span>
-                    <span className="rdp-item-value" id="rdpProjects">{selectedData.projects}</span>
+                    <span className="rdp-item-value" id="rdpProjects">
+                      Stalls {simData.metrics.total_projects_blocked} active municipal infrastructure works.
+                    </span>
                   </div>
                   <div className="rdp-item">
                     <span className="rdp-item-label">ESTIMATED DELAY</span>
-                    <span className="rdp-item-value rdp-critical" id="rdpDelay">{selectedData.delay}</span>
+                    <span className="rdp-item-value rdp-critical" id="rdpDelay">
+                      +{simData.simulated_delay_days} days cascade delay projected
+                    </span>
                   </div>
                   <div className="rdp-item">
                     <span className="rdp-item-label">CITIZEN IMPACT</span>
-                    <span className="rdp-item-value" id="rdpCitizen">{selectedData.citizen}</span>
+                    <span className="rdp-item-value" id="rdpCitizen">
+                      Disrupts services for {simData.metrics.citizens_impacted.toLocaleString('en-IN')}+ citizens.
+                    </span>
                   </div>
                   <div className="rdp-item">
-                    <span className="rdp-item-label">FINANCIAL IMPACT</span>
-                    <span className="rdp-item-value rdp-critical" id="rdpFinancial">{selectedData.financial}</span>
+                    <span className="rdp-item-label">FINANCIAL LOSS</span>
+                    <span className="rdp-item-value rdp-critical" id="rdpFinancial">
+                      Additional burn ₹{(simData.metrics.additional_idle_burn / 100000).toFixed(1)} Lac. Exposure: ₹{(simData.metrics.projected_cost_exposure / 10000000).toFixed(1)} Cr.
+                    </span>
                   </div>
                 </div>
                 <button 
                   className="rdp-action-btn" 
                   id="rdpAction"
-                  onClick={() => onIssueDirection(selectedData.decisionKey)}
+                  onClick={() => onIssueDirection(DECISION_KEYS[selectedNode])}
                 >
                   View Related Decision
                 </button>

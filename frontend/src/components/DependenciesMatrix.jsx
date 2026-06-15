@@ -1,13 +1,87 @@
 import React, { useState, useEffect } from 'react';
+import { api } from '../services/api';
 
-export default function DependenciesMatrix() {
+const DEPT_MAP = {
+  'Public Works Dept': { tag: 'PWD', cls: 'wm-dept-pwd' },
+  'Revenue Dept': { tag: 'REV', cls: 'wm-dept-rev' },
+  'Energy Dept (MPEB)': { tag: 'ENG', cls: 'wm-dept-energy' },
+  'Water Supply Dept': { tag: 'WSP', cls: 'wm-dept-water' },
+  'Urban Transport/Traffic Cell': { tag: 'TRP', cls: 'wm-dept-transport' }
+};
+
+export default function DependenciesMatrix({ refreshKey }) {
   const [animate, setAnimate] = useState(false);
+  const [matrixData, setMatrixData] = useState(null);
+  const [activeDeps, setActiveDeps] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const [grid, deps] = await Promise.all([
+        api.getMatrixGrid(),
+        api.getActiveDecisions()
+      ]);
+      setMatrixData(grid);
+      setActiveDeps(deps);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching matrix data:', err);
+      setError('Matrix data sync offline.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Stagger slightly so animation is visible on mount
+    fetchData();
+  }, [refreshKey]);
+
+  useEffect(() => {
     const timer = setTimeout(() => setAnimate(true), 150);
     return () => clearTimeout(timer);
-  }, []);
+  }, [loading]);
+
+  const getDeptInfo = (name) => {
+    return DEPT_MAP[name] || { tag: 'BMC', cls: 'wm-dept-muni' };
+  };
+
+  // Compute bottleneck counts dynamically from the active dependencies
+  const blockCounts = {};
+  activeDeps.forEach(d => {
+    const blocking = d.blockingDept;
+    blockCounts[blocking] = (blockCounts[blocking] || 0) + 1;
+  });
+
+  const sortedBottlenecks = Object.keys(blockCounts)
+    .map(dept => ({ dept, count: blockCounts[dept] }))
+    .sort((a, b) => b.count - a.count);
+
+  const maxBlockCount = sortedBottlenecks.length > 0 ? sortedBottlenecks[0].count : 1;
+
+  if (loading) {
+    return (
+      <section className="section risk-section" id="s-risk">
+        <div className="section-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', flexDirection: 'column', gap: '12px' }}>
+          <div className="live-dot"></div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>SYNCING COORD MATRIX...</span>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="section risk-section" id="s-risk">
+        <div className="section-container">
+          <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
+            ⚠ MATRIX PROTOCOL: {error}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section risk-section" id="s-risk">
@@ -29,155 +103,73 @@ export default function DependenciesMatrix() {
             <div className="wm-col-status">STATUS</div>
           </div>
 
-          <div className="wm-row wm-critical" style={{ '--row-urgency': 1 }}>
-            <div className="wm-col-waiter">
-              <span className="wm-dept-tag wm-dept-pwd">PWD</span>
-              <span className="wm-dept-full">Public Works Department</span>
+          {activeDeps.length === 0 ? (
+            <div style={{ border: '1px dashed var(--border-accent)', padding: '32px', textAlign: 'center', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
+              ⬡ NO COORDINATION FAILURES RECORDED — NETWORK NOMINAL
             </div>
-            <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
-            <div className="wm-col-blocker">
-              <span className="wm-dept-tag wm-dept-rev">REV</span>
-              <span className="wm-dept-full">Revenue Department</span>
-            </div>
-            <div className="wm-col-days"><span className="wm-days-badge wm-days-critical">12d</span></div>
-            <div className="wm-col-projects">3 projects</div>
-            <div className="wm-col-status"><span className="wm-status-dot wm-dot-critical"></span>CRITICAL</div>
-          </div>
+          ) : (
+            activeDeps.map((item, idx) => {
+              const waiter = getDeptInfo(item.waitingDept);
+              const blocker = getDeptInfo(item.blockingDept);
+              const isCritical = item.daysPending > 10;
+              const severityClass = isCritical ? 'wm-critical' : 'wm-high';
+              const dotClass = isCritical ? 'wm-dot-critical' : 'wm-dot-high';
 
-          <div className="wm-row wm-critical" style={{ '--row-urgency': 1 }}>
-            <div className="wm-col-waiter">
-              <span className="wm-dept-tag wm-dept-energy">ENG</span>
-              <span className="wm-dept-full">Energy Department</span>
-            </div>
-            <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
-            <div className="wm-col-blocker">
-              <span className="wm-dept-tag wm-dept-rev">REV</span>
-              <span className="wm-dept-full">Revenue Department</span>
-            </div>
-            <div className="wm-col-days"><span className="wm-days-badge wm-days-critical">12d</span></div>
-            <div className="wm-col-projects">2 projects</div>
-            <div className="wm-col-status"><span className="wm-status-dot wm-dot-critical"></span>CRITICAL</div>
-          </div>
-
-          <div className="wm-row wm-high">
-            <div className="wm-col-waiter">
-              <span className="wm-dept-tag wm-dept-health">HLT</span>
-              <span className="wm-dept-full">Health &amp; Sanitation</span>
-            </div>
-            <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
-            <div className="wm-col-blocker">
-              <span className="wm-dept-tag wm-dept-water">WSP</span>
-              <span className="wm-dept-full">Water Supply Dept</span>
-            </div>
-            <div className="wm-col-days"><span className="wm-days-badge wm-days-high">8d</span></div>
-            <div className="wm-col-projects">1 project</div>
-            <div className="wm-col-status"><span className="wm-status-dot wm-dot-high"></span>HIGH</div>
-          </div>
-
-          <div className="wm-row wm-high">
-            <div className="wm-col-waiter">
-              <span className="wm-dept-tag wm-dept-transport">TRP</span>
-              <span className="wm-dept-full">Transport Department</span>
-            </div>
-            <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
-            <div className="wm-col-blocker">
-              <span className="wm-dept-tag wm-dept-muni">BMC</span>
-              <span className="wm-dept-full">Municipal Corporation</span>
-            </div>
-            <div className="wm-col-days"><span className="wm-days-badge wm-days-high">6d</span></div>
-            <div className="wm-col-projects">2 projects</div>
-            <div className="wm-col-status"><span className="wm-status-dot wm-dot-high"></span>HIGH</div>
-          </div>
-
-          <div className="wm-row wm-moderate">
-            <div className="wm-col-waiter">
-              <span className="wm-dept-tag wm-dept-phe">PHE</span>
-              <span className="wm-dept-full">PHE Department</span>
-            </div>
-            <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
-            <div className="wm-col-blocker">
-              <span className="wm-dept-tag wm-dept-transport">TRP</span>
-              <span className="wm-dept-full">Transport Department</span>
-            </div>
-            <div className="wm-col-days"><span className="wm-days-badge wm-days-moderate">4d</span></div>
-            <div className="wm-col-projects">1 project</div>
-            <div className="wm-col-status"><span className="wm-status-dot wm-dot-moderate"></span>WATCH</div>
-          </div>
-
-          <div className="wm-row wm-moderate">
-            <div className="wm-col-waiter">
-              <span className="wm-dept-tag wm-dept-urban">UPL</span>
-              <span className="wm-dept-full">Urban Planning</span>
-            </div>
-            <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
-            <div className="wm-col-blocker">
-              <span className="wm-dept-tag wm-dept-rev">REV</span>
-              <span className="wm-dept-full">Revenue Department</span>
-            </div>
-            <div className="wm-col-days"><span className="wm-days-badge wm-days-moderate">5d</span></div>
-            <div className="wm-col-projects">2 projects</div>
-            <div className="wm-col-status"><span className="wm-status-dot wm-dot-moderate"></span>WATCH</div>
-          </div>
+              return (
+                <div key={item.id || idx} className={`wm-row ${severityClass}`} style={{ '--row-urgency': isCritical ? 1 : 2 }}>
+                  <div className="wm-col-waiter">
+                    <span className={`wm-dept-tag ${waiter.cls}`}>{waiter.tag}</span>
+                    <span className="wm-dept-full">{item.waitingDept}</span>
+                  </div>
+                  <div className="wm-col-arrow"><span className="wm-wait-arrow">←waiting</span></div>
+                  <div className="wm-col-blocker">
+                    <span className={`wm-dept-tag ${blocker.cls}`}>{blocker.tag}</span>
+                    <span className="wm-dept-full">{item.blockingDept}</span>
+                  </div>
+                  <div className="wm-col-days">
+                    <span className={`wm-days-badge ${isCritical ? 'wm-days-critical' : 'wm-days-high'}`}>{item.daysPending}d</span>
+                  </div>
+                  <div className="wm-col-projects">{item.project}</div>
+                  <div className="wm-col-status">
+                    <span className={`wm-status-dot ${dotClass}`}></span>
+                    {item.escalationStatus.toUpperCase()}
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
 
         {/* Bottleneck Summary Bar */}
-        <div className="bottleneck-summary">
-          <div className="bs-label">COORDINATION BOTTLENECK ORIGIN</div>
-          <div className="bs-bars">
-            <div className="bs-bar-row">
-              <span className="bs-dept">Revenue Dept</span>
-              <div className="bs-track">
-                <div 
-                  className="bs-fill bs-fill-critical" 
-                  style={{ 
-                    width: animate ? '91%' : '0%',
-                    transition: 'width 1.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                ></div>
-              </div>
-              <span className="bs-count">7 dependencies</span>
-            </div>
-            <div className="bs-bar-row">
-              <span className="bs-dept">Water Supply</span>
-              <div className="bs-track">
-                <div 
-                  className="bs-fill bs-fill-high" 
-                  style={{ 
-                    width: animate ? '52%' : '0%',
-                    transition: 'width 1.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                ></div>
-              </div>
-              <span className="bs-count">3 dependencies</span>
-            </div>
-            <div className="bs-bar-row">
-              <span className="bs-dept">Municipal Corp</span>
-              <div className="bs-track">
-                <div 
-                  className="bs-fill bs-fill-high" 
-                  style={{ 
-                    width: animate ? '40%' : '0%',
-                    transition: 'width 1.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                ></div>
-              </div>
-              <span className="bs-count">2 dependencies</span>
-            </div>
-            <div className="bs-bar-row">
-              <span className="bs-dept">Transport Dept</span>
-              <div className="bs-track">
-                <div 
-                  className="bs-fill bs-fill-moderate" 
-                  style={{ 
-                    width: animate ? '28%' : '0%',
-                    transition: 'width 1.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                ></div>
-              </div>
-              <span className="bs-count">1 dependency</span>
+        {sortedBottlenecks.length > 0 && (
+          <div className="bottleneck-summary">
+            <div className="bs-label">COORDINATION BOTTLENECK ORIGIN</div>
+            <div className="bs-bars">
+              {sortedBottlenecks.slice(0, 4).map((item, idx) => {
+                const fillPct = (item.count / maxBlockCount) * 100;
+                let fillClass = 'bs-fill-moderate';
+                if (fillPct > 75) fillClass = 'bs-fill-critical';
+                else if (fillPct > 45) fillClass = 'bs-fill-high';
+
+                return (
+                  <div key={idx} className="bs-bar-row">
+                    <span className="bs-dept">{item.dept}</span>
+                    <div className="bs-track">
+                      <div 
+                        className={`bs-fill ${fillClass}`} 
+                        style={{ 
+                          width: animate ? `${fillPct}%` : '0%',
+                          transition: 'width 1.4s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }}
+                      ></div>
+                    </div>
+                    <span className="bs-count">{item.count} {item.count === 1 ? 'dependency' : 'dependencies'}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </div>
+        )}
 
         {/* Administrative Action Summary */}
         <div className="wm-action-summary">

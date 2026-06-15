@@ -1,0 +1,2270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNITY — Unified Network for Interdepartmental Transparency and Yield</title>
+  <meta name="description" content="Executive inter-departmental coordination platform for Bhopal District — real-time dependency monitoring, blocked project resolution, and coordination failure analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="seal">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="17" stroke="#c8a84b" stroke-width="1.5"/>
+          <circle cx="18" cy="18" r="12" stroke="#c8a84b" stroke-width="0.75"/>
+          <polygon points="18,6 20.5,13.5 28.5,13.5 22,18.5 24.5,26 18,21 11.5,26 14,18.5 7.5,13.5 15.5,13.5" fill="#c8a84b" opacity="0.85"/>
+        </svg>
+      </div>
+      <div class="topbar-title-block">
+        <span class="topbar-entity">BHOPAL MUNICIPAL CORPORATION</span>
+        <span class="topbar-subtitle">UNITY — Unified Network for Interdepartmental Transparency and Yield</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        <span class="live-label">LIVE OPERATIONS</span>
+      </div>
+      <div class="topbar-clock" id="liveClock"></div>
+      <div class="topbar-date" id="liveDate"></div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- MORNING BRIEF SECTION                    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="morning-brief" id="s-brief">
+      <div class="brief-container">
+        <div class="brief-left">
+          <div class="brief-greeting-row">
+            <div class="brief-status-tag">COORDINATION INTELLIGENCE BRIEF — <span id="briefDate"></span></div>
+          </div>
+          <h1 class="brief-headline">3 Departments<br/>Cannot Proceed.</h1>
+          <h2 class="brief-subheadline">Administrative Intervention Required — Active Now</h2>
+          <p class="brief-intel" id="briefIntel">Revenue Department has not cleared land acquisition for 12 days — blocking PWD, Energy, Water Supply, and Transport. One unresolved clearance is holding up 11 projects and affecting 3,750+ citizens.</p>
+          <div class="brief-meta-row">
+            <div class="brief-meta-item">
+              <span class="brief-meta-label">INTERVENTION NEEDED</span>
+              <span class="brief-meta-value threat-elevated">5 DEPARTMENTS</span>
+            </div>
+            <div class="brief-meta-item">
+              <span class="brief-meta-label">PROJECTS BLOCKED</span>
+              <span class="brief-meta-value">11 TODAY</span>
+            </div>
+            <div class="brief-meta-item">
+              <span class="brief-meta-label">WINDOW TO ACT</span>
+              <span class="brief-meta-value threat-elevated">3 DAYS</span>
+            </div>
+          </div>
+        </div>
+        <div class="brief-right">
+          <div class="brief-stat-panel">
+            <div class="bsp-row">
+              <div class="bsp-item">
+                <span class="bsp-num" id="bspProjects">11</span>
+                <span class="bsp-label">Blocked<br/>Projects</span>
+              </div>
+              <div class="bsp-divider"></div>
+              <div class="bsp-item">
+                <span class="bsp-num" id="bspDeps">23</span>
+                <span class="bsp-label">Pending<br/>Dependencies</span>
+              </div>
+              <div class="bsp-divider"></div>
+              <div class="bsp-item">
+                <span class="bsp-num" id="bspDepts">5</span>
+                <span class="bsp-label">Depts<br/>Blocked</span>
+              </div>
+            </div>
+            <div class="bsp-row bsp-row-bottom">
+              <div class="bsp-item">
+                <span class="bsp-num bsp-amber" id="bspIntervention">3</span>
+                <span class="bsp-label">Require<br/>Intervention</span>
+              </div>
+              <div class="bsp-divider"></div>
+              <div class="bsp-item">
+                <span class="bsp-num bsp-green" id="bspCleared">14</span>
+                <span class="bsp-label">Cleared<br/>Today</span>
+              </div>
+              <div class="bsp-divider"></div>
+              <div class="bsp-item">
+                <span class="bsp-num">19d</span>
+                <span class="bsp-label">Longest<br/>Stall</span>
+              </div>
+            </div>
+          </div>
+          <!-- 3-Question Command Strip -->
+          <div class="brief-command-strip">
+            <div class="bcs-item">
+              <div class="bcs-q">WHO IS WAITING?</div>
+              <div class="bcs-a">PWD, Energy, Water Supply, Transport — waiting on Revenue</div>
+            </div>
+            <div class="bcs-divider"></div>
+            <div class="bcs-item">
+              <div class="bcs-q">WHAT IS BLOCKED?</div>
+              <div class="bcs-a">11 projects — Land clearance, utility relocation, AIIMS pipeline</div>
+            </div>
+            <div class="bcs-divider"></div>
+            <div class="bcs-item">
+              <div class="bcs-q">ACTION NEEDED?</div>
+              <div class="bcs-a bcs-a-critical">Revenue review today · AIIMS reschedule · Energy compliance notice</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ADMINISTRATIVE ATTENTION PANEL              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="section attention-section" id="s-attention">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">COORDINATION BRIEF</div>
+          <h2 class="section-title">Today's Administrative Attention</h2>
+          <p class="section-desc">Priority-ranked items requiring the Collector's personal attention — time-sensitive, department-specific, actionable.</p>
+        </div>
+
+        <div class="attention-layout">
+
+          <!-- Banner -->
+          <div class="attention-brief-banner">
+            <div class="abb-left">
+              <div class="abb-icon">⬛</div>
+              <div>
+                <div class="abb-title">Morning Briefing Note</div>
+                <div class="abb-sub">Generated at 06:00 hrs — <span id="attentionDate"></span> — 5 items require attention today</div>
+              </div>
+            </div>
+            <div class="abb-right">
+              <div class="abb-stat"><span class="abb-stat-n abb-critical">2</span><span class="abb-stat-l">Critical</span></div>
+              <div class="abb-stat"><span class="abb-stat-n abb-high">2</span><span class="abb-stat-l">High</span></div>
+              <div class="abb-stat"><span class="abb-stat-n abb-watch">1</span><span class="abb-stat-l">Watch</span></div>
+            </div>
+          </div>
+
+          <!-- Item list -->
+          <div class="attention-items">
+
+            <div class="ai-row ai-critical">
+              <div class="ai-number">01</div>
+              <div class="ai-priority-stripe ai-stripe-critical"></div>
+              <div class="ai-body">
+                <div class="ai-top">
+                  <span class="ai-badge ai-badge-critical">CRITICAL</span>
+                  <span class="ai-dept">Revenue Department</span>
+                  <span class="ai-window">⏱ Act before 15:00 hrs today</span>
+                </div>
+                <div class="ai-headline">Revenue backlog is blocking 11 active projects — clearance overdue by 12 days.</div>
+                <div class="ai-detail">Land acquisition counter-signatures are pending at the Revenue Commissioner's office for the MP Nagar Road Widening project. Contractor penalty clause (₹2.3 Cr) activates this Friday. Three downstream utility projects — Energy, Water Supply, and Traffic — are all waiting on this single clearance chain.</div>
+                <div class="ai-action-row">
+                  <span class="ai-action-label">Recommended Action</span>
+                  <span class="ai-action-text">Direct Revenue Commissioner to convene an emergency clearance session today. Assign a nodal officer for daily status tracking until resolution. Responsible: Revenue Commissioner's Office — Resolution Window: 24 hours.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-row ai-critical">
+              <div class="ai-number">02</div>
+              <div class="ai-priority-stripe ai-stripe-critical"></div>
+              <div class="ai-body">
+                <div class="ai-top">
+                  <span class="ai-badge ai-badge-critical">CRITICAL</span>
+                  <span class="ai-dept">Health Dept + Water Supply</span>
+                  <span class="ai-window">⏱ Act before 11:00 hrs today</span>
+                </div>
+                <div class="ai-headline">Utility conflict near AIIMS — 400+ patients at risk of water supply disruption.</div>
+                <div class="ai-detail">Scheduled water main maintenance (08:00–14:00) directly overlaps with AIIMS Bhopal's peak operating hours. OT and ICU supply corridor is at risk. AIIMS administration has formally requested rescheduling to a night window. The Water Supply SE confirms a 23:00–05:00 window is technically feasible but requires hospital backup coordination.</div>
+                <div class="ai-action-row">
+                  <span class="ai-action-label">Recommended Action</span>
+                  <span class="ai-action-text">Reschedule maintenance to 23:00–05:00 window immediately. Water Supply SE to confirm and coordinate with AIIMS backup systems. Responsible: Water Supply Department SE — Resolution Window: 6 hours.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-row ai-high">
+              <div class="ai-number">03</div>
+              <div class="ai-priority-stripe ai-stripe-high"></div>
+              <div class="ai-body">
+                <div class="ai-top">
+                  <span class="ai-badge ai-badge-high">HIGH</span>
+                  <span class="ai-dept">Energy Department (MPEB)</span>
+                  <span class="ai-window">⏱ Issue notice by 12:00 hrs</span>
+                </div>
+                <div class="ai-headline">Energy utility relocation stalled for 19 days — ₹80,000/day in idle contractor costs.</div>
+                <div class="ai-detail">15 MPEB electrical poles in the Kolar Road corridor remain unshifted despite a formal relocation request filed 19 days ago. Field teams have not been deployed. The PWD contractor (M/s Sharma Constructions) has completely halted foundation work. The MPEB Division Engineer cited resource reallocation — this is unacceptable given the delay duration.</div>
+                <div class="ai-action-row">
+                  <span class="ai-action-label">Recommended Action</span>
+                  <span class="ai-action-text">Issue a 48-hour compliance notice to Energy Department Principal Secretary. Schedule site meeting with MPEB Division Engineer within 24 hours. Responsible: Energy Department — Resolution Window: 48 hours.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-row ai-high">
+              <div class="ai-number">04</div>
+              <div class="ai-priority-stripe ai-stripe-high"></div>
+              <div class="ai-body">
+                <div class="ai-top">
+                  <span class="ai-badge ai-badge-high">HIGH</span>
+                  <span class="ai-dept">Revenue Department</span>
+                  <span class="ai-window">⏱ Follow up by 14:00 hrs</span>
+                </div>
+                <div class="ai-headline">Land compensation pending — MP Nagar Plot 47-B acquisition unsigned for 6 days.</div>
+                <div class="ai-detail">Revenue department has not processed compensation documentation for the affected landowner at Plot 47-B in the MP Nagar extension zone. Construction cannot proceed until title transfer is complete. Risk of legal challenge is increasing. Sub-Divisional Officer has not submitted a status update since last Friday.</div>
+                <div class="ai-action-row">
+                  <span class="ai-action-label">Recommended Action</span>
+                  <span class="ai-action-text">Direct SDO to expedite title verification. Revenue SDO to submit status report by 17:00 hrs. Responsible: Sub-Divisional Officer, Revenue — Resolution Window: 72 hours.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-row ai-watch">
+              <div class="ai-number">05</div>
+              <div class="ai-priority-stripe ai-stripe-watch"></div>
+              <div class="ai-body">
+                <div class="ai-top">
+                  <span class="ai-badge ai-badge-watch">WATCH</span>
+                  <span class="ai-dept">Traffic + Municipal Corporation</span>
+                  <span class="ai-window">⏱ Review by 17:00 hrs</span>
+                </div>
+                <div class="ai-headline">Traffic diversion approval delayed — two active contractor sites cannot proceed.</div>
+                <div class="ai-detail">Road diversion sign-off applications from two active contractors have been in queue at the BMC Traffic Cell for 6 working days without response. Transport Department is waiting on Municipal Corporation sign-off to issue diversion orders. This is not yet critical but will become one within 3 days if unresolved.</div>
+                <div class="ai-action-row">
+                  <span class="ai-action-label">Recommended Action</span>
+                  <span class="ai-action-text">BMC Traffic Cell to process pending diversion applications by EOD. Report status to command center. Responsible: BMC Traffic Cell — Resolution Window: 5 days.</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- .attention-items -->
+        </div><!-- .attention-layout -->
+      </div>
+    </section><!-- end Attention Panel -->
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 1: TODAY'S DECISIONS             -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section decisions-section" id="s-decisions">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 01 / 07 — DECISIONS</div>
+          <h2 class="section-title">Today's Decisions</h2>
+          <p class="section-desc">These items cannot move forward without your direction. Each card shows the situation, departments affected, projected impact, and the recommended administrative action.</p>
+        </div>
+
+        <div class="decision-cards">
+
+          <article class="decision-card priority-critical" id="dc1">
+            <div class="dc-header">
+              <div class="dc-badge badge-critical">
+                <span class="dc-badge-dot"></span>
+                ACTION REQUIRED
+              </div>
+              <div class="dc-meta">
+                <span class="dc-dept">REVENUE DEPT</span>
+                <span class="dc-age">12 days pending</span>
+              </div>
+            </div>
+            <h3 class="dc-title">MP Nagar Road Widening</h3>
+            <p class="dc-situation">Revenue clearance has not been issued for 12 days. Land acquisition documentation is stalled at the Revenue Commissioner's office pending counter-signature.</p>
+            <div class="dc-impacts">
+              <div class="dc-impact-label">POTENTIAL IMPACT</div>
+              <div class="dc-impact-items">
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  45-day project delay if unresolved by Friday
+                </div>
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  ₹2.3 Cr contractor penalty clause activated
+                </div>
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  3 downstream utility projects blocked
+                </div>
+              </div>
+            </div>
+            <div class="dc-recommendation">
+              <span class="dc-rec-label">RECOMMENDED ACTION</span>
+              <span class="dc-rec-text">Schedule Revenue review meeting — direct intervention required.</span>
+            </div>
+            <div class="dc-footer">
+              <button class="dc-primary-btn" id="reviewBtn1">Issue Direction</button>
+              <button class="dc-secondary-btn">Escalate to Secretary</button>
+              <button class="dc-ghost-btn">Schedule Review</button>
+            </div>
+          </article>
+
+          <article class="decision-card priority-critical" id="dc2">
+            <div class="dc-header">
+              <div class="dc-badge badge-critical">
+                <span class="dc-badge-dot"></span>
+                ACTION REQUIRED
+              </div>
+              <div class="dc-meta">
+                <span class="dc-dept">HEALTH + WATER</span>
+                <span class="dc-age">8 days pending</span>
+              </div>
+            </div>
+            <h3 class="dc-title">AIIMS Pipeline Upgrade</h3>
+            <p class="dc-situation">Scheduled water main maintenance overlaps with AIIMS hospital's operational water supply corridor. Maintenance window conflicts with peak hospital operating hours (6AM–10PM daily).</p>
+            <div class="dc-impacts">
+              <div class="dc-impact-label">POTENTIAL IMPACT</div>
+              <div class="dc-impact-items">
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  Hospital service disruption — 400+ daily patients
+                </div>
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  OT and ICU water supply risk
+                </div>
+              </div>
+            </div>
+            <div class="dc-recommendation">
+              <span class="dc-rec-label">RECOMMENDED ACTION</span>
+              <span class="dc-rec-text">Reschedule maintenance window to 11PM–4AM. Coordinate with AIIMS administration.</span>
+            </div>
+            <div class="dc-footer">
+              <button class="dc-primary-btn" id="reviewBtn2">Issue Direction</button>
+              <button class="dc-secondary-btn">Escalate to Secretary</button>
+              <button class="dc-ghost-btn">Schedule Review</button>
+            </div>
+          </article>
+
+          <article class="decision-card priority-high" id="dc3">
+            <div class="dc-header">
+              <div class="dc-badge badge-high">
+                <span class="dc-badge-dot"></span>
+                ACTION REQUIRED
+              </div>
+              <div class="dc-meta">
+                <span class="dc-dept">ENERGY DEPT</span>
+                <span class="dc-age">19 days pending</span>
+              </div>
+            </div>
+            <h3 class="dc-title">Energy Utility Relocation</h3>
+            <p class="dc-situation">15 electrical poles remain unshifted in the Kolar Road corridor. Energy Department has acknowledged the relocation request but has not dispatched field teams. This is blocking the road widening foundation work.</p>
+            <div class="dc-impacts">
+              <div class="dc-impact-label">POTENTIAL IMPACT</div>
+              <div class="dc-impact-items">
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  Road widening project completely blocked
+                </div>
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  Contractor idle time costing ₹80K/day
+                </div>
+                <div class="dc-impact-item">
+                  <span class="dc-impact-icon">⚠</span>
+                  Traffic signal infrastructure delayed
+                </div>
+              </div>
+            </div>
+            <div class="dc-recommendation">
+              <span class="dc-rec-label">RECOMMENDED ACTION</span>
+              <span class="dc-rec-text">Escalate to Energy Department Principal Secretary. Issue 48-hour compliance notice.</span>
+            </div>
+            <div class="dc-footer">
+              <button class="dc-primary-btn priority-high-btn" id="reviewBtn3">Issue Direction</button>
+              <button class="dc-secondary-btn">Escalate to Secretary</button>
+              <button class="dc-ghost-btn">Schedule Review</button>
+            </div>
+          </article>
+
+        </div><!-- end .decision-cards -->
+      </div><!-- end .section-container -->
+    </section><!-- end Section 1 -->
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 2: ACTIVE COORDINATION ISSUES   -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section coord-issues-section" id="s-pulse">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 02 / 07 — COORDINATION</div>
+          <h2 class="section-title">Active Coordination Issues</h2>
+          <p class="section-desc">Projects currently stalled due to inter-department failures. Each card identifies the blocking department, the waiting chain, and the specific administrative action that resolves the stall.</p>
+        </div>
+
+        <!-- Coordination Issue Cards -->
+        <div class="coord-issues-grid">
+
+          <!-- Issue 1: MP Nagar -->
+          <article class="coord-issue-card cic-critical" id="cic1">
+            <div class="cic-header">
+              <div class="cic-badge badge-critical">
+                <span class="dc-badge-dot"></span>
+                BLOCKED
+              </div>
+              <div class="cic-delay-counter">
+                <span class="cic-delay-num">12</span>
+                <span class="cic-delay-label">DAYS DELAYED</span>
+              </div>
+            </div>
+            <h3 class="cic-project-name">MP Nagar Road Widening</h3>
+
+            <!-- Dependency Flow -->
+            <div class="cic-dep-chain">
+              <div class="cic-dep-label">DEPENDENCY CHAIN</div>
+              <div class="cic-dep-flow">
+                <div class="cic-dep-node cic-node-active">PWD</div>
+                <div class="cic-dep-arrow cic-arrow-blocked">→</div>
+                <div class="cic-dep-node cic-node-blocked" title="Currently blocking">
+                  Revenue
+                  <span class="cic-blocking-indicator">BLOCKING</span>
+                </div>
+                <div class="cic-dep-arrow cic-arrow-waiting">→</div>
+                <div class="cic-dep-node cic-node-waiting">Energy</div>
+                <div class="cic-dep-arrow cic-arrow-waiting">→</div>
+                <div class="cic-dep-node cic-node-waiting">Water</div>
+              </div>
+            </div>
+
+            <div class="cic-body">
+              <div class="cic-row">
+                <span class="cic-meta-label">BLOCKED BY</span>
+                <span class="cic-meta-value cic-val-critical">Revenue Department</span>
+              </div>
+              <div class="cic-row">
+                <span class="cic-meta-label">WAITING ON</span>
+                <span class="cic-meta-value">12 Days · Land acquisition counter-signature</span>
+              </div>
+              <div class="cic-row">
+                <span class="cic-meta-label">IMPACT</span>
+                <span class="cic-meta-value">Energy utility relocation cannot begin</span>
+              </div>
+            </div>
+            <div class="cic-action">
+              <span class="cic-action-label">RECOMMENDED ACTION</span>
+              <span class="cic-action-text">Schedule Revenue-PWD review meeting — direct intervention required.</span>
+            </div>
+            <div class="cic-footer">
+              <button class="dc-primary-btn" id="reviewBtn1">Issue Direction</button>
+              <button class="dc-secondary-btn">Escalate to Secretary</button>
+              <button class="dc-ghost-btn">Schedule Review</button>
+            </div>
+          </article>
+
+          <!-- Issue 2: AIIMS Pipeline -->
+          <article class="coord-issue-card cic-critical" id="cic2">
+            <div class="cic-header">
+              <div class="cic-badge badge-critical">
+                <span class="dc-badge-dot"></span>
+                BLOCKED
+              </div>
+              <div class="cic-delay-counter">
+                <span class="cic-delay-num">8</span>
+                <span class="cic-delay-label">DAYS DELAYED</span>
+              </div>
+            </div>
+            <h3 class="cic-project-name">AIIMS Pipeline Upgrade</h3>
+
+            <div class="cic-dep-chain">
+              <div class="cic-dep-label">DEPENDENCY CHAIN</div>
+              <div class="cic-dep-flow">
+                <div class="cic-dep-node cic-node-active">Health</div>
+                <div class="cic-dep-arrow cic-arrow-blocked">→</div>
+                <div class="cic-dep-node cic-node-blocked" title="Currently blocking">
+                  Water Supply
+                  <span class="cic-blocking-indicator">BLOCKING</span>
+                </div>
+                <div class="cic-dep-arrow cic-arrow-waiting">→</div>
+                <div class="cic-dep-node cic-node-waiting">AIIMS Admin</div>
+              </div>
+            </div>
+
+            <div class="cic-body">
+              <div class="cic-row">
+                <span class="cic-meta-label">BLOCKED BY</span>
+                <span class="cic-meta-value cic-val-critical">Water Supply Department</span>
+              </div>
+              <div class="cic-row">
+                <span class="cic-meta-label">WAITING ON</span>
+                <span class="cic-meta-value">8 Days · Maintenance window reschedule</span>
+              </div>
+              <div class="cic-row">
+                <span class="cic-meta-label">IMPACT</span>
+                <span class="cic-meta-value">400+ patients at daily risk — OT/ICU supply overlap</span>
+              </div>
+            </div>
+            <div class="cic-action">
+              <span class="cic-action-label">RECOMMENDED ACTION</span>
+              <span class="cic-action-text">Reschedule maintenance to 11PM–4AM. Coordinate directly with AIIMS administration.</span>
+            </div>
+            <div class="cic-footer">
+              <button class="dc-primary-btn" id="reviewBtn2">Issue Direction</button>
+              <button class="dc-secondary-btn">Escalate to Secretary</button>
+              <button class="dc-ghost-btn">Schedule Review</button>
+            </div>
+          </article>
+
+          <!-- Issue 3: Kolar Road Energy -->
+          <article class="coord-issue-card cic-high" id="cic3">
+            <div class="cic-header">
+              <div class="cic-badge badge-high">
+                <span class="dc-badge-dot"></span>
+                STALLED
+              </div>
+              <div class="cic-delay-counter">
+                <span class="cic-delay-num">19</span>
+                <span class="cic-delay-label">DAYS DELAYED</span>
+              </div>
+            </div>
+            <h3 class="cic-project-name">Kolar Road Utility Relocation</h3>
+
+            <div class="cic-dep-chain">
+              <div class="cic-dep-label">DEPENDENCY CHAIN</div>
+              <div class="cic-dep-flow">
+                <div class="cic-dep-node cic-node-active">PWD</div>
+                <div class="cic-dep-arrow cic-arrow-blocked">→</div>
+                <div class="cic-dep-node cic-node-blocked" title="Currently blocking">
+                  Energy
+                  <span class="cic-blocking-indicator">BLOCKING</span>
+                </div>
+                <div class="cic-dep-arrow cic-arrow-waiting">→</div>
+                <div class="cic-dep-node cic-node-waiting">Traffic</div>
+                <div class="cic-dep-arrow cic-arrow-waiting">→</div>
+                <div class="cic-dep-node cic-node-waiting">Urban Plan</div>
+              </div>
+            </div>
+
+            <div class="cic-body">
+              <div class="cic-row">
+                <span class="cic-meta-label">BLOCKED BY</span>
+                <span class="cic-meta-value cic-val-high">Energy Department (MPEB)</span>
+              </div>
+              <div class="cic-row">
+                <span class="cic-meta-label">WAITING ON</span>
+                <span class="cic-meta-value">19 Days · 15 poles unshifted — field teams not deployed</span>
+              </div>
+              <div class="cic-row">
+                <span class="cic-meta-label">IMPACT</span>
+                <span class="cic-meta-value">₹80K/day idle cost · Emergency route narrowed</span>
+              </div>
+            </div>
+            <div class="cic-action">
+              <span class="cic-action-label">RECOMMENDED ACTION</span>
+              <span class="cic-action-text">Issue 48-hour compliance notice to Energy Department Principal Secretary.</span>
+            </div>
+            <div class="cic-footer">
+              <button class="dc-primary-btn priority-high-btn" id="reviewBtn3">Issue Direction</button>
+              <button class="dc-secondary-btn">Escalate to Secretary</button>
+              <button class="dc-ghost-btn">Schedule Review</button>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Visual Dependency Chain Breakdown -->
+        <div class="dep-chain-visual" id="depChainVisual">
+          <div class="dcv-header">
+            <span class="dcv-label">VISUAL DEPENDENCY CHAIN — MP NAGAR CORRIDOR</span>
+            <span class="dcv-subtitle">Chain breaks at Revenue Department · All downstream departments waiting</span>
+          </div>
+          <div class="dcv-chain">
+            <div class="dcv-node dcv-node-origin">
+              <div class="dcv-node-dept">PWD</div>
+              <div class="dcv-node-status dcv-status-active">INITIATOR</div>
+              <div class="dcv-node-desc">Road widening request submitted</div>
+            </div>
+            <div class="dcv-connector">
+              <div class="dcv-arrow-line"></div>
+              <div class="dcv-arrow-head">↓</div>
+            </div>
+            <div class="dcv-node dcv-node-blocked">
+              <div class="dcv-node-dept">Revenue</div>
+              <div class="dcv-node-status dcv-status-blocked">⛔ BLOCKING</div>
+              <div class="dcv-node-desc">Land acquisition clearance overdue 12 days</div>
+              <div class="dcv-break-indicator">CHAIN BREAKS HERE</div>
+            </div>
+            <div class="dcv-connector dcv-connector-broken">
+              <div class="dcv-arrow-line dcv-line-broken"></div>
+              <div class="dcv-arrow-head dcv-head-broken">↓</div>
+            </div>
+            <div class="dcv-node dcv-node-waiting">
+              <div class="dcv-node-dept">Energy</div>
+              <div class="dcv-node-status dcv-status-waiting">⏸ WAITING</div>
+              <div class="dcv-node-desc">Utility relocation cannot begin</div>
+            </div>
+            <div class="dcv-connector dcv-connector-broken">
+              <div class="dcv-arrow-line dcv-line-broken"></div>
+              <div class="dcv-arrow-head dcv-head-broken">↓</div>
+            </div>
+            <div class="dcv-node dcv-node-waiting">
+              <div class="dcv-node-dept">Water</div>
+              <div class="dcv-node-status dcv-status-waiting">⏸ WAITING</div>
+              <div class="dcv-node-desc">Pipe diversion blocked by Energy delay</div>
+            </div>
+            <div class="dcv-connector dcv-connector-broken">
+              <div class="dcv-arrow-line dcv-line-broken"></div>
+              <div class="dcv-arrow-head dcv-head-broken">↓</div>
+            </div>
+            <div class="dcv-node dcv-node-terminal">
+              <div class="dcv-node-dept">Citizens</div>
+              <div class="dcv-node-status dcv-status-impact">⚠ IMPACTED</div>
+              <div class="dcv-node-desc">800+ residents · Emergency route narrowed</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 3: WHO IS WAITING FOR WHOM       -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section risk-section" id="s-risk">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 03 / 07 — DEPENDENCIES</div>
+          <h2 class="section-title">Who Is Waiting for Whom?</h2>
+          <p class="section-desc">Active inter-department dependencies — every row is a coordination failure in progress. These bottlenecks do not resolve themselves.</p>
+        </div>
+
+        <!-- Who Waits for Whom Matrix -->
+        <div class="waiting-matrix">
+          <div class="wm-header-row">
+            <div class="wm-col-waiter">WAITING DEPARTMENT</div>
+            <div class="wm-col-arrow"></div>
+            <div class="wm-col-blocker">BLOCKED BY</div>
+            <div class="wm-col-days">DAYS</div>
+            <div class="wm-col-projects">PROJECTS HELD</div>
+            <div class="wm-col-status">STATUS</div>
+          </div>
+
+          <div class="wm-row wm-critical">
+            <div class="wm-col-waiter">
+              <span class="wm-dept-tag wm-dept-pwd">PWD</span>
+              <span class="wm-dept-full">Public Works Department</span>
+            </div>
+            <div class="wm-col-arrow"><span class="wm-wait-arrow">←waiting</span></div>
+            <div class="wm-col-blocker">
+              <span class="wm-dept-tag wm-dept-rev">REV</span>
+              <span class="wm-dept-full">Revenue Department</span>
+            </div>
+            <div class="wm-col-days"><span class="wm-days-badge wm-days-critical">12d</span></div>
+            <div class="wm-col-projects">3 projects</div>
+            <div class="wm-col-status"><span class="wm-status-dot wm-dot-critical"></span>CRITICAL</div>
+          </div>
+
+          <div class="wm-row wm-critical">
+            <div class="wm-col-waiter">
+              <span class="wm-dept-tag wm-dept-energy">ENG</span>
+              <span class="wm-dept-full">Energy Department</span>
+            </div>
+            <div class="wm-col-arrow"><span class="wm-wait-arrow">←waiting</span></div>
+            <div class="wm-col-blocker">
+              <span class="wm-dept-tag wm-dept-rev">REV</span>
+              <span class="wm-dept-full">Revenue Department</span>
+            </div>
+            <div class="wm-col-days"><span class="wm-days-badge wm-days-critical">12d</span></div>
+            <div class="wm-col-projects">2 projects</div>
+            <div class="wm-col-status"><span class="wm-status-dot wm-dot-critical"></span>CRITICAL</div>
+          </div>
+
+          <div class="wm-row wm-high">
+            <div class="wm-col-waiter">
+              <span class="wm-dept-tag wm-dept-health">HLT</span>
+              <span class="wm-dept-full">Health &amp; Sanitation</span>
+            </div>
+            <div class="wm-col-arrow"><span class="wm-wait-arrow">←waiting</span></div>
+            <div class="wm-col-blocker">
+              <span class="wm-dept-tag wm-dept-water">WSP</span>
+              <span class="wm-dept-full">Water Supply Dept</span>
+            </div>
+            <div class="wm-col-days"><span class="wm-days-badge wm-days-high">8d</span></div>
+            <div class="wm-col-projects">1 project</div>
+            <div class="wm-col-status"><span class="wm-status-dot wm-dot-high"></span>HIGH</div>
+          </div>
+
+          <div class="wm-row wm-high">
+            <div class="wm-col-waiter">
+              <span class="wm-dept-tag wm-dept-transport">TRP</span>
+              <span class="wm-dept-full">Transport Department</span>
+            </div>
+            <div class="wm-col-arrow"><span class="wm-wait-arrow">←waiting</span></div>
+            <div class="wm-col-blocker">
+              <span class="wm-dept-tag wm-dept-muni">BMC</span>
+              <span class="wm-dept-full">Municipal Corporation</span>
+            </div>
+            <div class="wm-col-days"><span class="wm-days-badge wm-days-high">6d</span></div>
+            <div class="wm-col-projects">2 projects</div>
+            <div class="wm-col-status"><span class="wm-status-dot wm-dot-high"></span>HIGH</div>
+          </div>
+
+          <div class="wm-row wm-moderate">
+            <div class="wm-col-waiter">
+              <span class="wm-dept-tag wm-dept-phe">PHE</span>
+              <span class="wm-dept-full">PHE Department</span>
+            </div>
+            <div class="wm-col-arrow"><span class="wm-wait-arrow">←waiting</span></div>
+            <div class="wm-col-blocker">
+              <span class="wm-dept-tag wm-dept-transport">TRP</span>
+              <span class="wm-dept-full">Transport Department</span>
+            </div>
+            <div class="wm-col-days"><span class="wm-days-badge wm-days-moderate">4d</span></div>
+            <div class="wm-col-projects">1 project</div>
+            <div class="wm-col-status"><span class="wm-status-dot wm-dot-moderate"></span>WATCH</div>
+          </div>
+
+          <div class="wm-row wm-moderate">
+            <div class="wm-col-waiter">
+              <span class="wm-dept-tag wm-dept-urban">UPL</span>
+              <span class="wm-dept-full">Urban Planning</span>
+            </div>
+            <div class="wm-col-arrow"><span class="wm-wait-arrow">←waiting</span></div>
+            <div class="wm-col-blocker">
+              <span class="wm-dept-tag wm-dept-rev">REV</span>
+              <span class="wm-dept-full">Revenue Department</span>
+            </div>
+            <div class="wm-col-days"><span class="wm-days-badge wm-days-moderate">5d</span></div>
+            <div class="wm-col-projects">2 projects</div>
+            <div class="wm-col-status"><span class="wm-status-dot wm-dot-moderate"></span>WATCH</div>
+          </div>
+
+        </div>
+
+        <!-- Bottleneck Summary Bar -->
+        <div class="bottleneck-summary">
+          <div class="bs-label">COORDINATION BOTTLENECK ORIGIN</div>
+          <div class="bs-bars">
+            <div class="bs-bar-row">
+              <span class="bs-dept">Revenue Dept</span>
+              <div class="bs-track"><div class="bs-fill bs-fill-critical" style="width: 0%" data-target="91"></div></div>
+              <span class="bs-count">7 dependencies</span>
+            </div>
+            <div class="bs-bar-row">
+              <span class="bs-dept">Water Supply</span>
+              <div class="bs-track"><div class="bs-fill bs-fill-high" style="width: 0%" data-target="52"></div></div>
+              <span class="bs-count">3 dependencies</span>
+            </div>
+            <div class="bs-bar-row">
+              <span class="bs-dept">Municipal Corp</span>
+              <div class="bs-track"><div class="bs-fill bs-fill-high" style="width: 0%" data-target="40"></div></div>
+              <span class="bs-count">2 dependencies</span>
+            </div>
+            <div class="bs-bar-row">
+              <span class="bs-dept">Transport Dept</span>
+              <div class="bs-track"><div class="bs-fill bs-fill-moderate" style="width: 0%" data-target="28"></div></div>
+              <span class="bs-count">1 dependency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Administrative Action Summary -->
+        <div class="wm-action-summary">
+          <div class="wmas-header">ADMINISTRATIVE ACTIONS REQUIRED FROM THIS SECTION</div>
+          <div class="wmas-grid">
+            <div class="wmas-item wmas-critical">
+              <div class="wmas-priority">Priority 1 -- Critical</div>
+              <div class="wmas-action">Direct Revenue Commissioner to clear land acquisition queue. PWD and Energy cannot proceed until this is resolved.</div>
+              <div class="wmas-window">Resolution Window: Today -- before Friday</div>
+            </div>
+            <div class="wmas-item wmas-critical">
+              <div class="wmas-priority">Priority 2 -- Critical</div>
+              <div class="wmas-action">Convene Health-Water Supply coordination call. Reschedule AIIMS pipeline maintenance to 23:00-04:00 window.</div>
+              <div class="wmas-window">Resolution Window: Within 24 hours</div>
+            </div>
+            <div class="wmas-item wmas-high">
+              <div class="wmas-priority">Priority 3 -- High</div>
+              <div class="wmas-action">Issue Transport-Municipal Corporation coordination directive. BMC Traffic Cell to clear road diversion sign-offs for Kolar Corridor.</div>
+              <div class="wmas-window">Resolution Window: Within 48 hours</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 4: DEPARTMENT BOTTLENECK INDEX   -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section pressure-section" id="s-pressure">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 04 / 07 — BOTTLENECKS</div>
+          <h2 class="section-title">Department Bottleneck Index</h2>
+          <p class="section-desc">Departments ranked by how many coordination chains they are blocking. Each card shows the specific operational reason for the blockage and the administrative risk if unresolved.</p>
+        </div>
+
+        <div class="pressure-grid">
+
+          <div class="pressure-card pc-critical">
+            <div class="pc-top">
+              <div class="pc-dept-name">Revenue Department</div>
+              <div class="pc-level-badge badge-critical-sm">RANK #1 BLOCKER</div>
+            </div>
+            <div class="pc-gauge-row">
+              <div class="pc-gauge-track">
+                <div class="pc-gauge-fill fill-critical" data-target="91" style="width: 91%"></div>
+              </div>
+              <span class="pc-pct" title="Blocking Intensity — proportion of city projects stalled by this dept">91% intensity</span>
+            </div>
+            <div class="pc-stats">
+              <div class="pc-stat">
+                <span class="pc-stat-n">11</span>
+                <span class="pc-stat-l">Projects Waiting</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">23</span>
+                <span class="pc-stat-l">Pending Dependencies</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">14d</span>
+                <span class="pc-stat-l">Avg. Waiting Time</span>
+              </div>
+            </div>
+            <div class="pc-note">Revenue clearance bottleneck is the single largest coordination blocker in the city today.</div>
+            <div class="pc-bottleneck">
+              <div class="pc-bottleneck-label">Primary Bottleneck</div>
+              <div class="pc-bottleneck-value">Land Compensation Counter-Signatures — 42 cases pending, Commissioner's office</div>
+            </div>
+            <div class="pc-risk-row">
+              <span class="pc-risk-label">Administrative Risk</span>
+              <span class="pc-risk-badge pc-risk-critical">Critical</span>
+            </div>
+          </div>
+
+          <div class="pressure-card pc-high">
+            <div class="pc-top">
+              <div class="pc-dept-name">Energy Department</div>
+              <div class="pc-level-badge badge-high-sm">RANK #2 BLOCKER</div>
+            </div>
+            <div class="pc-gauge-row">
+              <div class="pc-gauge-track">
+                <div class="pc-gauge-fill fill-high" data-target="74" style="width: 74%"></div>
+              </div>
+              <span class="pc-pct" title="Blocking Intensity">74% intensity</span>
+            </div>
+            <div class="pc-stats">
+              <div class="pc-stat">
+                <span class="pc-stat-n">3</span>
+                <span class="pc-stat-l">Projects Waiting</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">8</span>
+                <span class="pc-stat-l">Pending Dependencies</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">7d</span>
+                <span class="pc-stat-l">Avg. Waiting Time</span>
+              </div>
+            </div>
+            <div class="pc-note">Field deployment teams idle while PWD and Traffic await utility relocation clearance.</div>
+            <div class="pc-bottleneck">
+              <div class="pc-bottleneck-label">Primary Bottleneck</div>
+              <div class="pc-bottleneck-value">MPEB Division Engineer — field team deployment not authorised for 19 days</div>
+            </div>
+            <div class="pc-risk-row">
+              <span class="pc-risk-label">Administrative Risk</span>
+              <span class="pc-risk-badge pc-risk-high">High</span>
+            </div>
+          </div>
+
+          <div class="pressure-card pc-moderate">
+            <div class="pc-top">
+              <div class="pc-dept-name">Water Supply Department</div>
+              <div class="pc-level-badge badge-moderate-sm">RANK #3 BLOCKER</div>
+            </div>
+            <div class="pc-gauge-row">
+              <div class="pc-gauge-track">
+                <div class="pc-gauge-fill fill-moderate" data-target="52" style="width: 52%"></div>
+              </div>
+              <span class="pc-pct" title="Blocking Intensity">52% intensity</span>
+            </div>
+            <div class="pc-stats">
+              <div class="pc-stat">
+                <span class="pc-stat-n">1</span>
+                <span class="pc-stat-l">Projects Waiting</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">4</span>
+                <span class="pc-stat-l">Pending Dependencies</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">8d</span>
+                <span class="pc-stat-l">Avg. Waiting Time</span>
+              </div>
+            </div>
+            <div class="pc-note">AIIMS corridor conflict requires immediate schedule realignment with Health Department.</div>
+            <div class="pc-bottleneck">
+              <div class="pc-bottleneck-label">Primary Bottleneck</div>
+              <div class="pc-bottleneck-value">Maintenance window scheduling conflict — AIIMS peak hours vs. pipeline access</div>
+            </div>
+            <div class="pc-risk-row">
+              <span class="pc-risk-label">Administrative Risk</span>
+              <span class="pc-risk-badge pc-risk-critical">Critical</span>
+            </div>
+          </div>
+
+          <div class="pressure-card pc-moderate">
+            <div class="pc-top">
+              <div class="pc-dept-name">Municipal Corporation</div>
+              <div class="pc-level-badge badge-moderate-sm">RANK #4 BLOCKER</div>
+            </div>
+            <div class="pc-gauge-row">
+              <div class="pc-gauge-track">
+                <div class="pc-gauge-fill fill-moderate" data-target="38" style="width: 38%"></div>
+              </div>
+              <span class="pc-pct" title="Blocking Intensity">38% intensity</span>
+            </div>
+            <div class="pc-stats">
+              <div class="pc-stat">
+                <span class="pc-stat-n">2</span>
+                <span class="pc-stat-l">Projects Waiting</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">3</span>
+                <span class="pc-stat-l">Pending Dependencies</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">6d</span>
+                <span class="pc-stat-l">Avg. Waiting Time</span>
+              </div>
+            </div>
+            <div class="pc-note">Transport permits delayed — road diversion sign-offs awaited by 2 active contractors.</div>
+            <div class="pc-bottleneck">
+              <div class="pc-bottleneck-label">Primary Bottleneck</div>
+              <div class="pc-bottleneck-value">BMC Traffic Cell — diversion sign-off applications unprocessed for 6 working days</div>
+            </div>
+            <div class="pc-risk-row">
+              <span class="pc-risk-label">Administrative Risk</span>
+              <span class="pc-risk-badge pc-risk-moderate">Moderate</span>
+            </div>
+          </div>
+
+          <div class="pressure-card pc-low">
+            <div class="pc-top">
+              <div class="pc-dept-name">Public Works Department</div>
+              <div class="pc-level-badge badge-low-sm">LOW BLOCK RISK</div>
+            </div>
+            <div class="pc-gauge-row">
+              <div class="pc-gauge-track">
+                <div class="pc-gauge-fill fill-low" data-target="29" style="width: 29%"></div>
+              </div>
+              <span class="pc-pct" title="Blocking Intensity">29% intensity</span>
+            </div>
+            <div class="pc-stats">
+              <div class="pc-stat">
+                <span class="pc-stat-n">0</span>
+                <span class="pc-stat-l">Projects Waiting</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">2</span>
+                <span class="pc-stat-l">Pending Dependencies</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">—</span>
+                <span class="pc-stat-l">Not Blocking</span>
+              </div>
+            </div>
+            <div class="pc-note">PWD is waiting, not blocking. Downstream coordination on schedule once Revenue and Energy clear.</div>
+            <div class="pc-bottleneck">
+              <div class="pc-bottleneck-label">Primary Bottleneck</div>
+              <div class="pc-bottleneck-value">Awaiting Revenue land clearance — M/s Patel Infrastructure demobilised from site</div>
+            </div>
+            <div class="pc-risk-row">
+              <span class="pc-risk-label">Administrative Risk</span>
+              <span class="pc-risk-badge pc-risk-moderate">Moderate — Waiting</span>
+            </div>
+          </div>
+
+          <div class="pressure-card pc-low">
+            <div class="pc-top">
+              <div class="pc-dept-name">Health & Sanitation</div>
+              <div class="pc-level-badge badge-low-sm">LOW</div>
+            </div>
+            <div class="pc-gauge-row">
+              <div class="pc-gauge-track">
+                <div class="pc-gauge-fill fill-low" data-target="22" style="width: 22%"></div>
+              </div>
+              <span class="pc-pct" title="Blocking Intensity">22% intensity</span>
+            </div>
+            <div class="pc-stats">
+              <div class="pc-stat">
+                <span class="pc-stat-n">3</span>
+                <span class="pc-stat-l">Open Requests</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">0</span>
+                <span class="pc-stat-l">Critical Flags</span>
+              </div>
+              <div class="pc-stat">
+                <span class="pc-stat-n">1d</span>
+                <span class="pc-stat-l">Avg. Response</span>
+              </div>
+            </div>
+            <div class="pc-note">AIIMS maintenance schedule conflict requires Health-Water coordination intervention within 24 hours.</div>
+            <div class="pc-bottleneck">
+              <div class="pc-bottleneck-label">Primary Bottleneck</div>
+              <div class="pc-bottleneck-value">Maintenance window rescheduling requires Collector-level coordination with AIIMS admin</div>
+            </div>
+            <div class="pc-risk-row">
+              <span class="pc-risk-label">Administrative Risk</span>
+              <span class="pc-risk-badge pc-risk-high">High — Proactive</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 5: COORDINATION FAILURE IMPACT  -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section impact-section" id="s-impact">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 05 / 07 — CITIZEN IMPACT</div>
+          <h2 class="section-title">Coordination Failure — Citizen Impact</h2>
+          <p class="section-desc">Every inter-department coordination failure has a real-world consequence. These citizens are affected by decisions that departments have not resolved between themselves.</p>
+        </div>
+
+        <div class="impact-statement">
+          <div class="impact-headline-block">
+            <div class="impact-warning-bar"></div>
+            <div class="impact-headline-text">
+              <span class="impact-prefix">Coordination Failure Consequence —</span>
+              <span class="impact-consequence">Revenue + Energy delays are creating these real-world impacts right now:</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Failure → Impact links -->
+        <div class="failure-impact-links">
+          <div class="fil-row">
+            <div class="fil-failure">
+              <span class="fil-failure-label">COORDINATION FAILURE</span>
+              <span class="fil-failure-text">Revenue ↛ PWD (12 days)</span>
+            </div>
+            <div class="fil-arrow">→</div>
+            <div class="fil-impacts">
+              <span class="fil-impact-chip">MP Nagar Road Stalled</span>
+              <span class="fil-impact-chip">2,400 students disrupted</span>
+              <span class="fil-impact-chip">350 traders affected</span>
+            </div>
+          </div>
+          <div class="fil-row">
+            <div class="fil-failure">
+              <span class="fil-failure-label">COORDINATION FAILURE</span>
+              <span class="fil-failure-text">Water Supply ↛ Health (8 days)</span>
+            </div>
+            <div class="fil-arrow">→</div>
+            <div class="fil-impacts">
+              <span class="fil-impact-chip">AIIMS water supply risk</span>
+              <span class="fil-impact-chip">400+ patients at risk</span>
+            </div>
+          </div>
+          <div class="fil-row">
+            <div class="fil-failure">
+              <span class="fil-failure-label">COORDINATION FAILURE</span>
+              <span class="fil-failure-text">Energy ↛ PWD (19 days)</span>
+            </div>
+            <div class="fil-arrow">→</div>
+            <div class="fil-impacts">
+              <span class="fil-impact-chip">Emergency route narrowed</span>
+              <span class="fil-impact-chip">₹80K/day idle cost</span>
+              <span class="fil-impact-chip">Ambulance delay risk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="impact-grid">
+          <div class="impact-card ic-hospital">
+            <div class="impact-icon-large">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="8" y="4" width="32" height="40" rx="2" stroke="#e8e0d0" stroke-width="2"/>
+                <line x1="24" y1="14" x2="24" y2="26" stroke="#e8e0d0" stroke-width="2.5"/>
+                <line x1="18" y1="20" x2="30" y2="20" stroke="#e8e0d0" stroke-width="2.5"/>
+                <rect x="16" y="32" width="6" height="12" rx="1" fill="#e8e0d0"/>
+                <rect x="26" y="32" width="6" height="12" rx="1" fill="#e8e0d0"/>
+              </svg>
+            </div>
+            <div class="impact-card-content">
+              <div class="impact-count">2 Hospitals</div>
+              <div class="impact-card-desc">AIIMS Bhopal and JP Hospital water supply corridors overlap with unresolved maintenance conflicts.</div>
+              <div class="impact-affected">Affects <strong>800+ daily patients</strong></div>
+            </div>
+          </div>
+
+          <div class="impact-card ic-school">
+            <div class="impact-icon-large">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <polygon points="24,4 44,16 44,44 4,44 4,16" stroke="#e8e0d0" stroke-width="2" fill="none"/>
+                <rect x="18" y="28" width="12" height="16" rx="1" fill="#e8e0d0"/>
+                <rect x="14" y="22" width="8" height="6" rx="1" stroke="#e8e0d0" stroke-width="1.5" fill="none"/>
+                <rect x="26" y="22" width="8" height="6" rx="1" stroke="#e8e0d0" stroke-width="1.5" fill="none"/>
+                <line x1="24" y1="4" x2="24" y2="14" stroke="#e8e0d0" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="impact-card-content">
+              <div class="impact-count">3 Schools</div>
+              <div class="impact-card-desc">MP Nagar corridor road widening delay affects school transport routes for 3 government schools.</div>
+              <div class="impact-affected">Affects <strong>2,400+ students</strong></div>
+            </div>
+          </div>
+
+          <div class="impact-card ic-route">
+            <div class="impact-icon-large">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="18" stroke="#e8e0d0" stroke-width="2"/>
+                <line x1="24" y1="6" x2="24" y2="16" stroke="#e8e0d0" stroke-width="2"/>
+                <line x1="24" y1="32" x2="24" y2="42" stroke="#e8e0d0" stroke-width="2"/>
+                <line x1="6" y1="24" x2="16" y2="24" stroke="#e8e0d0" stroke-width="2"/>
+                <line x1="32" y1="24" x2="42" y2="24" stroke="#e8e0d0" stroke-width="2"/>
+                <circle cx="24" cy="24" r="5" fill="#b5451b"/>
+              </svg>
+            </div>
+            <div class="impact-card-content">
+              <div class="impact-count">1 Emergency Route</div>
+              <div class="impact-card-desc">Kolar Road arterial — primary emergency vehicle corridor — is functionally narrowed due to pole relocation failure.</div>
+              <div class="impact-affected">Affects <strong>ambulance response time</strong></div>
+            </div>
+          </div>
+
+          <div class="impact-card ic-market">
+            <div class="impact-icon-large">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="6" y="20" width="36" height="24" rx="2" stroke="#e8e0d0" stroke-width="2"/>
+                <polyline points="2,20 24,6 46,20" stroke="#e8e0d0" stroke-width="2" fill="none"/>
+                <rect x="18" y="30" width="12" height="14" rx="1" fill="#e8e0d0"/>
+                <rect x="10" y="26" width="8" height="8" rx="1" stroke="#e8e0d0" stroke-width="1.5" fill="none"/>
+                <rect x="30" y="26" width="8" height="8" rx="1" stroke="#e8e0d0" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <div class="impact-card-content">
+              <div class="impact-count">4 Market Zones</div>
+              <div class="impact-card-desc">Commercial activity in MP Nagar and Arera Colony disrupted by prolonged construction without resolution timeline.</div>
+              <div class="impact-affected">Affects <strong>350+ traders</strong></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 6: COORDINATION ACTIVITY FEED    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section feed-section" id="s-feed">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 06 / 07 — EVENT LOG</div>
+          <h2 class="section-title">Coordination Event Log</h2>
+          <p class="section-desc">Real-time log of inter-department coordination events — clearances issued, escalations raised, delays flagged, and dependencies resolved. Each entry indicates a decision point.</p>
+        </div>
+
+        <div class="feed-layout">
+          <div class="feed-stream" id="feedStream">
+            <!-- Feed items injected by JS -->
+          </div>
+          <div class="feed-sidebar">
+            <div class="feed-summary-title">LOG SUMMARY</div>
+            <div class="feed-summary-item">
+              <span class="fsi-dot fsi-green"></span>
+              <span class="fsi-label">Resolved</span>
+              <span class="fsi-count" id="feedCountGreen">0</span>
+            </div>
+            <div class="feed-summary-item">
+              <span class="fsi-dot fsi-amber"></span>
+              <span class="fsi-label">Escalated</span>
+              <span class="fsi-count" id="feedCountAmber">0</span>
+            </div>
+            <div class="feed-summary-item">
+              <span class="fsi-dot fsi-red"></span>
+              <span class="fsi-label">Critical</span>
+              <span class="fsi-count" id="feedCountRed">0</span>
+            </div>
+            <div class="feed-summary-item">
+              <span class="fsi-dot fsi-grey"></span>
+              <span class="fsi-label">Updates</span>
+              <span class="fsi-count" id="feedCountGrey">0</span>
+            </div>
+            <div class="feed-filter-title">FILTER LOG</div>
+            <button class="feed-filter-btn active" data-filter="all" id="filterAll">All Entries</button>
+            <button class="feed-filter-btn" data-filter="completed" id="filterCompleted">Resolved</button>
+            <button class="feed-filter-btn" data-filter="flagged" id="filterFlagged">Escalated</button>
+            <button class="feed-filter-btn" data-filter="critical" id="filterCritical">Critical Blocks</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 7: COORDINATION INTELLIGENCE MAP -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section map-section" id="s-map">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">SECTION 07 / 07 — SPATIAL INTELLIGENCE</div>
+          <h2 class="section-title">UNITY Intelligence Map</h2>
+          <p class="section-desc">Conflict locations, dependency hotspots, and affected public infrastructure — each marker represents an active coordination failure with a specific administrative decision attached to it.</p>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-canvas-wrap">
+            <div class="map-canvas" id="mapCanvas">
+              <svg id="mapSVG" width="100%" height="100%" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet">
+                <!-- Background grid -->
+                <defs>
+                  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e2228" stroke-width="0.5"/>
+                  </pattern>
+                </defs>
+                <rect width="700" height="480" fill="#12151a"/>
+                <rect width="700" height="480" fill="url(#grid)"/>
+
+                <!-- Simulated road network -->
+                <!-- Major roads -->
+                <line x1="0" y1="240" x2="700" y2="240" stroke="#1e2a3a" stroke-width="8"/>
+                <line x1="350" y1="0" x2="350" y2="480" stroke="#1e2a3a" stroke-width="8"/>
+                <line x1="0" y1="120" x2="700" y2="180" stroke="#1e2a3a" stroke-width="5"/>
+                <line x1="0" y1="360" x2="700" y2="320" stroke="#1e2a3a" stroke-width="5"/>
+                <line x1="120" y1="0" x2="80" y2="480" stroke="#1e2a3a" stroke-width="4"/>
+                <line x1="580" y1="0" x2="620" y2="480" stroke="#1e2a3a" stroke-width="4"/>
+                <!-- Ring road -->
+                <ellipse cx="350" cy="240" rx="250" ry="170" fill="none" stroke="#1e2a3a" stroke-width="3" stroke-dasharray="12 6"/>
+                <!-- Diagonal roads -->
+                <line x1="80" y1="60" x2="620" y2="420" stroke="#1a2030" stroke-width="3"/>
+                <line x1="620" y1="60" x2="80" y2="420" stroke="#1a2030" stroke-width="3"/>
+
+                <!-- Water body (lake Bhopal style) -->
+                <ellipse cx="170" cy="160" rx="95" ry="60" fill="#0d1f35" stroke="#1a3050" stroke-width="1.5"/>
+                <text x="170" y="165" text-anchor="middle" fill="#2a4060" font-size="9" font-family="IBM Plex Mono">UPPER LAKE</text>
+
+                <!-- Zone areas -->
+                <rect x="300" y="90" width="180" height="130" rx="4" fill="#b5451b" fill-opacity="0.08" stroke="#b5451b" stroke-width="1" stroke-dasharray="4 3"/>
+                <rect x="180" y="250" width="140" height="110" rx="4" fill="#c8a84b" fill-opacity="0.08" stroke="#c8a84b" stroke-width="1" stroke-dasharray="4 3"/>
+                <rect x="450" y="280" width="160" height="140" rx="4" fill="#2d6a4f" fill-opacity="0.08" stroke="#2d6a4f" stroke-width="1" stroke-dasharray="4 3"/>
+
+                <!-- Zone labels -->
+                <text x="390" y="115" text-anchor="middle" fill="#c8a84b" font-size="10" font-family="IBM Plex Mono" font-weight="500">MP NAGAR</text>
+                <text x="250" y="275" text-anchor="middle" fill="#c8a84b" font-size="10" font-family="IBM Plex Mono" font-weight="500">ARERA COLONY</text>
+                <text x="530" y="305" text-anchor="middle" fill="#c8a84b" font-size="10" font-family="IBM Plex Mono" font-weight="500">KOLAR</text>
+
+                <!-- MP Nagar critical marker -->
+                <circle cx="390" cy="155" r="14" fill="#b5451b" fill-opacity="0.2" stroke="#b5451b" stroke-width="2"/>
+                <circle cx="390" cy="155" r="6" fill="#b5451b"/>
+                <circle cx="390" cy="155" r="20" fill="none" stroke="#b5451b" stroke-width="1" stroke-dasharray="3 3" opacity="0.5">
+                  <animate attributeName="r" from="14" to="30" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- Arera Colony moderate marker -->
+                <circle cx="250" cy="305" r="10" fill="#c8a84b" fill-opacity="0.2" stroke="#c8a84b" stroke-width="2"/>
+                <circle cx="250" cy="305" r="5" fill="#c8a84b"/>
+
+                <!-- Kolar moderate marker -->
+                <circle cx="530" cy="340" r="10" fill="#c8a84b" fill-opacity="0.2" stroke="#c8a84b" stroke-width="2"/>
+                <circle cx="530" cy="340" r="5" fill="#c8a84b"/>
+
+                <!-- AIIMS Bhopal marker (critical - Health/Water conflict) -->
+                <circle cx="200" cy="330" r="16" fill="#d4521f" fill-opacity="0.15" stroke="#d4521f" stroke-width="2"/>
+                <circle cx="200" cy="330" r="7" fill="#d4521f"/>
+                <circle cx="200" cy="330" r="22" fill="none" stroke="#d4521f" stroke-width="1" stroke-dasharray="3 3" opacity="0.6">
+                  <animate attributeName="r" from="16" to="32" dur="1.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.6" to="0" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+                <text x="200" y="356" text-anchor="middle" fill="#d4521f" font-size="9" font-family="IBM Plex Mono" font-weight="600">AIIMS BHOPAL</text>
+
+                <!-- Emergency Route overlay (Kolar Road narrowed) -->
+                <line x1="390" y1="155" x2="530" y2="340" stroke="#d4521f" stroke-width="2.5" stroke-dasharray="8,4" opacity="0.5"/>
+                <text x="485" y="255" text-anchor="middle" fill="#c8a84b" font-size="8" font-family="IBM Plex Mono" transform="rotate(-42 485 255)">EMERGENCY ROUTE RISK</text>
+                <!-- Road label overlays -->
+                <text x="390" y="240" fill="#2a3850" font-size="8" font-family="IBM Plex Mono" text-anchor="middle">KOLAR ROAD</text>
+                <text x="200" y="240" fill="#2a3850" font-size="8" font-family="IBM Plex Mono" text-anchor="middle">DB CITY</text>
+
+                <!-- Scale and compass -->
+                <line x1="30" y1="450" x2="110" y2="450" stroke="#2a3040" stroke-width="2"/>
+                <line x1="30" y1="446" x2="30" y2="454" stroke="#2a3040" stroke-width="2"/>
+                <line x1="110" y1="446" x2="110" y2="454" stroke="#2a3040" stroke-width="2"/>
+                <text x="70" y="444" text-anchor="middle" fill="#2a3040" font-size="8" font-family="IBM Plex Mono">5 KM</text>
+
+                <!-- Compass -->
+                <text x="668" y="25" text-anchor="middle" fill="#2a3040" font-size="11" font-family="IBM Plex Mono" font-weight="500">N</text>
+                <line x1="668" y1="28" x2="668" y2="44" stroke="#2a3040" stroke-width="1.5"/>
+                <polygon points="668,28 665,38 668,36 671,38" fill="#2a3040"/>
+              </svg>
+
+              <!-- Map overlay legend -->
+              <div class="map-legend">
+                <div class="map-legend-item">
+                  <span class="ml-dot ml-critical"></span>
+                  <span>Conflict Location</span>
+                </div>
+                <div class="map-legend-item">
+                  <span class="ml-dot ml-watch"></span>
+                  <span>Dependency Hotspot</span>
+                </div>
+                <div class="map-legend-item">
+                  <span class="ml-dot ml-nominal"></span>
+                  <span>Affected Zone</span>
+                </div>
+                <div class="map-legend-item">
+                  <span class="ml-line-risk"></span>
+                  <span>Emergency Route Risk</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="map-zones-panel">
+              <div class="mzp-title">COORDINATION CONFLICT ZONES</div>
+              <div class="mzp-zone mzp-critical">
+                <div class="mzp-zone-header">
+                  <span class="mzp-dot mzp-dot-critical"></span>
+                  <span class="mzp-zone-name">MP Nagar</span>
+                  <span class="mzp-zone-badge">CONFLICT</span>
+                </div>
+                <div class="mzp-zone-desc">Revenue to PWD -- 12-day land clearance stall</div>
+                <div class="mzp-zone-count">2 dept conflicts -- 3 projects blocked</div>
+                <div class="mzp-zone-action">Action: Revenue Commissioner clearance today</div>
+              </div>
+              <div class="mzp-zone mzp-critical">
+                <div class="mzp-zone-header">
+                  <span class="mzp-dot mzp-dot-critical"></span>
+                  <span class="mzp-zone-name">AIIMS Bhopal</span>
+                  <span class="mzp-zone-badge">HOSPITAL RISK</span>
+                </div>
+                <div class="mzp-zone-desc">Water Supply to Health -- pipeline schedule conflict</div>
+                <div class="mzp-zone-count">400+ patients at risk -- OT/ICU water supply overlap</div>
+                <div class="mzp-zone-action">Action: Reschedule maintenance to 23:00-04:00</div>
+              </div>
+              <div class="mzp-zone mzp-watch">
+                <div class="mzp-zone-header">
+                  <span class="mzp-dot mzp-dot-watch"></span>
+                  <span class="mzp-zone-name">Kolar Corridor</span>
+                  <span class="mzp-zone-badge mzp-badge-watch">ROUTE RISK</span>
+                </div>
+                <div class="mzp-zone-desc">Energy to PWD -- 19-day pole relocation stall</div>
+                <div class="mzp-zone-count">Emergency route narrowed -- Rs 80K/day idle cost</div>
+                <div class="mzp-zone-action">Action: 48-hr compliance notice to Energy Dept</div>
+              </div>
+              <div class="mzp-zone mzp-watch">
+                <div class="mzp-zone-header">
+                  <span class="mzp-dot mzp-dot-watch"></span>
+                  <span class="mzp-zone-name">Arera Colony</span>
+                  <span class="mzp-zone-badge mzp-badge-watch">HOTSPOT</span>
+                </div>
+                <div class="mzp-zone-desc">BMC Traffic to Transport -- diversion sign-off delayed</div>
+                <div class="mzp-zone-count">2 projects blocked -- 12,000 vehicles/day affected</div>
+                <div class="mzp-zone-action">Action: BMC Traffic Cell sign-off within 48 hrs</div>
+              </div>
+              <button class="map-full-btn" id="openMapBtn">Open UNITY Intelligence Map</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- LAYER 2 DIVIDER                              -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="layer-divider">
+      <div class="layer-divider-inner">
+        <span class="layer-divider-line"></span>
+        <span class="layer-divider-label">ADMINISTRATIVE ACTIONS — LAYER II</span>
+        <span class="layer-divider-line"></span>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- L2-S1: TODAY'S DECISIONS                    -->
+    <!-- ════════════════════════════════════════════ -->
+    <section class="section l2-section decisions-board-section" id="s-exec-decisions">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — 01 / 06</div>
+          <h2 class="section-title">Today's Decisions</h2>
+          <p class="section-desc">Three interventions require your direct authorization today. No subordinate can resolve these.</p>
+        </div>
+        <div class="exec-decision-board">
+
+          <!-- Decision 1 -->
+          <article class="exec-card exec-critical" id="ed1">
+            <div class="ec-priority-spine"></div>
+            <div class="ec-body">
+              <div class="ec-top-row">
+                <div class="ec-badge ec-badge-critical">
+                  <span class="ec-badge-pulse"></span>
+                  ACTION REQUIRED
+                </div>
+                <div class="ec-meta-cluster">
+                  <span class="ec-pending-label">12 DAYS PENDING</span>
+                </div>
+              </div>
+              <h3 class="ec-title">MP Nagar Road Widening</h3>
+              <p class="ec-situation">Revenue clearance overdue. Land acquisition documentation stalled at Revenue Commissioner's office — counter-signature not issued.</p>
+              <div class="ec-data-grid">
+                <div class="ec-data-item">
+                  <span class="ec-data-label">AFFECTED DEPARTMENTS</span>
+                  <span class="ec-data-value">PWD, Revenue</span>
+                </div>
+                <div class="ec-data-item">
+                  <span class="ec-data-label">POTENTIAL DELAY</span>
+                  <span class="ec-data-value ec-value-critical">45 Days</span>
+                </div>
+                <div class="ec-data-item">
+                  <span class="ec-data-label">PRIORITY</span>
+                  <span class="ec-data-value ec-value-critical">CRITICAL</span>
+                </div>
+              </div>
+              <div class="ec-recommended">
+                <span class="ec-rec-label">RECOMMENDED ACTION</span>
+                <span class="ec-rec-text">Schedule Revenue review meeting — direct intervention required.</span>
+              </div>
+              <div class="ec-footer">
+                <button class="ec-review-btn" id="edReview1">Review &amp; Authorize</button>
+                <button class="ec-escalate-btn" id="edEscalate1">Escalate</button>
+                <button class="ec-defer-btn">Schedule Review</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Decision 2 -->
+          <article class="exec-card exec-critical" id="ed2">
+            <div class="ec-priority-spine"></div>
+            <div class="ec-body">
+              <div class="ec-top-row">
+                <div class="ec-badge ec-badge-critical">
+                  <span class="ec-badge-pulse"></span>
+                  ACTION REQUIRED
+                </div>
+                <div class="ec-meta-cluster">
+                  <span class="ec-pending-label">8 DAYS PENDING</span>
+                </div>
+              </div>
+              <h3 class="ec-title">AIIMS Pipeline Maintenance Conflict</h3>
+              <p class="ec-situation">Scheduled maintenance window overlaps with AIIMS peak operating hours. Hospital water supply corridor at risk during working hours.</p>
+              <div class="ec-data-grid">
+                <div class="ec-data-item">
+                  <span class="ec-data-label">AFFECTED DEPARTMENTS</span>
+                  <span class="ec-data-value">Health, Water Supply</span>
+                </div>
+                <div class="ec-data-item">
+                  <span class="ec-data-label">POTENTIAL DELAY</span>
+                  <span class="ec-data-value ec-value-critical">Patient Risk</span>
+                </div>
+                <div class="ec-data-item">
+                  <span class="ec-data-label">PRIORITY</span>
+                  <span class="ec-data-value ec-value-critical">CRITICAL</span>
+                </div>
+              </div>
+              <div class="ec-recommended">
+                <span class="ec-rec-label">RECOMMENDED ACTION</span>
+                <span class="ec-rec-text">Reschedule maintenance to 11PM–4AM. Coordinate directly with AIIMS administration.</span>
+              </div>
+              <div class="ec-footer">
+                <button class="ec-review-btn" id="edReview2">Review &amp; Authorize</button>
+                <button class="ec-escalate-btn" id="edEscalate2">Escalate</button>
+                <button class="ec-defer-btn">Schedule Review</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Decision 3 -->
+          <article class="exec-card exec-high" id="ed3">
+            <div class="ec-priority-spine ec-spine-high"></div>
+            <div class="ec-body">
+              <div class="ec-top-row">
+                <div class="ec-badge ec-badge-high">
+                  <span class="ec-badge-pulse ec-pulse-high"></span>
+                  HIGH PRIORITY
+                </div>
+                <div class="ec-meta-cluster">
+                  <span class="ec-pending-label">19 DAYS PENDING</span>
+                </div>
+              </div>
+              <h3 class="ec-title">Kolar Road Utility Relocation</h3>
+              <p class="ec-situation">15 MPEB electrical poles unshifted despite 19-day formal request. Field teams not deployed. Road foundation work halted.</p>
+              <div class="ec-data-grid">
+                <div class="ec-data-item">
+                  <span class="ec-data-label">AFFECTED DEPARTMENTS</span>
+                  <span class="ec-data-value">PWD, Energy</span>
+                </div>
+                <div class="ec-data-item">
+                  <span class="ec-data-label">DAILY IDLE COST</span>
+                  <span class="ec-data-value ec-value-high">₹80,000/day</span>
+                </div>
+                <div class="ec-data-item">
+                  <span class="ec-data-label">PRIORITY</span>
+                  <span class="ec-data-value ec-value-high">HIGH</span>
+                </div>
+              </div>
+              <div class="ec-recommended">
+                <span class="ec-rec-label">RECOMMENDED ACTION</span>
+                <span class="ec-rec-text">Issue 48-hour compliance notice to Energy Department Principal Secretary.</span>
+              </div>
+              <div class="ec-footer">
+                <button class="ec-review-btn ec-review-high" id="edReview3">Review &amp; Authorize</button>
+                <button class="ec-escalate-btn" id="edEscalate3">Escalate</button>
+                <button class="ec-defer-btn">Schedule Review</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- L2-S2: CITIZEN IMPACT MONITOR               -->
+    <!-- ════════════════════════════════════════════ -->
+    <section class="section l2-section citizen-impact-section" id="s-citizen">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — 02 / 06</div>
+          <h2 class="section-title">Critical Public Service Impact</h2>
+          <p class="section-desc">Named public services and infrastructure at risk from unresolved inter-department conflicts. Healthcare access, emergency routes, school transport, and commercial zones are directly affected by today's administrative decisions.</p>
+        </div>
+        <div class="citizen-layout">
+          <div class="citizen-summary-block">
+            <div class="csb-label">EXECUTIVE SUMMARY</div>
+            <p class="csb-text">Current unresolved conflicts may affect healthcare access, traffic movement, and public services across multiple city zones. Immediate resolution of the three pending decisions will protect these citizens from operational disruption.</p>
+            <div class="csb-urgency-bar">
+              <span class="csb-urgency-label">RESOLUTION URGENCY</span>
+              <div class="csb-urgency-track"><div class="csb-urgency-fill" style="width: 78%"></div></div>
+              <span class="csb-urgency-value">HIGH</span>
+            </div>
+          </div>
+          <div class="citizen-metrics-grid">
+            <div class="cm-card cm-card-primary">
+              <div class="cm-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <circle cx="14" cy="8" r="5" stroke="#e8e0d0" stroke-width="1.5"/>
+                  <path d="M4 24c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#e8e0d0" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="cm-number" id="cmCitizens">0</div>
+              <div class="cm-label">Potentially Affected Citizens</div>
+            </div>
+            <div class="cm-card">
+              <div class="cm-icon cm-icon-red">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="4" y="3" width="20" height="22" rx="2" stroke="#d4521f" stroke-width="1.5"/>
+                  <line x1="14" y1="8" x2="14" y2="15" stroke="#d4521f" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="10" y1="11.5" x2="18" y2="11.5" stroke="#d4521f" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="cm-number cm-number-critical" id="cmHospitals">2</div>
+              <div class="cm-label">Hospitals at Risk</div>
+              <div class="cm-sublabel">AIIMS + JP Hospital corridors</div>
+            </div>
+            <div class="cm-card">
+              <div class="cm-icon cm-icon-amber">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <polygon points="14,2 26,22 2,22" stroke="#c8a84b" stroke-width="1.5" fill="none"/>
+                  <line x1="14" y1="10" x2="14" y2="17" stroke="#c8a84b" stroke-width="2"/>
+                  <circle cx="14" cy="20" r="1" fill="#c8a84b"/>
+                </svg>
+              </div>
+              <div class="cm-number cm-number-amber" id="cmSchools">4</div>
+              <div class="cm-label">Schools Disrupted</div>
+              <div class="cm-sublabel">2,400+ students affected</div>
+            </div>
+            <div class="cm-card">
+              <div class="cm-icon cm-icon-red">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <circle cx="14" cy="14" r="10" stroke="#d4521f" stroke-width="1.5"/>
+                  <line x1="14" y1="4" x2="14" y2="24" stroke="#d4521f" stroke-width="1"/>
+                  <line x1="4" y1="14" x2="24" y2="14" stroke="#d4521f" stroke-width="1"/>
+                  <circle cx="14" cy="14" r="3" fill="#d4521f"/>
+                </svg>
+              </div>
+              <div class="cm-number cm-number-critical" id="cmRoutes">1</div>
+              <div class="cm-label">Emergency Route Affected</div>
+              <div class="cm-sublabel">Ambulance response at risk</div>
+            </div>
+          </div>
+        </div>
+
+          <!-- Critical Public Service Impact -->
+          <div class="cps-impact-section">
+            <div class="cps-header">CRITICAL PUBLIC SERVICE IMPACT -- BY LOCATION</div>
+            <div class="cps-grid">
+
+              <div class="cps-card cps-hospital">
+                <div class="cps-card-spine"></div>
+                <div class="cps-card-body">
+                  <div class="cps-zone-tag">AIIMS BHOPAL CORRIDOR</div>
+                  <div class="cps-card-title">Hospital Water Supply at Risk</div>
+                  <div class="cps-card-desc">Scheduled pipeline maintenance overlaps with peak OT and ICU operating hours. 400+ daily patients depend on uninterrupted water supply. Emergency surgery schedules are at risk during any maintenance window before 22:00.</div>
+                  <div class="cps-responsible">Blocking Dept: Water Supply Dept (schedule not rescheduled)</div>
+                  <div class="cps-action-needed">Action Required: Convene Health-Water coordination call today. Reschedule to 23:00.</div>
+                </div>
+              </div>
+
+              <div class="cps-card cps-route">
+                <div class="cps-card-spine cps-spine-amber"></div>
+                <div class="cps-card-body">
+                  <div class="cps-zone-tag">KOLAR ROAD -- EMERGENCY ROUTE</div>
+                  <div class="cps-card-title">Ambulance Corridor Narrowed</div>
+                  <div class="cps-card-desc">15 MPEB poles remain unshifted on Kolar Road. The arterial emergency vehicle corridor is functionally narrowed. Ambulance response times for eastern Bhopal zones are elevated. AIIMS ambulance access is at degraded capacity.</div>
+                  <div class="cps-responsible">Blocking Dept: Energy Dept (field teams not deployed -- 19 days)</div>
+                  <div class="cps-action-needed">Action Required: Issue 48-hour compliance notice to Energy Principal Secretary.</div>
+                </div>
+              </div>
+
+              <div class="cps-card cps-schools">
+                <div class="cps-card-spine cps-spine-amber"></div>
+                <div class="cps-card-body">
+                  <div class="cps-zone-tag">MP NAGAR -- SCHOOL ZONE IMPACT</div>
+                  <div class="cps-card-title">3 School Transport Routes Disrupted</div>
+                  <div class="cps-card-desc">Ongoing construction without a resolution timeline is disrupting 3 school bus and auto-rickshaw routes serving Carmel Convent, Campion, and St. Joseph schools. 2,400+ students face daily commute disruption and safety risks near active unresolved construction.</div>
+                  <div class="cps-responsible">Root Cause: Revenue clearance delay -- PWD cannot resume works</div>
+                  <div class="cps-action-needed">Action Required: Revenue clearance to PWD -- same as Project Priority 1.</div>
+                </div>
+              </div>
+
+              <div class="cps-card cps-market">
+                <div class="cps-card-spine cps-spine-dim"></div>
+                <div class="cps-card-body">
+                  <div class="cps-zone-tag">ARERA COLONY -- COMMERCIAL IMPACT</div>
+                  <div class="cps-card-title">Market Zone Access Disrupted</div>
+                  <div class="cps-card-desc">4 commercial market zones in MP Nagar and Arera Colony face ongoing footfall reduction from prolonged construction with no published completion timeline. 350+ registered traders have submitted formal complaints to the District Collector's office.</div>
+                  <div class="cps-responsible">Blocking Dept: BMC Traffic Cell (diversion sign-off not issued)</div>
+                  <div class="cps-action-needed">Action Required: BMC Traffic Cell sign-off within 48 hours.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- L2-S3: COST IMPACT INTELLIGENCE             -->
+    <!-- ════════════════════════════════════════════ -->
+    <section class="section l2-section cost-section" id="s-cost">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — 03 / 06</div>
+          <h2 class="section-title">Cost Impact Intelligence</h2>
+          <p class="section-desc">Financial consequences of delayed decisions — updated at 06:00 daily.</p>
+        </div>
+        <div class="cost-layout">
+          <div class="cost-primary-metrics">
+            <div class="cost-metric-card cost-metric-exposure">
+              <div class="cost-metric-eyebrow">POTENTIAL COST EXPOSURE</div>
+              <div class="cost-metric-value" id="costExposure">₹0</div>
+              <div class="cost-metric-sub">if current decisions remain unresolved by end of week</div>
+              <div class="cost-metric-bar">
+                <div class="cost-metric-fill cost-fill-critical" style="width: 0%" id="costExposureBar"></div>
+              </div>
+            </div>
+            <div class="cost-metric-card cost-metric-rework">
+              <div class="cost-metric-eyebrow">REWORK COST AVOIDABLE</div>
+              <div class="cost-metric-value cost-value-green" id="costRework">₹0</div>
+              <div class="cost-metric-sub">through early resolution before penalty clause activates</div>
+              <div class="cost-metric-bar">
+                <div class="cost-metric-fill cost-fill-nominal" style="width: 0%" id="costReworkBar"></div>
+              </div>
+            </div>
+            <div class="cost-metric-card cost-metric-projects">
+              <div class="cost-metric-eyebrow">PROJECTS AT FINANCIAL RISK</div>
+              <div class="cost-metric-value cost-value-amber">7</div>
+              <div class="cost-metric-sub">active contracts with penalty clauses triggered or near threshold</div>
+              <div class="cost-metric-bar">
+                <div class="cost-metric-fill cost-fill-high" style="width: 70%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="cost-intel-panel">
+            <div class="cip-title">COST INTELLIGENCE SUMMARY</div>
+            <p class="cip-summary">Revenue delays and utility conflicts are the primary contributors to projected cost overruns this month. The MP Nagar contractor penalty clause activates on Friday. Immediate authorization can avoid ₹2.3 Cr in projected liability.</p>
+            <div class="cip-breakdown-title">COST BREAKDOWN BY CAUSE</div>
+            <div class="cip-breakdown-list">
+              <div class="cip-row">
+                <span class="cip-cause">Revenue Clearance Delays</span>
+                <div class="cip-bar-wrap"><div class="cip-bar cip-bar-critical" style="width: 0%" data-target="78"></div></div>
+                <span class="cip-amount">₹1.4 Cr</span>
+              </div>
+              <div class="cip-row">
+                <span class="cip-cause">Energy Utility Idle Cost</span>
+                <div class="cip-bar-wrap"><div class="cip-bar cip-bar-high" style="width: 0%" data-target="55"></div></div>
+                <span class="cip-amount">₹56 Lac</span>
+              </div>
+              <div class="cip-row">
+                <span class="cip-cause">Pipeline Conflict Rescheduling</span>
+                <div class="cip-bar-wrap"><div class="cip-bar cip-bar-moderate" style="width: 0%" data-target="30"></div></div>
+                <span class="cip-amount">₹28 Lac</span>
+              </div>
+              <div class="cip-row">
+                <span class="cip-cause">Contractor Extensions</span>
+                <div class="cip-bar-wrap"><div class="cip-bar cip-bar-low" style="width: 0%" data-target="18"></div></div>
+                <span class="cip-amount">₹18 Lac</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- L2-S4: RIPPLE EFFECT ANALYSIS               -->
+    <!-- ════════════════════════════════════════════ -->
+    <section class="section l2-section ripple-section" id="s-ripple">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — 04 / 06</div>
+          <h2 class="section-title">Ripple Effect Analysis</h2>
+          <p class="section-desc">Governance dependency chain — click any node to see its full impact cascade.</p>
+        </div>
+        <div class="ripple-layout">
+          <div class="ripple-chain-wrap">
+            <div class="ripple-chain-header">DEPENDENCY CHAIN — MP NAGAR CORRIDOR</div>
+            <div class="ripple-chain" id="rippleChain">
+
+              <div class="ripple-node ripple-origin" data-ripple="revenue">
+                <div class="rn-connector-top"></div>
+                <div class="rn-body">
+                  <span class="rn-level">ORIGIN</span>
+                  <span class="rn-title">Revenue Clearance Delay</span>
+                  <span class="rn-dept">Revenue Department</span>
+                </div>
+                <div class="rn-connector-bottom"></div>
+              </div>
+
+              <div class="ripple-arrow">↓</div>
+
+              <div class="ripple-node ripple-affected" data-ripple="land">
+                <div class="rn-connector-top"></div>
+                <div class="rn-body">
+                  <span class="rn-level">CASCADE 1</span>
+                  <span class="rn-title">Land Acquisition Pending</span>
+                  <span class="rn-dept">Revenue + PWD</span>
+                </div>
+                <div class="rn-connector-bottom"></div>
+              </div>
+
+              <div class="ripple-arrow">↓</div>
+
+              <div class="ripple-node ripple-affected" data-ripple="road">
+                <div class="rn-connector-top"></div>
+                <div class="rn-body">
+                  <span class="rn-level">CASCADE 2</span>
+                  <span class="rn-title">Road Widening Delayed</span>
+                  <span class="rn-dept">Public Works Department</span>
+                </div>
+                <div class="rn-connector-bottom"></div>
+              </div>
+
+              <div class="ripple-arrow">↓</div>
+
+              <div class="ripple-node ripple-affected" data-ripple="utility">
+                <div class="rn-connector-top"></div>
+                <div class="rn-body">
+                  <span class="rn-level">CASCADE 3</span>
+                  <span class="rn-title">Utility Relocation Delayed</span>
+                  <span class="rn-dept">Energy Department</span>
+                </div>
+                <div class="rn-connector-bottom"></div>
+              </div>
+
+              <div class="ripple-arrow">↓</div>
+
+              <div class="ripple-node ripple-affected" data-ripple="traffic">
+                <div class="rn-connector-top"></div>
+                <div class="rn-body">
+                  <span class="rn-level">CASCADE 4</span>
+                  <span class="rn-title">Traffic Diversion Delayed</span>
+                  <span class="rn-dept">Traffic + Urban Planning</span>
+                </div>
+                <div class="rn-connector-bottom"></div>
+              </div>
+
+              <div class="ripple-arrow">↓</div>
+
+              <div class="ripple-node ripple-terminal" data-ripple="hospital">
+                <div class="rn-connector-top"></div>
+                <div class="rn-body">
+                  <span class="rn-level">TERMINAL IMPACT</span>
+                  <span class="rn-title">Hospital Access Risk Increased</span>
+                  <span class="rn-dept">800+ Citizens Affected</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- Ripple Detail Panel -->
+          <div class="ripple-detail-panel" id="rippleDetail">
+            <div class="rdp-empty" id="rdpEmpty">
+              <div class="rdp-empty-icon">⬡</div>
+              <div class="rdp-empty-label">Select any node in the chain to view its impact analysis</div>
+            </div>
+            <div class="rdp-content" id="rdpContent" style="display:none">
+              <div class="rdp-badge" id="rdpBadge">ORIGIN</div>
+              <h3 class="rdp-title" id="rdpTitle"></h3>
+              <div class="rdp-grid">
+                <div class="rdp-item">
+                  <span class="rdp-item-label">ORIGIN PROBLEM</span>
+                  <span class="rdp-item-value" id="rdpOrigin"></span>
+                </div>
+                <div class="rdp-item">
+                  <span class="rdp-item-label">AFFECTED DEPARTMENTS</span>
+                  <span class="rdp-item-value" id="rdpDepts"></span>
+                </div>
+                <div class="rdp-item">
+                  <span class="rdp-item-label">AFFECTED PROJECTS</span>
+                  <span class="rdp-item-value" id="rdpProjects"></span>
+                </div>
+                <div class="rdp-item">
+                  <span class="rdp-item-label">ESTIMATED DELAY</span>
+                  <span class="rdp-item-value rdp-critical" id="rdpDelay"></span>
+                </div>
+                <div class="rdp-item">
+                  <span class="rdp-item-label">CITIZEN IMPACT</span>
+                  <span class="rdp-item-value" id="rdpCitizen"></span>
+                </div>
+                <div class="rdp-item">
+                  <span class="rdp-item-label">FINANCIAL IMPACT</span>
+                  <span class="rdp-item-value rdp-critical" id="rdpFinancial"></span>
+                </div>
+              </div>
+              <button class="rdp-action-btn" id="rdpAction">View Related Decision</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- L2-S4B: DEPENDENCY NETWORK GRAPH -->
+    <section class="section l2-section network-section" id="s-network">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — NETWORK</div>
+          <h2 class="section-title">Dependency Network Graph</h2>
+          <p class="section-desc">Live inter-department dependency map — red dashed edges indicate blocked coordination chains. Green edges are resolved.</p>
+        </div>
+        <div class="network-layout">
+          <div class="network-legend">
+            <div class="nl-item"><span class="nl-edge nl-edge-broken"></span><span>Blocked / Stalled Link</span></div>
+            <div class="nl-item"><span class="nl-edge nl-edge-resolved"></span><span>Resolved Link</span></div>
+            <div class="nl-item"><span class="nl-edge nl-edge-partial"></span><span>At Risk / Partial Delay</span></div>
+          </div>
+          <div class="network-canvas-wrap">
+            <svg class="network-svg" viewBox="0 0 960 380" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arr-blocked" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 Z" fill="#d4521f"/></marker>
+                <marker id="arr-resolved" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 Z" fill="#3a8c66"/></marker>
+                <marker id="arr-partial" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 Z" fill="#c8a84b"/></marker>
+              </defs>
+              <rect width="960" height="380" fill="#0b0e14"/>
+              <line x1="0" y1="190" x2="960" y2="190" stroke="#1a1f2a" stroke-width="1"/>
+              <line x1="178" y1="110" x2="294" y2="110" stroke="#d4521f" stroke-width="2.5" stroke-dasharray="9,5" marker-end="url(#arr-blocked)"/>
+              <text x="236" y="102" text-anchor="middle" fill="#b5451b" font-size="9" font-family="IBM Plex Mono">12d BLOCKED</text>
+              <line x1="398" y1="110" x2="514" y2="110" stroke="#d4521f" stroke-width="2.5" stroke-dasharray="9,5" marker-end="url(#arr-blocked)"/>
+              <text x="456" y="102" text-anchor="middle" fill="#b5451b" font-size="9" font-family="IBM Plex Mono">19d STALLED</text>
+              <line x1="618" y1="110" x2="734" y2="110" stroke="#c8a84b" stroke-width="2" stroke-dasharray="7,4" marker-end="url(#arr-partial)"/>
+              <text x="676" y="102" text-anchor="middle" fill="#c8a84b" font-size="9" font-family="IBM Plex Mono">AT RISK</text>
+              <line x1="838" y1="110" x2="895" y2="110" stroke="#c8a84b" stroke-width="1.5" stroke-dasharray="7,4" marker-end="url(#arr-partial)"/>
+              <g class="network-node" data-node="revenue">
+                <rect x="20" y="76" width="158" height="68" rx="3" fill="#140a08" stroke="#b5451b" stroke-width="2"/>
+                <rect x="20" y="76" width="158" height="4" rx="1" fill="#b5451b"/>
+                <text x="99" y="105" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Revenue Dept</text>
+                <text x="99" y="122" text-anchor="middle" fill="#d4521f" font-size="9" font-family="IBM Plex Mono">BLOCKING -- 7 deps</text>
+                <text x="99" y="136" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">Rank #1 Bottleneck</text>
+              </g>
+              <g class="network-node" data-node="pwd">
+                <rect x="298" y="76" width="100" height="68" rx="3" fill="#0e1219" stroke="#c8a84b" stroke-width="1.5"/>
+                <rect x="298" y="76" width="100" height="4" rx="1" fill="#c8a84b"/>
+                <text x="348" y="105" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">PWD</text>
+                <text x="348" y="122" text-anchor="middle" fill="#c8a84b" font-size="9" font-family="IBM Plex Mono">WAITING</text>
+                <text x="348" y="136" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">12 days</text>
+              </g>
+              <g class="network-node" data-node="energy">
+                <rect x="518" y="76" width="100" height="68" rx="3" fill="#140a08" stroke="#b5451b" stroke-width="1.5"/>
+                <rect x="518" y="76" width="100" height="4" rx="1" fill="#b5451b"/>
+                <text x="568" y="105" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Energy</text>
+                <text x="568" y="122" text-anchor="middle" fill="#d4521f" font-size="9" font-family="IBM Plex Mono">STALLED</text>
+                <text x="568" y="136" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">19 days</text>
+              </g>
+              <g class="network-node" data-node="water">
+                <rect x="738" y="76" width="100" height="68" rx="3" fill="#0e1219" stroke="#c8a84b" stroke-width="1.5"/>
+                <rect x="738" y="76" width="100" height="4" rx="1" fill="#c8a84b"/>
+                <text x="788" y="105" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Water Supply</text>
+                <text x="788" y="122" text-anchor="middle" fill="#c8a84b" font-size="9" font-family="IBM Plex Mono">AT RISK</text>
+                <text x="788" y="136" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">8 days</text>
+              </g>
+              <line x1="99" y1="228" x2="788" y2="144" stroke="#d4521f" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr-blocked)" opacity="0.6"/>
+              <g class="network-node" data-node="health">
+                <rect x="20" y="194" width="158" height="68" rx="3" fill="#0e1219" stroke="#3a8c66" stroke-width="1.5"/>
+                <rect x="20" y="194" width="158" height="4" rx="1" fill="#3a8c66"/>
+                <text x="99" y="223" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Health Dept</text>
+                <text x="99" y="240" text-anchor="middle" fill="#3a8c66" font-size="9" font-family="IBM Plex Mono">REQUESTING</text>
+                <text x="99" y="254" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">Awaiting schedule fix</text>
+              </g>
+              <line x1="178" y1="140" x2="514" y2="254" stroke="#d4521f" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr-blocked)" opacity="0.5"/>
+              <g class="network-node" data-node="urban">
+                <rect x="518" y="220" width="100" height="68" rx="3" fill="#0e1219" stroke="#c8a84b" stroke-width="1.5"/>
+                <rect x="518" y="220" width="100" height="4" rx="1" fill="#c8a84b"/>
+                <text x="568" y="249" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Urban Plan</text>
+                <text x="568" y="266" text-anchor="middle" fill="#c8a84b" font-size="9" font-family="IBM Plex Mono">WAITING</text>
+                <text x="568" y="280" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">5 days</text>
+              </g>
+              <g class="network-node" data-node="transport">
+                <rect x="738" y="194" width="100" height="68" rx="3" fill="#0e1219" stroke="#c8a84b" stroke-width="1.5"/>
+                <rect x="738" y="194" width="100" height="4" rx="1" fill="#c8a84b"/>
+                <text x="788" y="223" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Transport</text>
+                <text x="788" y="240" text-anchor="middle" fill="#c8a84b" font-size="9" font-family="IBM Plex Mono">PENDING</text>
+                <text x="788" y="254" text-anchor="middle" fill="#3d4d62" font-size="8" font-family="IBM Plex Mono">6 days</text>
+              </g>
+              <line x1="568" y1="288" x2="480" y2="315" stroke="#b5451b" stroke-width="1" opacity="0.35"/>
+              <line x1="788" y1="262" x2="480" y2="315" stroke="#b5451b" stroke-width="1" opacity="0.35"/>
+              <line x1="348" y1="144" x2="480" y2="315" stroke="#b5451b" stroke-width="1" opacity="0.2"/>
+              <g class="network-node" data-node="citizens">
+                <rect x="380" y="315" width="200" height="52" rx="3" fill="#1a0808" stroke="#b5451b" stroke-width="2"/>
+                <rect x="380" y="315" width="200" height="4" rx="1" fill="#b5451b"/>
+                <text x="480" y="341" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">Citizens of Bhopal</text>
+                <text x="480" y="357" text-anchor="middle" fill="#d4521f" font-size="9" font-family="IBM Plex Mono">3,750+ IMPACTED</text>
+              </g>
+              <g class="network-node" data-node="phe">
+                <rect x="298" y="220" width="100" height="52" rx="3" fill="#0e1219" stroke="#3a8c66" stroke-width="1.5"/>
+                <rect x="298" y="220" width="100" height="4" rx="1" fill="#3a8c66"/>
+                <text x="348" y="246" text-anchor="middle" fill="#e8e0d0" font-size="12" font-family="IBM Plex Mono" font-weight="500">PHE Dept</text>
+                <text x="348" y="262" text-anchor="middle" fill="#3a8c66" font-size="9" font-family="IBM Plex Mono">MONITORING</text>
+              </g>
+            </svg>
+          </div>
+          <div class="network-status-bar">
+            <div class="nsb-item"><span class="nsb-dot nsb-critical"></span><span class="nsb-label">4 Blocked Links</span></div>
+            <div class="nsb-item"><span class="nsb-dot nsb-resolved"></span><span class="nsb-label">2 Resolved Links</span></div>
+            <div class="nsb-item"><span class="nsb-dot nsb-partial"></span><span class="nsb-label">3 At-Risk Links</span></div>
+            <div class="nsb-alert">5 departments blocked until Revenue and Energy clear their queues</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- L2-S4C: ADMINISTRATIVE INTERVENTION TIMELINE -->
+    <section class="section l2-section timeline-section" id="s-timeline">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — TIMELINE</div>
+          <h2 class="section-title">Administrative Intervention Timeline</h2>
+          <p class="section-desc">Projected consequence chain -- what happens day-by-day if no administrative action is taken from today.</p>
+        </div>
+        <div class="timeline-layout">
+          <div class="timeline-scenario-label">PROJECTED CONSEQUENCE CHAIN -- IF NO ACTION IS TAKEN FROM TODAY</div>
+          <div class="timeline-track">
+            <div class="tl-event tl-past">
+              <div class="tl-marker tl-marker-origin"></div>
+              <div class="tl-content">
+                <div class="tl-day">Day 1</div>
+                <div class="tl-event-title">Revenue Clearance Delay -- MP Nagar</div>
+                <div class="tl-event-desc">Land acquisition counter-signature not issued. MP Nagar Road Widening project formally enters coordination failure status. PWD contractor notified of potential hold.</div>
+                <div class="tl-dept-tag">Revenue Department</div>
+              </div>
+            </div>
+            <div class="tl-connector tl-conn-past"></div>
+            <div class="tl-event tl-past">
+              <div class="tl-marker tl-marker-past"></div>
+              <div class="tl-content">
+                <div class="tl-day">Day 3</div>
+                <div class="tl-event-title">PWD Foundation Work Halted</div>
+                <div class="tl-event-desc">Contractor M/s Patel Infrastructure formally halts work pending Revenue clearance. Idle charges begin at Rs 40,000/day. Workers demobilized from corridor.</div>
+                <div class="tl-dept-tag">Public Works Department</div>
+              </div>
+            </div>
+            <div class="tl-connector tl-conn-past"></div>
+            <div class="tl-event tl-past">
+              <div class="tl-marker tl-marker-past"></div>
+              <div class="tl-content">
+                <div class="tl-day">Day 5</div>
+                <div class="tl-event-title">Energy Department Deployment Stalled</div>
+                <div class="tl-event-desc">15 MPEB poles cannot be relocated -- field teams not deployed. Kolar Road corridor narrows. Emergency vehicle access begins to degrade.</div>
+                <div class="tl-dept-tag">Energy Department (MPEB)</div>
+              </div>
+            </div>
+            <div class="tl-connector tl-conn-past"></div>
+            <div class="tl-event tl-past">
+              <div class="tl-marker tl-marker-high"></div>
+              <div class="tl-content">
+                <div class="tl-day">Day 8</div>
+                <div class="tl-event-title">Water Supply -- AIIMS Conflict Escalates</div>
+                <div class="tl-event-desc">Pipeline maintenance conflict escalated by Health Department. Water Supply SE acknowledges but cannot reschedule without executive authorization. AIIMS issues formal written objection.</div>
+                <div class="tl-dept-tag">Water Supply + Health Department</div>
+              </div>
+            </div>
+            <div class="tl-connector tl-conn-now"></div>
+            <div class="tl-event tl-now">
+              <div class="tl-marker tl-marker-now"></div>
+              <div class="tl-content">
+                <div class="tl-day-now">TODAY -- Day 12 -- Intervention Mandatory</div>
+                <div class="tl-event-title">Hospital Access at Risk -- Citizen Impact Begins</div>
+                <div class="tl-event-desc">Emergency route narrowed. AIIMS water supply at risk -- 400+ daily patients. 2,400+ students face disruption on school transport routes. Revenue contractor penalty clause activates Friday. Administrative intervention is now mandatory.</div>
+                <span class="tl-dept-tag tl-tag-critical">INTERVENTION REQUIRED NOW -- Window closes in 3 days</span>
+              </div>
+            </div>
+            <div class="tl-connector tl-conn-projected"></div>
+            <div class="tl-event tl-projected">
+              <div class="tl-marker tl-marker-projected"></div>
+              <div class="tl-content">
+                <div class="tl-day-projected">Projected -- Day 15</div>
+                <div class="tl-event-title">Contractor Penalty Clause Activated</div>
+                <div class="tl-event-desc">MP Nagar contractor penalty clause (Clause 14.3) formally activates. Government incurs Rs 2.3 Cr avoidable liability. Extension agreements must be renegotiated with 3 contractors.</div>
+                <span class="tl-dept-tag tl-tag-projected">Rs 2.3 Cr Avoidable Liability</span>
+              </div>
+            </div>
+            <div class="tl-connector tl-conn-projected"></div>
+            <div class="tl-event tl-projected">
+              <div class="tl-marker tl-marker-projected"></div>
+              <div class="tl-content">
+                <div class="tl-day-projected">Projected -- Day 20</div>
+                <div class="tl-event-title">Full System Failure -- 5 Departments Non-Functional</div>
+                <div class="tl-event-desc">Hospital water supply disruption during peak hours. Energy stall triggers Traffic and Transport delays. PHE and Urban Planning enter failure state. Estimated additional Rs 1.4 Cr in penalty exposure.</div>
+                <span class="tl-dept-tag tl-tag-projected">5 Departments Failing -- Citizen Services Disrupted</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-action-banner">
+            <div class="tab-icon">&#9889;</div>
+            <div>
+              <div class="tab-headline">Window for action: Today -- before 17:00 hrs</div>
+              <div class="tab-sub">All three critical interventions can be resolved today. After Friday, contractor penalty clauses activate and citizen impact becomes unavoidable. The cost of action now is zero. The cost of inaction is Rs 3.7 Cr and irreversible public disruption.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- L2-S5: ADMINISTRATIVE INSIGHTS              -->
+    <!-- ════════════════════════════════════════════ -->
+    <section class="section l2-section insights-section" id="s-insights">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — 05 / 06</div>
+          <h2 class="section-title">Administrative Insights</h2>
+          <p class="section-desc">Operational observations derived from active coordination data — for District Collector and Commissioner review.</p>
+        </div>
+        <div class="insights-layout">
+          <div class="insights-ticker-wrap">
+            <div class="insights-ticker-label">COORDINATION INTELLIGENCE</div>
+            <div class="insights-ticker" id="insightsTicker">
+              <span class="it-dot it-dot-critical"></span>
+              <span class="it-text" id="insightsTickerText">Revenue clearance queue: 42 pending cases — up from 36 last month. This is the primary bottleneck across 11 active projects.</span>
+            </div>
+          </div>
+          <div class="insights-grid" id="insightsGrid">
+            <div class="insight-card insight-warning">
+              <div class="insight-card-bar"></div>
+              <div class="insight-card-content">
+                <div class="insight-icon">↑</div>
+                <div class="insight-body">
+                  <div class="insight-headline">Revenue clearance backlog has grown — 42 pending cases, up from 36 last month.</div>
+                  <div class="insight-sub">42 pending cases — up from 36 last month. Primary blocker across 11 dependent projects.</div>
+                </div>
+                <div class="insight-timestamp">TODAY</div>
+              </div>
+            </div>
+            <div class="insight-card insight-critical">
+              <div class="insight-card-bar insight-bar-critical"></div>
+              <div class="insight-card-content">
+                <div class="insight-icon insight-icon-critical">⚠</div>
+                <div class="insight-body">
+                  <div class="insight-headline">Three projects entered high-risk status this week.</div>
+                  <div class="insight-sub">MP Nagar, AIIMS pipeline, and Kolar corridor crossed risk threshold. Intervention window is narrowing.</div>
+                </div>
+                <div class="insight-timestamp">THIS WEEK</div>
+              </div>
+            </div>
+            <div class="insight-card insight-positive">
+              <div class="insight-card-bar insight-bar-positive"></div>
+              <div class="insight-card-content">
+                <div class="insight-icon insight-icon-positive">↓</div>
+                <div class="insight-body">
+                  <div class="insight-headline">Coordination failures in Arera Colony zone reduced by 5 active conflicts this month.</div>
+                  <div class="insight-sub">Active conflicts reduced from 23 to 18 in Arera Colony after Transport-Municipal coordination directive issued last month.</div>
+                </div>
+                <div class="insight-timestamp">THIS MONTH</div>
+              </div>
+            </div>
+            <div class="insight-card insight-positive">
+              <div class="insight-card-bar insight-bar-positive"></div>
+              <div class="insight-card-content">
+                <div class="insight-icon insight-icon-positive">✓</div>
+                <div class="insight-body">
+                  <div class="insight-headline">No healthcare disruptions predicted in the next 7 days.</div>
+                  <div class="insight-sub">AIIMS conflict is manageable with rescheduling. Health &amp; Sanitation coordination response within the 5-day standard.</div>
+                </div>
+                <div class="insight-timestamp">FORECAST</div>
+              </div>
+            </div>
+            <div class="insight-card insight-warning">
+              <div class="insight-card-bar"></div>
+              <div class="insight-card-content">
+                <div class="insight-icon">≡</div>
+                <div class="insight-body">
+                  <div class="insight-headline">Revenue and Energy departments show response lag exceeding 8 working days — above acceptable standard.</div>
+                  <div class="insight-sub">Revenue: 12-day average response lag. Energy: 19-day unresolved pole relocation. Both require direct administrative escalation.</div>
+                </div>
+                <div class="insight-timestamp">THIS MONTH</div>
+              </div>
+            </div>
+            <div class="insight-card insight-neutral">
+              <div class="insight-card-bar insight-bar-neutral"></div>
+              <div class="insight-card-content">
+                <div class="insight-icon insight-icon-neutral">○</div>
+                <div class="insight-body">
+                  <div class="insight-headline">Pending coordination clearances resolved at a higher rate this week.</div>
+                  <div class="insight-sub">32 inter-department clearances completed this week. Coordination backlog reduced from 46 to 14 pending items.</div>
+                </div>
+                <div class="insight-timestamp">THIS WEEK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- L2-S6: GOVERNANCE FORECAST                  -->
+    <!-- ════════════════════════════════════════════ -->
+    <section class="section l2-section forecast-section" id="s-forecast">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-label">LAYER II — 06 / 06</div>
+          <h2 class="section-title">Governance Forecast</h2>
+          <p class="section-desc">7-day administrative risk forecast based on pending clearances, contractor deadlines, and coordination dependencies currently active.</p>
+        </div>
+        <div class="forecast-layout">
+          <div class="forecast-overview-panel">
+            <div class="fop-label">OVERALL OUTLOOK — NEXT 7 DAYS</div>
+            <div class="fop-risk-display">
+              <div class="fop-risk-level">MODERATE RISK</div>
+              <div class="fop-risk-sub">Conditions manageable with immediate action on pending decisions.</div>
+            </div>
+            <div class="fop-confidence">
+              <span class="fop-conf-label">CONFIDENCE LEVEL</span>
+              <div class="fop-conf-bar"><div class="fop-conf-fill" style="width:0%" id="fopConfBar"></div></div>
+              <span class="fop-conf-val">82% confidence</span>
+            </div>
+            <div class="fop-domains">
+              <div class="fop-domain">
+                <span class="fop-domain-name">Infrastructure</span>
+                <span class="fop-domain-badge fop-badge-watch">WATCH</span>
+              </div>
+              <div class="fop-domain">
+                <span class="fop-domain-name">Healthcare</span>
+                <span class="fop-domain-badge fop-badge-nominal">NOMINAL</span>
+              </div>
+              <div class="fop-domain">
+                <span class="fop-domain-name">Revenue Operations</span>
+                <span class="fop-domain-badge fop-badge-critical">ELEVATED</span>
+              </div>
+              <div class="fop-domain">
+                <span class="fop-domain-name">Citizen Services</span>
+                <span class="fop-domain-badge fop-badge-nominal">NOMINAL</span>
+              </div>
+            </div>
+          </div>
+          <div class="forecast-cards-grid">
+            <div class="forecast-card fc-watch">
+              <div class="fc-day-range">DAYS 1 – 3</div>
+              <div class="fc-risk-badge fc-risk-watch">MODERATE</div>
+              <div class="fc-headline">Utility conflict risk in MP Nagar corridor.</div>
+              <ul class="fc-points">
+                <li>Revenue clearance deadline approaches Friday.</li>
+                <li>Contractor penalty clause at activation threshold.</li>
+                <li>Energy pole relocation must begin within 48 hours.</li>
+              </ul>
+              <div class="fc-action-required">ACTION REQUIRED BY DAY 2</div>
+            </div>
+            <div class="forecast-card fc-nominal">
+              <div class="fc-day-range">DAYS 4 – 5</div>
+              <div class="fc-risk-badge fc-risk-nominal">LOW</div>
+              <div class="fc-headline">Conditions stabilize if Day 1–3 actions are resolved.</div>
+              <ul class="fc-points">
+                <li>Revenue clearance may clear backlog if expedited today.</li>
+                <li>AIIMS pipeline rescheduling can proceed smoothly.</li>
+                <li>No additional disruptions anticipated in healthcare.</li>
+              </ul>
+              <div class="fc-action-optional">MONITOR ONLY</div>
+            </div>
+            <div class="forecast-card fc-watch">
+              <div class="fc-day-range">DAYS 6 – 7</div>
+              <div class="fc-risk-badge fc-risk-watch">MODERATE</div>
+              <div class="fc-headline">New coordination demands expected from PWD.</div>
+              <ul class="fc-points">
+                <li>3 additional projects reaching review stage this week.</li>
+                <li>Urban Planning master plan revision requires sign-off.</li>
+                <li>Ward 7 drainage inspection result due — may flag issues.</li>
+              </ul>
+              <div class="fc-action-required">PREPARE REVIEW AGENDA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="command-footer">
+    <div class="cf-inner">
+      <div class="cf-left">
+        <div class="cf-entity">BHOPAL MUNICIPAL CORPORATION</div>
+        <div class="cf-sub">UNITY — Unified Network for Interdepartmental Transparency and Yield — Classified Internal Use</div>
+      </div>
+      <div class="cf-center">
+        <div class="cf-classification">OFFICIAL — RESTRICTED</div>
+      </div>
+      <div class="cf-right">
+        <div class="cf-version">UNITY v3.0.0</div>
+        <div class="cf-timestamp" id="footerTs"></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SECTION NAVIGATOR -->
+  <nav class="section-nav" id="sectionNav" aria-label="Section Navigation">
+    <div class="sn-label">NAVIGATE</div>
+    <a href="#s-brief"          class="sn-item active" data-section="s-brief"          title="Coordination Brief">      <span class="sn-dot"></span><span class="sn-text">Brief</span></a>
+    <a href="#s-attention"      class="sn-item"        data-section="s-attention"      title="Admin Attention">          <span class="sn-dot"></span><span class="sn-text">Attention</span></a>
+    <a href="#s-decisions"      class="sn-item"        data-section="s-decisions"      title="Active Decisions">          <span class="sn-dot"></span><span class="sn-text">Decisions</span></a>
+    <a href="#s-pulse"          class="sn-item"        data-section="s-pulse"          title="Coordination Issues">   <span class="sn-dot"></span><span class="sn-text">Coord</span></a>
+    <a href="#s-risk"           class="sn-item"        data-section="s-risk"           title="Who Waits for Whom">    <span class="sn-dot"></span><span class="sn-text">Waiting</span></a>
+    <a href="#s-pressure"       class="sn-item"        data-section="s-pressure"       title="Bottleneck Index">      <span class="sn-dot"></span><span class="sn-text">Bottleneck</span></a>
+    <a href="#s-impact"         class="sn-item"        data-section="s-impact"         title="Citizen Impact">      <span class="sn-dot"></span><span class="sn-text">Impact</span></a>
+    <a href="#s-feed"           class="sn-item"        data-section="s-feed"           title="Dependency Feed">      <span class="sn-dot"></span><span class="sn-text">Feed</span></a>
+    <a href="#s-map"            class="sn-item"        data-section="s-map"            title="Coord Map">       <span class="sn-dot"></span><span class="sn-text">Map</span></a>
+    <div class="sn-layer-divider"></div>
+    <a href="#s-exec-decisions" class="sn-item"        data-section="s-exec-decisions" title="Administrative Actions"><span class="sn-dot sn-dot-gold"></span><span class="sn-text">Actions</span></a>
+    <a href="#s-citizen"        class="sn-item"        data-section="s-citizen"        title="Citizen Impact">     <span class="sn-dot sn-dot-gold"></span><span class="sn-text">Citizen</span></a>
+    <a href="#s-cost"           class="sn-item"        data-section="s-cost"           title="Cost Intelligence">  <span class="sn-dot sn-dot-gold"></span><span class="sn-text">Cost</span></a>
+    <a href="#s-ripple"         class="sn-item"        data-section="s-ripple"         title="Dependency Chain">    <span class="sn-dot sn-dot-gold"></span><span class="sn-text">Chain</span></a>
+    <a href="#s-network"        class="sn-item"        data-section="s-network"        title="Dependency Graph">    <span class="sn-dot sn-dot-gold"></span><span class="sn-text">Network</span></a>
+    <a href="#s-timeline"       class="sn-item"        data-section="s-timeline"       title="Intervention Timeline"><span class="sn-dot sn-dot-gold"></span><span class="sn-text">Timeline</span></a>
+    <a href="#s-insights"       class="sn-item"        data-section="s-insights"       title="Inter-Dept Insights">  <span class="sn-dot sn-dot-gold"></span><span class="sn-text">Insights</span></a>
+    <a href="#s-forecast"       class="sn-item"        data-section="s-forecast"       title="Coordination Forecast"><span class="sn-dot sn-dot-gold"></span><span class="sn-text">Forecast</span></a>
+  </nav>
+
+  <!-- MODALS / OVERLAYS -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox">
+      <div class="modal-header">
+        <div class="modal-badge" id="modalBadge">ACTION REQUIRED</div>
+        <button class="modal-close" id="modalClose">✕ CLOSE</button>
+      </div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

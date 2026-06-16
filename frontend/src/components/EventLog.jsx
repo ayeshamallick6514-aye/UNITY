@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ICON_MAP = { completed: '✓', flagged: '⚠', critical: '●', info: '○' };
+const ICON_MAP = { completed: '[OK]', flagged: '[WARN]', critical: '[HALT]', info: '[INFO]' };
 const CLASS_MAP = { completed: 'fi-completed', flagged: 'fi-flagged', critical: 'fi-critical', info: 'fi-info' };
 
 export default function EventLog({ events, activeFilter, setActiveFilter }) {

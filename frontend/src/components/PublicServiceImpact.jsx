@@ -80,7 +80,7 @@ export default function PublicServiceImpact({ refreshKey }) {
       <section className="section l2-section citizen-impact-section" id="s-citizen">
         <div className="section-container">
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-            ⚠ SERVICE IMPACT MONITOR: {error}
+            [ERROR] SERVICE IMPACT MONITOR: {error}
           </div>
         </div>
       </section>
@@ -142,8 +142,8 @@ export default function PublicServiceImpact({ refreshKey }) {
             <div className="cm-card cm-card-primary">
               <div className="cm-icon">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <circle cx="14" cy="8" r="5" stroke="#e8e0d0" strokeWidth="1.5"/>
-                  <path d="M4 24c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#e8e0d0" strokeWidth="1.5" strokeLinecap="round"/>
+                  <circle cx="14" cy="8" r="5" stroke="var(--text-primary)" strokeWidth="1.5"/>
+                  <path d="M4 24c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </div>
               <div className="cm-number">
@@ -154,9 +154,9 @@ export default function PublicServiceImpact({ refreshKey }) {
             <div className="cm-card">
               <div className={`cm-icon ${isHospitalResolved ? 'cm-icon-nominal' : 'cm-icon-red'}`}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <rect x="4" y="3" width="20" height="22" rx="2" stroke={isHospitalResolved ? '#3a8c66' : '#d4521f'} strokeWidth="1.5"/>
-                  <line x1="14" y1="8" x2="14" y2="15" stroke={isHospitalResolved ? '#3a8c66' : '#d4521f'} strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="10" y1="11.5" x2="18" y2="11.5" stroke={isHospitalResolved ? '#3a8c66' : '#d4521f'} strokeWidth="2" strokeLinecap="round"/>
+                  <rect x="4" y="3" width="20" height="22" rx="2" stroke={isHospitalResolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="1.5"/>
+                  <line x1="14" y1="8" x2="14" y2="15" stroke={isHospitalResolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="2" strokeLinecap="round"/>
+                  <line x1="10" y1="11.5" x2="18" y2="11.5" stroke={isHospitalResolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
               <div className={`cm-number ${isHospitalResolved ? 'cm-number-nominal' : 'cm-number-critical'}`}>
@@ -168,9 +168,9 @@ export default function PublicServiceImpact({ refreshKey }) {
             <div className="cm-card">
               <div className={`cm-icon ${isSchoolResolved ? 'cm-icon-nominal' : 'cm-icon-amber'}`}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <polygon points="14,2 26,22 2,22" stroke={isSchoolResolved ? '#3a8c66' : '#c8a84b'} strokeWidth="1.5" fill="none"/>
-                  <line x1="14" y1="10" x2="14" y2="17" stroke={isSchoolResolved ? '#3a8c66' : '#c8a84b'} strokeWidth="2"/>
-                  <circle cx="14" cy="20" r="1" fill={isSchoolResolved ? '#3a8c66' : '#c8a84b'}/>
+                  <polygon points="14,2 26,22 2,22" stroke={isSchoolResolved ? 'var(--nominal-light)' : 'var(--warning)'} strokeWidth="1.5" fill="none"/>
+                  <line x1="14" y1="10" x2="14" y2="17" stroke={isSchoolResolved ? 'var(--nominal-light)' : 'var(--warning)'} strokeWidth="2"/>
+                  <circle cx="14" cy="20" r="1" fill={isSchoolResolved ? 'var(--nominal-light)' : 'var(--warning)'}/>
                 </svg>
               </div>
               <div className={`cm-number ${isSchoolResolved ? 'cm-number-nominal' : 'cm-number-amber'}`}>
@@ -182,10 +182,10 @@ export default function PublicServiceImpact({ refreshKey }) {
             <div className="cm-card">
               <div className={`cm-icon ${isRouteResolved ? 'cm-icon-nominal' : 'cm-icon-red'}`}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <circle cx="14" cy="14" r="10" stroke={isRouteResolved ? '#3a8c66' : '#d4521f'} strokeWidth="1.5"/>
-                  <line x1="14" y1="4" x2="14" y2="24" stroke={isRouteResolved ? '#3a8c66' : '#d4521f'} strokeWidth="1"/>
-                  <line x1="4" y1="14" x2="24" y2="14" stroke={isRouteResolved ? '#3a8c66' : '#d4521f'} strokeWidth="1"/>
-                  <circle cx="14" cy="14" r="3" fill={isRouteResolved ? '#3a8c66' : '#d4521f'}/>
+                  <circle cx="14" cy="14" r="10" stroke={isRouteResolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="1.5"/>
+                  <line x1="14" y1="4" x2="14" y2="24" stroke={isRouteResolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="1"/>
+                  <line x1="4" y1="14" x2="24" y2="14" stroke={isRouteResolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="1"/>
+                  <circle cx="14" cy="14" r="3" fill={isRouteResolved ? 'var(--nominal-light)' : 'var(--critical-light)'}/>
                 </svg>
               </div>
               <div className={`cm-number ${isRouteResolved ? 'cm-number-nominal' : 'cm-number-critical'}`}>
@@ -215,7 +215,7 @@ export default function PublicServiceImpact({ refreshKey }) {
                   {isHospitalResolved ? 'Status: Directives implemented successfully' : 'Blocking Dept: Water Supply Dept (schedule not rescheduled)'}
                 </div>
                 <div className="cps-action-needed" style={isHospitalResolved ? { color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)', background: 'var(--nominal-bg)' } : {}}>
-                  {isHospitalResolved ? '✓ Resolved' : 'Action Required: Convene Health-Water coordination call today. Reschedule to 23:00.'}
+                  {isHospitalResolved ? '[RESOLVED]' : 'Action Required: Convene Health-Water coordination call today. Reschedule to 23:00.'}
                 </div>
               </div>
             </div>
@@ -234,7 +234,7 @@ export default function PublicServiceImpact({ refreshKey }) {
                   {isRouteResolved ? 'Status: Infrastructure clearance complete' : 'Blocking Dept: Energy Dept (field teams not deployed -- 19 days)'}
                 </div>
                 <div className="cps-action-needed" style={isRouteResolved ? { color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)', background: 'var(--nominal-bg)' } : {}}>
-                  {isRouteResolved ? '✓ Resolved' : 'Action Required: Issue 48-hour compliance notice to Energy Principal Secretary.'}
+                  {isRouteResolved ? '[RESOLVED]' : 'Action Required: Issue 48-hour compliance notice to Energy Principal Secretary.'}
                 </div>
               </div>
             </div>
@@ -253,7 +253,7 @@ export default function PublicServiceImpact({ refreshKey }) {
                   {isSchoolResolved ? 'Status: Revenue title transfer complete' : 'Root Cause: Revenue clearance delay -- PWD cannot resume works'}
                 </div>
                 <div className="cps-action-needed" style={isSchoolResolved ? { color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)', background: 'var(--nominal-bg)' } : {}}>
-                  {isSchoolResolved ? '✓ Resolved' : 'Action Required: Revenue clearance to PWD -- same as Project Priority 1.'}
+                  {isSchoolResolved ? '[RESOLVED]' : 'Action Required: Revenue clearance to PWD -- same as Project Priority 1.'}
                 </div>
               </div>
             </div>
@@ -272,7 +272,7 @@ export default function PublicServiceImpact({ refreshKey }) {
                   {isMarketResolved ? 'Status: Diversion permits dispatched' : 'Blocking Dept: BMC Traffic Cell (diversion sign-off not issued)'}
                 </div>
                 <div className="cps-action-needed" style={isMarketResolved ? { color: 'var(--nominal-light)', border: '1px solid var(--nominal-border)', background: 'var(--nominal-bg)' } : {}}>
-                  {isMarketResolved ? '✓ Resolved' : 'Action Required: BMC Traffic Cell sign-off within 48 hours.'}
+                  {isMarketResolved ? '[RESOLVED]' : 'Action Required: BMC Traffic Cell sign-off within 48 hours.'}
                 </div>
               </div>
             </div>

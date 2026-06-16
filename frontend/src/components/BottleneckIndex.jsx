@@ -46,7 +46,7 @@ export default function BottleneckIndex({ refreshKey }) {
       <section className="section pressure-section" id="s-pressure">
         <div className="section-container">
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-            ⚠ BOTTLENECK INDEX ENGINE ERROR: {error}
+            [ERROR] BOTTLENECK INDEX ENGINE ERROR: {error}
           </div>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function BottleneckIndex({ refreshKey }) {
         <div className="pressure-grid">
           {bottlenecks.length === 0 ? (
             <div style={{ border: '1px dashed var(--border-accent)', padding: '32px', textAlign: 'center', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)', fontSize: '12px', gridColumn: '1 / -1' }}>
-              ⬡ ALL DEPARTMENTS OPERATIONAL — ZERO BOTTLENECK SCORES
+              [SYSTEM] ALL DEPARTMENTS OPERATIONAL — ZERO BOTTLENECK SCORES
             </div>
           ) : (
             bottlenecks.map((item, idx) => {

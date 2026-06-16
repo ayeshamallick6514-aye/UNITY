@@ -18,15 +18,15 @@ export default function AttentionPanel({ refreshKey }) {
       // Classify severities dynamically
       const mapped = data.map(item => {
         let severity = 'watch';
-        let windowText = '⏱ Review by 17:00 hrs';
+        let windowText = 'TIMELINE: 17:00 hrs';
         let recommendedAction = 'Convene inter-departmental meeting within 24 hours. Review pipeline alignments and clear pending permits. Responsible: Department Nodal Officer — Resolution Window: 72 hours.';
 
         if (item.status === 'blocked' || item.daysStalled > 10) {
           severity = 'critical';
-          windowText = '⏱ Act before 15:00 hrs today';
+          windowText = 'DEADLINE: 15:00 hrs today';
         } else if (item.daysStalled >= 5) {
           severity = 'high';
-          windowText = '⏱ Issue notice/follow up by 12:00 hrs';
+          windowText = 'DEADLINE: 12:00 hrs';
         }
 
         // Recommended actions tailored to departments/roles
@@ -88,7 +88,7 @@ export default function AttentionPanel({ refreshKey }) {
       <section className="section attention-section" id="s-attention">
         <div className="section-container">
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-            ⚠ ATTENTION MONITOR: {error}
+            [ERROR] ATTENTION MONITOR: {error}
           </div>
         </div>
       </section>
@@ -108,24 +108,23 @@ export default function AttentionPanel({ refreshKey }) {
           {/* Banner */}
           <div className="attention-brief-banner">
             <div className="abb-left">
-              <div className="abb-icon">⬛</div>
               <div>
-                <div className="abb-title">Morning Briefing Note</div>
-                <div className="abb-sub">Generated at 06:00 hrs — {dateStr} — {priorities.length} items require attention today</div>
+                <div className="abb-title">OFFICIAL COMMAND BRIEFING NOTE</div>
+                <div className="abb-sub">Issued 06:00 hrs — {dateStr} — {priorities.length} active coordination alerts detected</div>
               </div>
             </div>
             <div className="abb-right">
-              <div className="abb-stat"><span className="abb-stat-n abb-critical">{criticalCount}</span><span className="abb-stat-l">Critical</span></div>
-              <div className="abb-stat"><span className="abb-stat-n abb-high">{highCount}</span><span className="abb-stat-l">High</span></div>
-              <div className="abb-stat"><span className="abb-stat-n abb-watch">{watchCount}</span><span className="abb-stat-l">Watch</span></div>
+              <div className="abb-stat"><span className="abb-stat-n abb-critical">{criticalCount}</span><span className="abb-stat-l">CRITICAL</span></div>
+              <div className="abb-stat"><span className="abb-stat-n abb-high">{highCount}</span><span className="abb-stat-l">HIGH RISK</span></div>
+              <div className="abb-stat"><span className="abb-stat-n abb-watch">{watchCount}</span><span className="abb-stat-l">WATCH</span></div>
             </div>
           </div>
 
           {/* Item list */}
           <div className="attention-items">
             {priorities.length === 0 ? (
-              <div style={{ border: '1px dashed var(--border-accent)', padding: '32px', textAlign: 'center', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-                ⬡ ALL SYSTEMS OPERATIONAL — NO ATTENTION REQUIRED
+              <div style={{ border: '1px solid var(--border-primary)', padding: '32px', textAlign: 'center', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)', fontSize: '11px', background: 'rgba(255,255,255,0.01)' }}>
+                COORDINATION NETWORK NOMINAL — NO IMMEDIATE ADMINISTRATIVE ACTIONS REQUIRED
               </div>
             ) : (
               priorities.map((item) => (

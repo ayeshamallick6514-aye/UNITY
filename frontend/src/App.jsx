@@ -17,7 +17,10 @@ import NetworkGraph from './components/NetworkGraph';
 import InterventionTimeline from './components/InterventionTimeline';
 import InsightsForecast from './components/InsightsForecast';
 import DecisionModal from './components/DecisionModal';
+import Loader from './components/Loader';
+import UnitySentinel from './components/UnitySentinel';
 import { api } from './services/api';
+
 
 const sectionIds = [
   's-brief', 's-attention', 's-decisions', 's-pulse', 's-risk', 's-pressure',
@@ -36,11 +39,23 @@ export default function App() {
   const [events, setEvents] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeModalKey, setActiveModalKey] = useState(null);
+  const [sentinelOpen, setSentinelOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('s-brief');
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [syncTime, setSyncTime] = useState('--:--:--');
-  const [loading, setLoading] = useState(true);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [loadStage, setLoadStage] = useState('Initializing Command Center');
   const [error, setError] = useState(null);
+  const [summary, setSummary] = useState(null);
+
+  const fetchSummary = async () => {
+    try {
+      const data = await api.getBriefSummary();
+      setSummary(data);
+    } catch (err) {
+      console.error('Error fetching summary:', err);
+    }
+  };
 
   const fetchDecisions = async () => {
     try {
@@ -82,11 +97,33 @@ export default function App() {
   // Initial load
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
-      await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
-      setLoading(false);
+      await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
     };
     loadData();
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 12) + 6;
+      if (progress >= 100) {
+        progress = 100;
+        setLoadProgress(100);
+        setLoadStage('System Ready');
+        clearInterval(interval);
+      } else {
+        setLoadProgress(progress);
+        if (progress < 25) {
+          setLoadStage('Initializing Command Center');
+        } else if (progress < 50) {
+          setLoadStage('Connecting Department Network');
+        } else if (progress < 75) {
+          setLoadStage('Building Dependency Matrix');
+        } else {
+          setLoadStage('Generating Situation Overview');
+        }
+      }
+    }, 120);
+
+    return () => clearInterval(interval);
   }, []);
 
   // Fetch events when filter changes
@@ -181,7 +218,7 @@ export default function App() {
         authorizedBy: 'District Collector'
       });
       if (res.success) {
-        await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+        await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
       }
     } catch (err) {
       console.error(err);
@@ -199,7 +236,7 @@ export default function App() {
         authorizedBy: 'District Collector'
       });
       if (res.success) {
-        await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+        await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
       }
     } catch (err) {
       console.error(err);
@@ -217,7 +254,7 @@ export default function App() {
         authorizedBy: 'District Collector'
       });
       if (res.success) {
-        await Promise.all([fetchDecisions(), fetchEvents(activeFilter)]);
+        await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
       }
     } catch (err) {
       console.error(err);
@@ -246,7 +283,8 @@ export default function App() {
 
   return (
     <>
-      <TopBar />
+      <Loader actualProgress={loadProgress} loadStage={loadStage} />
+      <TopBar summary={summary} decisions={decisions} onOpenSentinel={() => setSentinelOpen(true)} />
 
       <main>
         <MorningBrief refreshKey={refreshKey} decisions={decisions} />
@@ -487,6 +525,9 @@ export default function App() {
         onAuthorize={handleAuthorize}
         onLogAction={handleLogModalAction}
       />
+
+      {/* Unity Sentinel Decision Engine Drawer */}
+      <UnitySentinel isOpen={sentinelOpen} onClose={() => setSentinelOpen(false)} />
     </>
   );
 }

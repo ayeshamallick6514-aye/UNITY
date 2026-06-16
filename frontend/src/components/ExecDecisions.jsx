@@ -5,7 +5,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
     <section className="section l2-section decisions-board-section" id="s-exec-decisions">
       <div className="section-container">
         <div className="section-header">
-          <div className="section-label">LAYER II — 01 / 06</div>
+          <div className="section-label">LAYER II — SECTION 01 / 06 — INTERVENTIONS</div>
           <h2 className="section-title">Today's Decisions</h2>
           <p className="section-desc">Three interventions require your direct authorization today. No subordinate can resolve these.</p>
         </div>
@@ -50,7 +50,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   onClick={() => onIssueDirection('dc1')}
                   disabled={decisions.dc1.status === 'authorized'}
                 >
-                  {decisions.dc1.status === 'authorized' ? '✓ Authorized' : 'Review & Authorize'}
+                  {decisions.dc1.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Review & Authorize'}
                 </button>
                 <button 
                   className="ec-escalate-btn" 
@@ -58,7 +58,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   disabled={decisions.dc1.status !== 'idle'}
                   style={decisions.dc1.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
                 >
-                  {decisions.dc1.status === 'escalated' ? '✓ Escalated' : 'Escalate'}
+                  {decisions.dc1.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate'}
                 </button>
                 <button 
                   className="ec-defer-btn"
@@ -66,7 +66,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   disabled={decisions.dc1.status !== 'idle'}
                   style={decisions.dc1.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
                 >
-                  {decisions.dc1.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                  {decisions.dc1.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
                 </button>
               </div>
             </div>
@@ -88,17 +88,19 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
               <h3 className="ec-title">AIIMS Pipeline Maintenance Conflict</h3>
               <p className="ec-situation">Scheduled maintenance window overlaps with AIIMS peak operating hours. Hospital water supply corridor at risk during working hours.</p>
               <div className="ec-data-grid">
-                <div className="ec-data-item">
-                  <span className="ec-data-label">AFFECTED DEPARTMENTS</span>
-                  <span className="ec-data-value">Health, Water Supply</span>
-                </div>
-                <div className="ec-data-item">
-                  <span className="ec-data-label">POTENTIAL DELAY</span>
-                  <span className="ec-data-value ec-value-critical">Patient Risk</span>
-                </div>
-                <div className="ec-data-item">
-                  <span className="ec-data-label">PRIORITY</span>
-                  <span className="ec-data-value ec-value-critical">CRITICAL</span>
+                <div className="ec-data-grid">
+                  <div className="ec-data-item">
+                    <span className="ec-data-label">AFFECTED DEPARTMENTS</span>
+                    <span className="ec-data-value">Health, Water Supply</span>
+                  </div>
+                  <div className="ec-data-item">
+                    <span className="ec-data-label">POTENTIAL DELAY</span>
+                    <span className="ec-data-value ec-value-critical">Patient Risk</span>
+                  </div>
+                  <div className="ec-data-item">
+                    <span className="ec-data-label">PRIORITY</span>
+                    <span className="ec-data-value ec-value-critical">CRITICAL</span>
+                  </div>
                 </div>
               </div>
               <div className="ec-recommended">
@@ -111,7 +113,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   onClick={() => onIssueDirection('dc2')}
                   disabled={decisions.dc2.status === 'authorized'}
                 >
-                  {decisions.dc2.status === 'authorized' ? '✓ Authorized' : 'Review & Authorize'}
+                  {decisions.dc2.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Review & Authorize'}
                 </button>
                 <button 
                   className="ec-escalate-btn" 
@@ -119,7 +121,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   disabled={decisions.dc2.status !== 'idle'}
                   style={decisions.dc2.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
                 >
-                  {decisions.dc2.status === 'escalated' ? '✓ Escalated' : 'Escalate'}
+                  {decisions.dc2.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate'}
                 </button>
                 <button 
                   className="ec-defer-btn"
@@ -127,7 +129,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   disabled={decisions.dc2.status !== 'idle'}
                   style={decisions.dc2.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
                 >
-                  {decisions.dc2.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                  {decisions.dc2.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
                 </button>
               </div>
             </div>
@@ -172,7 +174,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   onClick={() => onIssueDirection('dc3')}
                   disabled={decisions.dc3.status === 'authorized'}
                 >
-                  {decisions.dc3.status === 'authorized' ? '✓ Authorized' : 'Review & Authorize'}
+                  {decisions.dc3.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Review & Authorize'}
                 </button>
                 <button 
                   className="ec-escalate-btn" 
@@ -180,7 +182,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   disabled={decisions.dc3.status !== 'idle'}
                   style={decisions.dc3.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
                 >
-                  {decisions.dc3.status === 'escalated' ? '✓ Escalated' : 'Escalate'}
+                  {decisions.dc3.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate'}
                 </button>
                 <button 
                   className="ec-defer-btn"
@@ -188,7 +190,7 @@ export default function ExecDecisions({ decisions, onIssueDirection, onEscalate,
                   disabled={decisions.dc3.status !== 'idle'}
                   style={decisions.dc3.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
                 >
-                  {decisions.dc3.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                  {decisions.dc3.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
                 </button>
               </div>
             </div>

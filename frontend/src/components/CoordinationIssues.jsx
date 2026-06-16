@@ -5,7 +5,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
     <section className="section coord-issues-section" id="s-pulse">
       <div className="section-container">
         <div className="section-header">
-          <div className="section-label">SECTION 02 / 07 — COORDINATION</div>
+          <div className="section-label">SECTION 02 / 07 — COORDINATION PULSE</div>
           <h2 className="section-title">Active Coordination Issues</h2>
           <p className="section-desc">Projects currently stalled due to inter-department failures. Each card identifies the blocking department, the waiting chain, and the specific administrative action that resolves the stall.</p>
         </div>
@@ -29,7 +29,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
 
             {/* Dependency Flow */}
             <div className="cic-dep-chain">
-              <div className="cic-dep-label">DEPENDENCY CHAIN</div>
+              <div className="cic-dep-label">DEPENDENCY FLOW</div>
               <div className="cic-dep-flow">
                 <div className="cic-dep-node cic-node-active">PWD</div>
                 <div className="cic-dep-arrow cic-arrow-blocked">→</div>
@@ -68,7 +68,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 onClick={() => onIssueDirection('dc1')}
                 disabled={decisions.dc1.status === 'authorized'}
               >
-                {decisions.dc1.status === 'authorized' ? '✓ Authorized' : 'Issue Direction'}
+                {decisions.dc1.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Issue Direction'}
               </button>
               <button 
                 className="dc-secondary-btn" 
@@ -76,7 +76,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 disabled={decisions.dc1.status !== 'idle'}
                 style={decisions.dc1.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
               >
-                {decisions.dc1.status === 'escalated' ? '✓ Escalated' : 'Escalate to Secretary'}
+                {decisions.dc1.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate to Secretary'}
               </button>
               <button 
                 className="dc-ghost-btn"
@@ -84,7 +84,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 disabled={decisions.dc1.status !== 'idle'}
                 style={decisions.dc1.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
               >
-                {decisions.dc1.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                {decisions.dc1.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
               </button>
             </div>
           </article>
@@ -104,7 +104,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
             <h3 className="cic-project-name">AIIMS Pipeline Upgrade</h3>
 
             <div className="cic-dep-chain">
-              <div className="cic-dep-label">DEPENDENCY CHAIN</div>
+              <div className="cic-dep-label">DEPENDENCY FLOW</div>
               <div className="cic-dep-flow">
                 <div className="cic-dep-node cic-node-active">Health</div>
                 <div className="cic-dep-arrow cic-arrow-blocked">→</div>
@@ -141,7 +141,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 onClick={() => onIssueDirection('dc2')}
                 disabled={decisions.dc2.status === 'authorized'}
               >
-                {decisions.dc2.status === 'authorized' ? '✓ Authorized' : 'Issue Direction'}
+                {decisions.dc2.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Issue Direction'}
               </button>
               <button 
                 className="dc-secondary-btn" 
@@ -149,7 +149,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 disabled={decisions.dc2.status !== 'idle'}
                 style={decisions.dc2.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
               >
-                {decisions.dc2.status === 'escalated' ? '✓ Escalated' : 'Escalate to Secretary'}
+                {decisions.dc2.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate to Secretary'}
               </button>
               <button 
                 className="dc-ghost-btn"
@@ -157,7 +157,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 disabled={decisions.dc2.status !== 'idle'}
                 style={decisions.dc2.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
               >
-                {decisions.dc2.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                {decisions.dc2.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
               </button>
             </div>
           </article>
@@ -177,7 +177,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
             <h3 className="cic-project-name">Kolar Road Utility Relocation</h3>
 
             <div className="cic-dep-chain">
-              <div className="cic-dep-label">DEPENDENCY CHAIN</div>
+              <div className="cic-dep-label">DEPENDENCY FLOW</div>
               <div className="cic-dep-flow">
                 <div className="cic-dep-node cic-node-active">PWD</div>
                 <div className="cic-dep-arrow cic-arrow-blocked">→</div>
@@ -216,7 +216,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 onClick={() => onIssueDirection('dc3')}
                 disabled={decisions.dc3.status === 'authorized'}
               >
-                {decisions.dc3.status === 'authorized' ? '✓ Authorized' : 'Issue Direction'}
+                {decisions.dc3.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Issue Direction'}
               </button>
               <button 
                 className="dc-secondary-btn" 
@@ -224,7 +224,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 disabled={decisions.dc3.status !== 'idle'}
                 style={decisions.dc3.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
               >
-                {decisions.dc3.status === 'escalated' ? '✓ Escalated' : 'Escalate to Secretary'}
+                {decisions.dc3.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate to Secretary'}
               </button>
               <button 
                 className="dc-ghost-btn"
@@ -232,7 +232,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
                 disabled={decisions.dc3.status !== 'idle'}
                 style={decisions.dc3.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
               >
-                {decisions.dc3.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                {decisions.dc3.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
               </button>
             </div>
           </article>
@@ -257,7 +257,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
             </div>
             <div className="dcv-node dcv-node-blocked">
               <div className="dcv-node-dept">Revenue</div>
-              <div className="dcv-node-status dcv-status-blocked">⛔ BLOCKING</div>
+              <div className="dcv-node-status dcv-status-blocked">BLOCKING</div>
               <div className="dcv-node-desc">Land acquisition clearance overdue 12 days</div>
               <div className="dcv-break-indicator">CHAIN BREAKS HERE</div>
             </div>
@@ -267,7 +267,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
             </div>
             <div className="dcv-node dcv-node-waiting">
               <div className="dcv-node-dept">Energy</div>
-              <div className="dcv-node-status dcv-status-waiting">⏸ WAITING</div>
+              <div className="dcv-node-status dcv-status-waiting">WAITING</div>
               <div className="dcv-node-desc">Utility relocation cannot begin</div>
             </div>
             <div className="dcv-connector dcv-connector-broken">
@@ -276,7 +276,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
             </div>
             <div className="dcv-node dcv-node-waiting">
               <div className="dcv-node-dept">Water</div>
-              <div className="dcv-node-status dcv-status-waiting">⏸ WAITING</div>
+              <div className="dcv-node-status dcv-status-waiting">WAITING</div>
               <div className="dcv-node-desc">Pipe diversion blocked by Energy delay</div>
             </div>
             <div className="dcv-connector dcv-connector-broken">
@@ -285,7 +285,7 @@ export default function CoordinationIssues({ decisions, onIssueDirection, onEsca
             </div>
             <div className="dcv-node dcv-node-terminal">
               <div className="dcv-node-dept">Citizens</div>
-              <div className="dcv-node-status dcv-status-impact">⚠ IMPACTED</div>
+              <div className="dcv-node-status dcv-status-impact">IMPACTED</div>
               <div className="dcv-node-desc">800+ residents · Emergency route narrowed</div>
             </div>
           </div>

@@ -5,11 +5,11 @@ const modalData = {
     title: 'MP Nagar Road Widening — Revenue Clearance',
     body: `
       <p style="margin-bottom:14px">The Revenue Commissioner's office has not processed the land acquisition counter-signature for 12 days. The contractor (M/s Patel Infrastructure) has flagged this as a blocking issue and has formally requested extension approval.</p>
-      <p style="margin-bottom:14px">Under the contract terms (Clause 14.3), delays beyond 15 working days trigger a penalty waiver provision. <strong style="color:#e8e0d0">Friday is the deadline.</strong></p>
+      <p style="margin-bottom:14px">Under the contract terms (Clause 14.3), delays beyond 15 working days trigger a penalty waiver provision. <strong style="color:var(--text-primary)">Friday is the deadline.</strong></p>
       <p style="margin-bottom:14px">Recommended course of action: Direct the Revenue Commissioner to convene an emergency clearance session today. Assign a nodal officer to track daily until resolution.</p>
-      <div style="background:#0e1016;border:1px solid #242a38;padding:14px;margin-top:16px">
-        <div style="font-family:IBM Plex Mono;font-size:9px;letter-spacing:0.18em;color:#55637a;margin-bottom:8px">FILE REFERENCE</div>
-        <div style="font-family:IBM Plex Mono;font-size:11px;color:#8a9bb5">BMC/INFRA/2026/0341 — MP Nagar Road Widening Phase 2</div>
+      <div style="background:var(--bg-primary);border:1px solid var(--border-primary);padding:14px;margin-top:16px">
+        <div style="font-family:IBM Plex Mono;font-size:9px;letter-spacing:0.18em;color:var(--text-tertiary);margin-bottom:8px">FILE REFERENCE</div>
+        <div style="font-family:IBM Plex Mono;font-size:11px;color:var(--text-secondary)">BMC/INFRA/2026/0341 — MP Nagar Road Widening Phase 2</div>
       </div>
     `,
     actions: ['Initiate Review Meeting', 'Escalate to Commissioner', 'Request Status Report'],
@@ -93,7 +93,7 @@ export default function DecisionModal({ activeKey, onClose, onAuthorize, onLogAc
               disabled={clickedActions[index]}
               onClick={() => handleActionClick(action, index)}
             >
-              {clickedActions[index] ? '✓ Logged' : action}
+              {clickedActions[index] ? '[LOGGED]' : action}
             </button>
           ))}
         </div>

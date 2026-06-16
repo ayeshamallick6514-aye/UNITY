@@ -37,18 +37,6 @@ export default function RippleEffect({ refreshKey, onIssueDirection }) {
   const [simLoading, setSimLoading] = useState(false);
   const [simError, setSimError] = useState(null);
 
-  useEffect(() => {
-    return () => timers.forEach(clearTimeout);
-  }, [timers]);
-
-  // Auto-trigger revenue node on first load to match vanilla behavior
-  useEffect(() => {
-    const autoTriggerTimer = setTimeout(() => {
-      handleNodeClick('revenue');
-    }, 800);
-    return () => clearTimeout(autoTriggerTimer);
-  }, [refreshKey]);
-
   const handleNodeClick = async (key) => {
     setSelectedNode(key);
     setActiveCascade({});
@@ -95,6 +83,18 @@ export default function RippleEffect({ refreshKey, onIssueDirection }) {
     }
   };
 
+  useEffect(() => {
+    return () => timers.forEach(clearTimeout);
+  }, [timers]);
+
+  // Auto-trigger revenue node on first load to match vanilla behavior
+  useEffect(() => {
+    const autoTriggerTimer = setTimeout(() => {
+      handleNodeClick('revenue');
+    }, 800);
+    return () => clearTimeout(autoTriggerTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshKey]);
   const getDeptFriendlyList = (cascadePath) => {
     if (!cascadePath || cascadePath.length === 0) return 'None';
     const depts = new Set(cascadePath.flatMap(p => [
@@ -221,12 +221,12 @@ export default function RippleEffect({ refreshKey, onIssueDirection }) {
               </div>
             ) : simError ? (
               <div className="rdp-empty" style={{ color: 'var(--critical-light)' }}>
-                <div className="rdp-empty-icon">⚠</div>
+                <div className="rdp-empty-icon">[ERROR]</div>
                 <div className="rdp-empty-label">{simError}</div>
               </div>
             ) : !selectedNode || !simData ? (
               <div className="rdp-empty" id="rdpEmpty">
-                <div className="rdp-empty-icon">⬡</div>
+                <div className="rdp-empty-icon">[SYSTEM]</div>
                 <div className="rdp-empty-label">Select any node in the chain to view its impact analysis</div>
               </div>
             ) : (

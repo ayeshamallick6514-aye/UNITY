@@ -78,7 +78,7 @@ export default function CostIntelligence({ refreshKey }) {
       <section className="section l2-section cost-section" id="s-cost">
         <div className="section-container">
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-            ⚠ FINANCIAL MONITOR: {error}
+            [ERROR] FINANCIAL MONITOR: {error}
           </div>
         </div>
       </section>

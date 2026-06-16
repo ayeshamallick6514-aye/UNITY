@@ -25,106 +25,106 @@ export default function IntelligenceMap({ decisions }) {
                 {/* Background grid */}
                 <defs>
                   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e2228" strokeWidth="0.5"/>
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-subtle)" strokeWidth="0.5"/>
                   </pattern>
                 </defs>
-                <rect width="700" height="480" fill="#12151a"/>
+                <rect width="700" height="480" fill="var(--bg-primary)"/>
                 <rect width="700" height="480" fill="url(#grid)"/>
 
                 {/* Simulated road network */}
                 {/* Major roads */}
-                <line x1="0" y1="240" x2="700" y2="240" stroke="#1e2a3a" strokeWidth="8"/>
-                <line x1="350" y1="0" x2="350" y2="480" stroke="#1e2a3a" strokeWidth="8"/>
-                <line x1="0" y1="120" x2="700" y2="180" stroke="#1e2a3a" strokeWidth="5"/>
-                <line x1="0" y1="360" x2="700" y2="320" stroke="#1e2a3a" strokeWidth="5"/>
-                <line x1="120" y1="0" x2="80" y2="480" stroke="#1e2a3a" strokeWidth="4"/>
-                <line x1="580" y1="0" x2="620" y2="480" stroke="#1e2a3a" strokeWidth="4"/>
+                <line x1="0" y1="240" x2="700" y2="240" stroke="var(--border-accent)" strokeWidth="8"/>
+                <line x1="350" y1="0" x2="350" y2="480" stroke="var(--border-accent)" strokeWidth="8"/>
+                <line x1="0" y1="120" x2="700" y2="180" stroke="var(--border-accent)" strokeWidth="5"/>
+                <line x1="0" y1="360" x2="700" y2="320" stroke="var(--border-accent)" strokeWidth="5"/>
+                <line x1="120" y1="0" x2="80" y2="480" stroke="var(--border-accent)" strokeWidth="4"/>
+                <line x1="580" y1="0" x2="620" y2="480" stroke="var(--border-accent)" strokeWidth="4"/>
                 {/* Ring road */}
-                <ellipse cx="350" cy="240" rx="250" ry="170" fill="none" stroke="#1e2a3a" strokeWidth="3" strokeDasharray="12 6"/>
+                <ellipse cx="350" cy="240" rx="250" ry="170" fill="none" stroke="var(--border-accent)" strokeWidth="3" strokeDasharray="12 6"/>
                 {/* Diagonal roads */}
-                <line x1="80" y1="60" x2="620" y2="420" stroke="#1a2030" strokeWidth="3"/>
-                <line x1="620" y1="60" x2="80" y2="420" stroke="#1a2030" strokeWidth="3"/>
+                <line x1="80" y1="60" x2="620" y2="420" stroke="var(--border-subtle)" strokeWidth="3"/>
+                <line x1="620" y1="60" x2="80" y2="420" stroke="var(--border-subtle)" strokeWidth="3"/>
 
                 {/* Upper Lake */}
-                <ellipse cx="170" cy="160" rx="95" ry="60" fill="#0d1f35" stroke="#1a3050" strokeWidth="1.5"/>
-                <text x="170" y="165" textAnchor="middle" fill="#2a4060" fontSize="9" fontFamily="IBM Plex Mono">UPPER LAKE</text>
+                <ellipse cx="170" cy="160" rx="95" ry="60" fill="var(--bg-secondary)" stroke="var(--border-primary)" strokeWidth="1.5"/>
+                <text x="170" y="165" textAnchor="middle" fill="var(--text-tertiary)" fontSize="9" fontFamily="IBM Plex Mono">UPPER LAKE</text>
 
                 {/* Zone areas */}
                 <rect 
                   x="300" y="90" width="180" height="130" rx="4" 
-                  fill={isDc1Resolved ? '#2d6a4f' : '#b5451b'} 
+                  fill={isDc1Resolved ? 'var(--nominal-bg)' : 'var(--critical-bg)'} 
                   fillOpacity="0.08" 
-                  stroke={isDc1Resolved ? '#2d6a4f' : '#b5451b'} 
+                  stroke={isDc1Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'} 
                   strokeWidth="1" 
                   strokeDasharray="4 3"
                 />
-                <rect x="180" y="250" width="140" height="110" rx="4" fill="#c8a84b" fillOpacity="0.08" stroke="#c8a84b" strokeWidth="1" strokeDasharray="4 3"/>
-                <rect x="450" y="280" width="160" height="140" rx="4" fill="#2d6a4f" fillOpacity="0.08" stroke="#2d6a4f" strokeWidth="1" strokeDasharray="4 3"/>
+                <rect x="180" y="250" width="140" height="110" rx="4" fill="var(--warning-bg)" fillOpacity="0.08" stroke="var(--warning)" strokeWidth="1" strokeDasharray="4 3"/>
+                <rect x="450" y="280" width="160" height="140" rx="4" fill="var(--nominal-bg)" fillOpacity="0.08" stroke="var(--nominal-light)" strokeWidth="1" strokeDasharray="4 3"/>
 
                 {/* Zone labels */}
-                <text x="390" y="115" textAnchor="middle" fill={isDc1Resolved ? '#3a8c66' : '#c8a84b'} fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">MP NAGAR</text>
-                <text x="250" y="275" textAnchor="middle" fill="#c8a84b" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">ARERA COLONY</text>
-                <text x="530" y="305" textAnchor="middle" fill="#c8a84b" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">KOLAR</text>
+                <text x="390" y="115" textAnchor="middle" fill={isDc1Resolved ? 'var(--nominal-light)' : 'var(--warning)'} fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">MP NAGAR</text>
+                <text x="250" y="275" textAnchor="middle" fill="var(--warning)" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">ARERA COLONY</text>
+                <text x="530" y="305" textAnchor="middle" fill="var(--warning)" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">KOLAR</text>
 
                 {/* MP Nagar marker */}
-                <circle cx="390" cy="155" r="14" fill={isDc1Resolved ? '#2d6a4f' : '#b5451b'} fillOpacity="0.2" stroke={isDc1Resolved ? '#3a8c66' : '#b5451b'} strokeWidth="2"/>
-                <circle cx="390" cy="155" r="6" fill={isDc1Resolved ? '#3a8c66' : '#b5451b'}/>
+                <circle cx="390" cy="155" r="14" fill={isDc1Resolved ? 'var(--nominal-bg)' : 'var(--critical-bg)'} fillOpacity="0.2" stroke={isDc1Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="2"/>
+                <circle cx="390" cy="155" r="6" fill={isDc1Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'}/>
                 {!isDc1Resolved && (
-                  <circle cx="390" cy="155" r="20" fill="none" stroke="#b5451b" strokeWidth="1" strokeDasharray="3 3" opacity="0.5">
+                  <circle cx="390" cy="155" r="20" fill="none" stroke="var(--critical-light)" strokeWidth="1" strokeDasharray="3 3" opacity="0.5">
                     <animate attributeName="r" from="14" to="30" dur="2s" repeatCount="indefinite"/>
                     <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
                   </circle>
                 )}
 
                 {/* Arera Colony marker */}
-                <circle cx="250" cy="305" r="10" fill="#c8a84b" fillOpacity="0.2" stroke="#c8a84b" strokeWidth="2"/>
-                <circle cx="250" cy="305" r="5" fill="#c8a84b"/>
+                <circle cx="250" cy="305" r="10" fill="var(--warning-bg)" fillOpacity="0.2" stroke="var(--warning)" strokeWidth="2"/>
+                <circle cx="250" cy="305" r="5" fill="var(--warning)"/>
 
                 {/* Kolar marker */}
-                <circle cx="530" cy="340" r="10" fill={isDc3Resolved ? '#2d6a4f' : '#c8a84b'} fillOpacity="0.2" stroke={isDc3Resolved ? '#3a8c66' : '#c8a84b'} strokeWidth="2"/>
-                <circle cx="530" cy="340" r="5" fill={isDc3Resolved ? '#3a8c66' : '#c8a84b'}/>
+                <circle cx="530" cy="340" r="10" fill={isDc3Resolved ? 'var(--nominal-bg)' : 'var(--warning-bg)'} fillOpacity="0.2" stroke={isDc3Resolved ? 'var(--nominal-light)' : 'var(--warning)'} strokeWidth="2"/>
+                <circle cx="530" cy="340" r="5" fill={isDc3Resolved ? 'var(--nominal-light)' : 'var(--warning)'}/>
 
                 {/* AIIMS Bhopal marker */}
-                <circle cx="200" cy="330" r="16" fill={isDc2Resolved ? '#2d6a4f' : '#d4521f'} fillOpacity="0.15" stroke={isDc2Resolved ? '#3a8c66' : '#d4521f'} strokeWidth="2"/>
-                <circle cx="200" cy="330" r="7" fill={isDc2Resolved ? '#3a8c66' : '#d4521f'}/>
+                <circle cx="200" cy="330" r="16" fill={isDc2Resolved ? 'var(--nominal-bg)' : 'var(--critical-bg)'} fillOpacity="0.15" stroke={isDc2Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'} strokeWidth="2"/>
+                <circle cx="200" cy="330" r="7" fill={isDc2Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'}/>
                 {!isDc2Resolved && (
-                  <circle cx="200" cy="330" r="22" fill="none" stroke="#d4521f" strokeWidth="1" strokeDasharray="3 3" opacity="0.6">
+                  <circle cx="200" cy="330" r="22" fill="none" stroke="var(--critical-light)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6">
                     <animate attributeName="r" from="16" to="32" dur="1.8s" repeatCount="indefinite"/>
                     <animate attributeName="opacity" from="0.6" to="0" dur="1.8s" repeatCount="indefinite"/>
                   </circle>
                 )}
-                <text x="200" y="356" textAnchor="middle" fill={isDc2Resolved ? '#3a8c66' : '#d4521f'} fontSize="9" fontFamily="IBM Plex Mono" fontWeight="600">AIIMS BHOPAL</text>
+                <text x="200" y="356" textAnchor="middle" fill={isDc2Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'} fontSize="9" fontFamily="IBM Plex Mono" fontWeight="600">AIIMS BHOPAL</text>
 
                 {/* Emergency Route overlay */}
                 <line 
                   x1="390" y1="155" x2="530" y2="340" 
-                  stroke={isDc3Resolved ? '#3a8c66' : '#d4521f'} 
+                  stroke={isDc3Resolved ? 'var(--nominal-light)' : 'var(--critical-light)'} 
                   strokeWidth="2.5" 
                   strokeDasharray={isDc3Resolved ? 'none' : '8,4'} 
                   opacity={isDc3Resolved ? 0.35 : 0.5}
                 />
                 <text 
                   x="485" y="255" textAnchor="middle" 
-                  fill={isDc3Resolved ? '#3a8c66' : '#c8a84b'} 
+                  fill={isDc3Resolved ? 'var(--nominal-light)' : 'var(--warning)'} 
                   fontSize="8" fontFamily="IBM Plex Mono" 
                   transform="rotate(-42 485 255)"
                 >
                   {isDc3Resolved ? 'ROUTE SECURED' : 'EMERGENCY ROUTE RISK'}
                 </text>
                 
-                <text x="390" y="240" fill="#2a3850" fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">KOLAR ROAD</text>
-                <text x="200" y="240" fill="#2a3850" fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">DB CITY</text>
+                <text x="390" y="240" fill="var(--text-dim)" fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">KOLAR ROAD</text>
+                <text x="200" y="240" fill="var(--text-dim)" fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">DB CITY</text>
 
                 {/* Scale and compass */}
-                <line x1="30" y1="450" x2="110" y2="450" stroke="#2a3040" strokeWidth="2"/>
-                <line x1="30" y1="446" x2="30" y2="454" stroke="#2a3040" strokeWidth="2"/>
-                <line x1="110" y1="446" x2="110" y2="454" stroke="#2a3040" strokeWidth="2"/>
-                <text x="70" y="444" textAnchor="middle" fill="#2a3040" fontSize="8" fontFamily="IBM Plex Mono">5 KM</text>
+                <line x1="30" y1="450" x2="110" y2="450" stroke="var(--text-dim)" strokeWidth="2"/>
+                <line x1="30" y1="446" x2="30" y2="454" stroke="var(--text-dim)" strokeWidth="2"/>
+                <line x1="110" y1="446" x2="110" y2="454" stroke="var(--text-dim)" strokeWidth="2"/>
+                <text x="70" y="444" textAnchor="middle" fill="var(--text-dim)" fontSize="8" fontFamily="IBM Plex Mono">5 KM</text>
 
                 {/* Compass */}
-                <text x="668" y="25" textAnchor="middle" fill="#2a3040" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="500">N</text>
-                <line x1="668" y1="28" x2="668" y2="44" stroke="#2a3040" strokeWidth="1.5"/>
-                <polygon points="668,28 665,38 668,36 671,38" fill="#2a3040"/>
+                <text x="668" y="25" textAnchor="middle" fill="var(--text-dim)" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="500">N</text>
+                <line x1="668" y1="28" x2="668" y2="44" stroke="var(--text-dim)" strokeWidth="1.5"/>
+                <polygon points="668,28 665,38 668,36 671,38" fill="var(--text-dim)"/>
               </svg>
 
               {/* Map overlay legend */}

@@ -40,7 +40,7 @@ export default function CitizenImpact({ refreshKey }) {
       <section className="section impact-section" id="s-impact">
         <div className="section-container">
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-            ⚠ CITIZEN IMPACT ENGINE ERROR: {error}
+            [ERROR] CITIZEN IMPACT ENGINE ERROR: {error}
           </div>
         </div>
       </section>
@@ -87,7 +87,7 @@ export default function CitizenImpact({ refreshKey }) {
         <div className="failure-impact-links">
           {impacts.length === 0 ? (
             <div style={{ border: '1px dashed var(--nominal-border)', padding: '24px', textAlign: 'center', color: 'var(--nominal-light)', fontFamily: 'var(--font-mono)', fontSize: '11px', background: 'var(--nominal-bg)' }}>
-              ✓ ALL RESOLVED — CITIZEN INFRASTRUCTURE SECURED
+              [RESOLVED] ALL CITIZEN INFRASTRUCTURE SECURED
             </div>
           ) : (
             impacts.map((item) => (
@@ -112,11 +112,11 @@ export default function CitizenImpact({ refreshKey }) {
           <div className={`impact-card ic-hospital ${healthcareList.length === 0 ? 'ic-resolved-card' : ''}`} style={healthcareList.length === 0 ? { opacity: 0.4 } : {}}>
             <div className="impact-icon-large">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <rect x="8" y="4" width="32" height="40" rx="2" stroke={healthcareList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <line x1="24" y1="14" x2="24" y2="26" stroke={healthcareList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2.5"/>
-                <line x1="18" y1="20" x2="30" y2="20" stroke={healthcareList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2.5"/>
-                <rect x="16" y="32" width="6" height="12" rx="1" fill={healthcareList.length === 0 ? '#3a8c66' : '#e8e0d0'}/>
-                <rect x="26" y="32" width="6" height="12" rx="1" fill={healthcareList.length === 0 ? '#3a8c66' : '#e8e0d0'}/>
+                <rect x="8" y="4" width="32" height="40" rx="2" stroke={healthcareList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <line x1="24" y1="14" x2="24" y2="26" stroke={healthcareList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2.5"/>
+                <line x1="18" y1="20" x2="30" y2="20" stroke={healthcareList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2.5"/>
+                <rect x="16" y="32" width="6" height="12" rx="1" fill={healthcareList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'}/>
+                <rect x="26" y="32" width="6" height="12" rx="1" fill={healthcareList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'}/>
               </svg>
             </div>
             <div className="impact-card-content">
@@ -136,11 +136,11 @@ export default function CitizenImpact({ refreshKey }) {
           <div className={`impact-card ic-school ${educationList.length === 0 ? 'ic-resolved-card' : ''}`} style={educationList.length === 0 ? { opacity: 0.4 } : {}}>
             <div className="impact-icon-large">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <polygon points="24,4 44,16 44,44 4,44 4,16" stroke={educationList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2" fill="none"/>
-                <rect x="18" y="28" width="12" height="16" rx="1" fill={educationList.length === 0 ? '#3a8c66' : '#e8e0d0'}/>
-                <rect x="14" y="22" width="8" height="6" rx="1" stroke={educationList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="1.5" fill="none"/>
-                <rect x="26" y="22" width="8" height="6" rx="1" stroke={educationList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="1.5" fill="none"/>
-                <line x1="24" y1="4" x2="24" y2="14" stroke={educationList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
+                <polygon points="24,4 44,16 44,44 4,44 4,16" stroke={educationList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2" fill="none"/>
+                <rect x="18" y="28" width="12" height="16" rx="1" fill={educationList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'}/>
+                <rect x="14" y="22" width="8" height="6" rx="1" stroke={educationList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="1.5" fill="none"/>
+                <rect x="26" y="22" width="8" height="6" rx="1" stroke={educationList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="1.5" fill="none"/>
+                <line x1="24" y1="4" x2="24" y2="14" stroke={educationList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
               </svg>
             </div>
             <div className="impact-card-content">
@@ -160,12 +160,12 @@ export default function CitizenImpact({ refreshKey }) {
           <div className={`impact-card ic-route ${emergencyList.length === 0 ? 'ic-resolved-card' : ''}`} style={emergencyList.length === 0 ? { opacity: 0.4 } : {}}>
             <div className="impact-icon-large">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="18" stroke={emergencyList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <line x1="24" y1="6" x2="24" y2="16" stroke={emergencyList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <line x1="24" y1="32" x2="24" y2="42" stroke={emergencyList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <line x1="6" y1="24" x2="16" y2="24" stroke={emergencyList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <line x1="32" y1="24" x2="42" y2="24" stroke={emergencyList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <circle cx="24" cy="24" r="5" fill={emergencyList.length === 0 ? '#3a8c66' : '#b5451b'}/>
+                <circle cx="24" cy="24" r="18" stroke={emergencyList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <line x1="24" y1="6" x2="24" y2="16" stroke={emergencyList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <line x1="24" y1="32" x2="24" y2="42" stroke={emergencyList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <line x1="6" y1="24" x2="16" y2="24" stroke={emergencyList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <line x1="32" y1="24" x2="42" y2="24" stroke={emergencyList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <circle cx="24" cy="24" r="5" fill={emergencyList.length === 0 ? 'var(--nominal-light)' : 'var(--critical-light)'}/>
               </svg>
             </div>
             <div className="impact-card-content">
@@ -185,11 +185,11 @@ export default function CitizenImpact({ refreshKey }) {
           <div className={`impact-card ic-market ${commercialList.length === 0 ? 'ic-resolved-card' : ''}`} style={commercialList.length === 0 ? { opacity: 0.4 } : {}}>
             <div className="impact-icon-large">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <rect x="6" y="20" width="36" height="24" rx="2" stroke={commercialList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2"/>
-                <polyline points="2,20 24,6 46,20" stroke={commercialList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="2" fill="none"/>
-                <rect x="18" y="30" width="12" height="14" rx="1" fill={commercialList.length === 0 ? '#3a8c66' : '#e8e0d0'}/>
-                <rect x="10" y="26" width="8" height="8" rx="1" stroke={commercialList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="1.5" fill="none"/>
-                <rect x="30" y="26" width="8" height="8" rx="1" stroke={commercialList.length === 0 ? '#3a8c66' : '#e8e0d0'} strokeWidth="1.5" fill="none"/>
+                <rect x="6" y="20" width="36" height="24" rx="2" stroke={commercialList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2"/>
+                <polyline points="2,20 24,6 46,20" stroke={commercialList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="2" fill="none"/>
+                <rect x="18" y="30" width="12" height="14" rx="1" fill={commercialList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'}/>
+                <rect x="10" y="26" width="8" height="8" rx="1" stroke={commercialList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="1.5" fill="none"/>
+                <rect x="30" y="26" width="8" height="8" rx="1" stroke={commercialList.length === 0 ? 'var(--nominal-light)' : 'var(--text-primary)'} strokeWidth="1.5" fill="none"/>
               </svg>
             </div>
             <div className="impact-card-content">

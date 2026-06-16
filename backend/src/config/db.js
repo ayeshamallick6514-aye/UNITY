@@ -230,8 +230,79 @@ const autoSeedIfEmpty = async () => {
     ];
     await AuditEvent.insertMany(events);
 
+    // Seed Sentinel Policy Documents if empty
+    const Document = require('../models/Document');
+    const docCount = await Document.countDocuments();
+    if (docCount === 0) {
+      console.log('Seeding policy documents and vector embeddings for UNITY Sentinel...');
+      const { ingestDocument } = require('../services/sentinelService');
+      
+      const seedDocs = [
+        {
+          title: 'Compensation and Acquisition SOP for Public Infrastructure Projects',
+          source: 'MP Circular 14.3',
+          department: 'Revenue Dept',
+          documentType: 'Circular',
+          content: 'SOP Section 2.4: Clearance of land acquisition for road projects must be finalized within 15 days of compensation disbursement. Section 2.5: Any pending claim dispute on commercial plots (like MP Nagar extension Zone 2) requires the collector to sign a conditional waiver to authorize asphalt laying, with a retrospective audit query to be cleared within 30 days.'
+        },
+        {
+          title: 'Guidelines for Relocation of High Voltage Overhead Transmission Lines',
+          source: 'Municipal SOP Clause 7',
+          department: 'Energy Dept',
+          documentType: 'SOP',
+          content: 'SOP Clause 7.2: Power transmission line shifting along utility corridors (such as Kolar road utility alignment) must be executed within 10 days of alternative site clearance. Clause 7.3: For delayed relocation exceeding 15 days, the executing department (PWD) is permitted to request emergency route waivers. However, waivers must be approved by the Municipal Commissioner with a structural stability certification.'
+        },
+        {
+          title: 'Standard Protocol for Laying Main Water Pipeline Diversions near Medical Corridors',
+          source: 'Health SOP Clause 3',
+          department: 'Water Supply Dept',
+          documentType: 'Guidelines',
+          content: 'Water Supply Guidelines Clause 3.4: Main water pipeline layout and connection works near critical hospital facilities (such as AIIMS Bhopal Medical Corridor) require a mandatory 48-hour scheduled shutdown window. Clause 3.5: Sign-off of the shutdown window must be approved by both the Chief Medical Officer and the Water Supply Nodal Officer. Clearances delayed by more than 7 days must be escalated to the District Collector for direct administrative bypass.'
+        }
+      ];
+
+      for (const doc of seedDocs) {
+        await ingestDocument(doc);
+      }
+      console.log('Sentinel policy documents seeded and embedded successfully!');
+    }
+
     console.log('Database auto-seeded successfully!');
   } else {
+    // If the database has data, check if Documents specifically needs seeding
+    const Document = require('../models/Document');
+    const docCount = await Document.countDocuments();
+    if (docCount === 0) {
+      console.log('Seeding policy documents and vector embeddings for existing database...');
+      const { ingestDocument } = require('../services/sentinelService');
+      const seedDocs = [
+        {
+          title: 'Compensation and Acquisition SOP for Public Infrastructure Projects',
+          source: 'MP Circular 14.3',
+          department: 'Revenue Dept',
+          documentType: 'Circular',
+          content: 'SOP Section 2.4: Clearance of land acquisition for road projects must be finalized within 15 days of compensation disbursement. Section 2.5: Any pending claim dispute on commercial plots (like MP Nagar extension Zone 2) requires the collector to sign a conditional waiver to authorize asphalt laying, with a retrospective audit query to be cleared within 30 days.'
+        },
+        {
+          title: 'Guidelines for Relocation of High Voltage Overhead Transmission Lines',
+          source: 'Municipal SOP Clause 7',
+          department: 'Energy Dept',
+          documentType: 'SOP',
+          content: 'SOP Clause 7.2: Power transmission line shifting along utility corridors (such as Kolar road utility alignment) must be executed within 10 days of alternative site clearance. Clause 7.3: For delayed relocation exceeding 15 days, the executing department (PWD) is permitted to request emergency route waivers. However, waivers must be approved by the Municipal Commissioner with a structural stability certification.'
+        },
+        {
+          title: 'Standard Protocol for Laying Main Water Pipeline Diversions near Medical Corridors',
+          source: 'Health SOP Clause 3',
+          department: 'Water Supply Dept',
+          documentType: 'Guidelines',
+          content: 'Water Supply Guidelines Clause 3.4: Main water pipeline layout and connection works near critical hospital facilities (such as AIIMS Bhopal Medical Corridor) require a mandatory 48-hour scheduled shutdown window. Clause 3.5: Sign-off of the shutdown window must be approved by both the Chief Medical Officer and the Water Supply Nodal Officer. Clearances delayed by more than 7 days must be escalated to the District Collector for direct administrative bypass.'
+        }
+      ];
+      for (const doc of seedDocs) {
+        await ingestDocument(doc);
+      }
+      console.log('Sentinel policy documents seeded and embedded successfully!');
+    }
     console.log('Database already contains data. Skipping auto-seeding.');
   }
 };

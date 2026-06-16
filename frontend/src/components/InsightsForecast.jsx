@@ -58,7 +58,7 @@ export default function InsightsForecast({ decisions }) {
               <div className={`insight-card ${isDc1Resolved ? 'insight-positive' : 'insight-warning'}`}>
                 <div className={`insight-card-bar ${isDc1Resolved ? 'insight-bar-positive' : ''}`}></div>
                 <div className="insight-card-content">
-                  <div className="insight-icon">{isDc1Resolved ? '✓' : '↑'}</div>
+                  <div className="insight-icon">{isDc1Resolved ? '[OK]' : '[UP]'}</div>
                   <div className="insight-body">
                     <div className="insight-headline">
                       {isDc1Resolved 
@@ -78,7 +78,7 @@ export default function InsightsForecast({ decisions }) {
               <div className={`insight-card ${allResolved ? 'insight-positive' : 'insight-critical'}`}>
                 <div className={`insight-card-bar ${allResolved ? 'insight-bar-positive' : 'insight-bar-critical'}`}></div>
                 <div className="insight-card-content">
-                  <div className={`insight-icon ${allResolved ? 'insight-icon-positive' : 'insight-icon-critical'}`}>{allResolved ? '✓' : '⚠'}</div>
+                  <div className={`insight-icon ${allResolved ? 'insight-icon-positive' : 'insight-icon-critical'}`}>{allResolved ? '[OK]' : '[ALERT]'}</div>
                   <div className="insight-body">
                     <div className="insight-headline">
                       {allResolved 
@@ -98,7 +98,7 @@ export default function InsightsForecast({ decisions }) {
               <div className="insight-card insight-positive">
                 <div className="insight-card-bar insight-bar-positive"></div>
                 <div className="insight-card-content">
-                  <div className="insight-icon insight-icon-positive">↓</div>
+                  <div className="insight-icon insight-icon-positive">[DN]</div>
                   <div className="insight-body">
                     <div className="insight-headline">Coordination failures in Arera Colony zone reduced by 5 active conflicts this month.</div>
                     <div className="insight-sub">Active conflicts reduced from 23 to 18 in Arera Colony after Transport-Municipal coordination directive issued last month.</div>
@@ -110,7 +110,7 @@ export default function InsightsForecast({ decisions }) {
               <div className="insight-card insight-positive">
                 <div className="insight-card-bar insight-bar-positive"></div>
                 <div className="insight-card-content">
-                  <div className="insight-icon insight-icon-positive">✓</div>
+                  <div className="insight-icon insight-icon-positive">[OK]</div>
                   <div className="insight-body">
                     <div className="insight-headline">
                       {isDc2Resolved 
@@ -130,7 +130,7 @@ export default function InsightsForecast({ decisions }) {
               <div className={`insight-card ${isDc1Resolved && isDc3Resolved ? 'insight-positive' : 'insight-warning'}`}>
                 <div className={`insight-card-bar ${isDc1Resolved && isDc3Resolved ? 'insight-bar-positive' : ''}`}></div>
                 <div className="insight-card-content">
-                  <div className="insight-icon">≡</div>
+                  <div className="insight-icon">[LIST]</div>
                   <div className="insight-body">
                     <div className="insight-headline">
                       {isDc1Resolved && isDc3Resolved
@@ -150,7 +150,7 @@ export default function InsightsForecast({ decisions }) {
               <div className="insight-card insight-neutral">
                 <div className="insight-card-bar insight-bar-neutral"></div>
                 <div className="insight-card-content">
-                  <div className="insight-icon insight-icon-neutral">○</div>
+                  <div className="insight-icon insight-icon-neutral">[INFO]</div>
                   <div className="insight-body">
                     <div className="insight-headline">Pending coordination clearances resolved at a higher rate this week.</div>
                     <div className="insight-sub">32 inter-department clearances completed this week. Coordination backlog reduced from 46 to 14 pending items.</div>

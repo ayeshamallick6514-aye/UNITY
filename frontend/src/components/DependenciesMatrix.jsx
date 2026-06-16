@@ -76,7 +76,7 @@ export default function DependenciesMatrix({ refreshKey }) {
       <section className="section risk-section" id="s-risk">
         <div className="section-container">
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-            ⚠ MATRIX PROTOCOL: {error}
+            [ERROR] MATRIX PROTOCOL: {error}
           </div>
         </div>
       </section>
@@ -105,7 +105,7 @@ export default function DependenciesMatrix({ refreshKey }) {
 
           {activeDeps.length === 0 ? (
             <div style={{ border: '1px dashed var(--border-accent)', padding: '32px', textAlign: 'center', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-              ⬡ NO COORDINATION FAILURES RECORDED — NETWORK NOMINAL
+              [SYSTEM] NO COORDINATION FAILURES RECORDED — NETWORK NOMINAL
             </div>
           ) : (
             activeDeps.map((item, idx) => {

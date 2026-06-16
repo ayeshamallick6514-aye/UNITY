@@ -132,7 +132,7 @@ export default function MorningBrief({ refreshKey, decisions }) {
       <section className="morning-brief" id="s-brief">
         <div style={{ padding: '48px', maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ border: '1px solid var(--critical-border)', background: 'var(--critical-bg)', padding: '20px', color: 'var(--critical-light)', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '0.05em' }}>
-            ⚠ CONNECTION FAILURE: {error}
+            [ERROR] CONNECTION FAILURE: {error}
           </div>
         </div>
       </section>
@@ -146,7 +146,7 @@ export default function MorningBrief({ refreshKey, decisions }) {
           <div className="brief-greeting-row">
             <div className="brief-status-tag">COORDINATION INTELLIGENCE BRIEF — {dateStr}</div>
           </div>
-          <h1 className="brief-headline">{totalBlockedDepts} Departments<br/>Cannot Proceed.</h1>
+          <h1 className="brief-headline">{totalBlockedDepts} {totalBlockedDepts === 1 ? 'Department' : 'Departments'}<br/>Cannot Proceed.</h1>
           <h2 className="brief-subheadline">Administrative Intervention Required — Active Now</h2>
           <p 
             className="brief-intel" 
@@ -160,7 +160,7 @@ export default function MorningBrief({ refreshKey, decisions }) {
           <div className="brief-meta-row">
             <div className="brief-meta-item">
               <span className="brief-meta-label">INTERVENTION NEEDED</span>
-              <span className="brief-meta-value threat-elevated">{totalBlockedDepts} DEPARTMENTS</span>
+              <span className="brief-meta-value threat-elevated">{totalBlockedDepts} {totalBlockedDepts === 1 ? 'DEPARTMENT' : 'DEPARTMENTS'}</span>
             </div>
             <div className="brief-meta-item">
               <span className="brief-meta-label">PROJECTS BLOCKED</span>

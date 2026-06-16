@@ -72,5 +72,41 @@ export const api = {
   getCostExposure: () => fetch(`${BASE_URL}/cost/exposure`).then(res => {
     if (!res.ok) throw new Error('Network response not OK');
     return res.json();
+  }),
+
+  // Sentinel policy query
+  sentinelQuery: (query) => fetch(`${BASE_URL}/sentinel/query`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query })
+  }).then(res => {
+    if (!res.ok) throw new Error('Network response not OK');
+    return res.json();
+  }),
+
+  // Sentinel decision compliance review
+  sentinelReview: (dependencyId, decisionKey) => fetch(`${BASE_URL}/sentinel/review`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ dependencyId, decisionKey })
+  }).then(res => {
+    if (!res.ok) throw new Error('Network response not OK');
+    return res.json();
+  }),
+
+  // Sentinel document ingest
+  sentinelIngest: (data) => fetch(`${BASE_URL}/sentinel/ingest`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).then(res => {
+    if (!res.ok) throw new Error('Network response not OK');
+    return res.json();
+  }),
+
+  // Sentinel audit history log
+  sentinelHistory: () => fetch(`${BASE_URL}/sentinel/history`).then(res => {
+    if (!res.ok) throw new Error('Network response not OK');
+    return res.json();
   })
 };

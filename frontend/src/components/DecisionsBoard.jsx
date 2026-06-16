@@ -5,7 +5,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
     <section className="section decisions-section" id="s-decisions">
       <div className="section-container">
         <div className="section-header">
-          <div className="section-label">SECTION 01 / 07 — DECISIONS</div>
+          <div className="section-label">SECTION 01 / 07 — ACTIVE DECISIONS</div>
           <h2 className="section-title">Today's Decisions</h2>
           <p className="section-desc">These items cannot move forward without your direction. Each card shows the situation, departments affected, projected impact, and the recommended administrative action.</p>
         </div>
@@ -29,15 +29,15 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
               <div className="dc-impact-label">POTENTIAL IMPACT</div>
               <div className="dc-impact-items">
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   45-day project delay if unresolved by Friday
                 </div>
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   ₹2.3 Cr contractor penalty clause activated
                 </div>
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   3 downstream utility projects blocked
                 </div>
               </div>
@@ -52,7 +52,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 onClick={() => onIssueDirection('dc1')}
                 disabled={decisions.dc1.status === 'authorized'}
               >
-                {decisions.dc1.status === 'authorized' ? '✓ Authorized' : 'Issue Direction'}
+                {decisions.dc1.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Issue Direction'}
               </button>
               <button 
                 className="dc-secondary-btn" 
@@ -60,7 +60,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 disabled={decisions.dc1.status !== 'idle'}
                 style={decisions.dc1.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
               >
-                {decisions.dc1.status === 'escalated' ? '✓ Escalated' : 'Escalate to Secretary'}
+                {decisions.dc1.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate to Secretary'}
               </button>
               <button 
                 className="dc-ghost-btn"
@@ -68,7 +68,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 disabled={decisions.dc1.status !== 'idle'}
                 style={decisions.dc1.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
               >
-                {decisions.dc1.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                {decisions.dc1.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
               </button>
             </div>
           </article>
@@ -91,11 +91,11 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
               <div className="dc-impact-label">POTENTIAL IMPACT</div>
               <div className="dc-impact-items">
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   Hospital service disruption — 400+ daily patients
                 </div>
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   OT and ICU water supply risk
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 onClick={() => onIssueDirection('dc2')}
                 disabled={decisions.dc2.status === 'authorized'}
               >
-                {decisions.dc2.status === 'authorized' ? '✓ Authorized' : 'Issue Direction'}
+                {decisions.dc2.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Issue Direction'}
               </button>
               <button 
                 className="dc-secondary-btn" 
@@ -118,7 +118,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 disabled={decisions.dc2.status !== 'idle'}
                 style={decisions.dc2.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
               >
-                {decisions.dc2.status === 'escalated' ? '✓ Escalated' : 'Escalate to Secretary'}
+                {decisions.dc2.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate to Secretary'}
               </button>
               <button 
                 className="dc-ghost-btn"
@@ -126,7 +126,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 disabled={decisions.dc2.status !== 'idle'}
                 style={decisions.dc2.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
               >
-                {decisions.dc2.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                {decisions.dc2.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
               </button>
             </div>
           </article>
@@ -149,15 +149,15 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
               <div className="dc-impact-label">POTENTIAL IMPACT</div>
               <div className="dc-impact-items">
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   Road widening project completely blocked
                 </div>
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   Contractor idle time costing ₹80K/day
                 </div>
                 <div className="dc-impact-item">
-                  <span className="dc-impact-icon">⚠</span>
+                  <span className="dc-impact-bullet">•</span>
                   Traffic signal infrastructure delayed
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 onClick={() => onIssueDirection('dc3')}
                 disabled={decisions.dc3.status === 'authorized'}
               >
-                {decisions.dc3.status === 'authorized' ? '✓ Authorized' : 'Issue Direction'}
+                {decisions.dc3.status === 'authorized' ? 'STATUS: AUTHORIZED' : 'Issue Direction'}
               </button>
               <button 
                 className="dc-secondary-btn" 
@@ -180,7 +180,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 disabled={decisions.dc3.status !== 'idle'}
                 style={decisions.dc3.status === 'escalated' ? { borderColor: 'var(--critical-light)', color: 'var(--critical-light)' } : {}}
               >
-                {decisions.dc3.status === 'escalated' ? '✓ Escalated' : 'Escalate to Secretary'}
+                {decisions.dc3.status === 'escalated' ? 'STATUS: ESCALATED' : 'Escalate to Secretary'}
               </button>
               <button 
                 className="dc-ghost-btn"
@@ -188,7 +188,7 @@ export default function DecisionsBoard({ decisions, onIssueDirection, onEscalate
                 disabled={decisions.dc3.status !== 'idle'}
                 style={decisions.dc3.status === 'deferred' ? { color: 'var(--text-dim)' } : {}}
               >
-                {decisions.dc3.status === 'deferred' ? '✓ Deferred' : 'Schedule Review'}
+                {decisions.dc3.status === 'deferred' ? 'STATUS: DEFERRED' : 'Schedule Review'}
               </button>
             </div>
           </article>

@@ -23,7 +23,7 @@ export default function InterventionTimeline({ decisions }) {
             {/* Event 1 */}
             <div className="tl-event tl-past" style={isDc1Resolved ? { opacity: 0.5 } : {}}>
               <div className="tl-marker" style={isDc1Resolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { backgroundColor: 'var(--bg-card)', border: '2px solid var(--text-dim)' }}>
-                {isDc1Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '12px' }}>✓</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--text-tertiary)' }}></div>}
+                {isDc1Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '9px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--text-tertiary)' }}></div>}
               </div>
               <div className="tl-content" style={isDc1Resolved ? { borderLeft: '3px solid var(--nominal-light)' } : {}}>
                 <div className="tl-day" style={isDc1Resolved ? { color: 'var(--nominal-light)' } : {}}>Day 1 {isDc1Resolved && '— RESOLVED'}</div>
@@ -42,7 +42,7 @@ export default function InterventionTimeline({ decisions }) {
             {/* Event 2 */}
             <div className="tl-event tl-past" style={isDc1Resolved ? { opacity: 0.5 } : {}}>
               <div className="tl-marker" style={isDc1Resolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { backgroundColor: 'var(--bg-card)', border: '2px solid var(--text-dim)' }}>
-                {isDc1Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '12px' }}>✓</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--text-dim)' }}></div>}
+                {isDc1Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '9px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--text-dim)' }}></div>}
               </div>
               <div className="tl-content" style={isDc1Resolved ? { borderLeft: '3px solid var(--nominal-light)' } : {}}>
                 <div className="tl-day" style={isDc1Resolved ? { color: 'var(--nominal-light)' } : {}}>Day 3 {isDc1Resolved && '— RESOLVED'}</div>
@@ -61,7 +61,7 @@ export default function InterventionTimeline({ decisions }) {
             {/* Event 3 */}
             <div className="tl-event tl-past" style={isDc3Resolved ? { opacity: 0.5 } : {}}>
               <div className="tl-marker" style={isDc3Resolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { backgroundColor: 'var(--bg-card)', border: '2px solid var(--text-dim)' }}>
-                {isDc3Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '12px' }}>✓</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--text-dim)' }}></div>}
+                {isDc3Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '9px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--text-dim)' }}></div>}
               </div>
               <div className="tl-content" style={isDc3Resolved ? { borderLeft: '3px solid var(--nominal-light)' } : {}}>
                 <div className="tl-day" style={isDc3Resolved ? { color: 'var(--nominal-light)' } : {}}>Day 5 {isDc3Resolved && '— RESOLVED'}</div>
@@ -80,7 +80,7 @@ export default function InterventionTimeline({ decisions }) {
             {/* Event 4 */}
             <div className="tl-event tl-past" style={isDc2Resolved ? { opacity: 0.5 } : {}}>
               <div className="tl-marker" style={isDc2Resolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { backgroundColor: 'rgba(200,115,42,0.12)', border: '2px solid var(--high)' }}>
-                {isDc2Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '12px' }}>✓</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--high)' }}></div>}
+                {isDc2Resolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '9px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--high)' }}></div>}
               </div>
               <div className="tl-content" style={isDc2Resolved ? { borderLeft: '3px solid var(--nominal-light)' } : {}}>
                 <div className="tl-day" style={isDc2Resolved ? { color: 'var(--nominal-light)' } : {}}>Day 8 {isDc2Resolved && '— RESOLVED'}</div>
@@ -98,10 +98,10 @@ export default function InterventionTimeline({ decisions }) {
             
             {/* Event 5 (Today) */}
             <div className="tl-event tl-now" style={allResolved ? { opacity: 0.72 } : {}}>
-              <div className="tl-marker" style={allResolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { backgroundColor: 'rgba(200,168,75,0.15)', border: '2px solid var(--accent-gold)' }}>
-                {allResolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '14px' }}>✓</span> : <div style={{ width: '14px', height: '14px', borderRadius: '50%', background: 'var(--accent-gold)' }}></div>}
+              <div className="tl-marker" style={allResolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { backgroundColor: 'rgba(0, 194, 255, 0.15)', border: '2px solid var(--accent-gold)' }}>
+                {allResolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '10px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '14px', height: '14px', borderRadius: '50%', background: 'var(--accent-gold)' }}></div>}
               </div>
-              <div className="tl-content" style={allResolved ? { borderLeft: '4px solid var(--nominal-light)', background: 'linear-gradient(135deg, var(--nominal-bg) 0%, var(--bg-card) 70%)', borderColor: 'var(--nominal-border)' } : {}}>
+              <div className="tl-content" style={allResolved ? { borderLeft: '4px solid var(--nominal-light)', background: 'var(--bg-card)', borderColor: 'var(--nominal-border)' } : {}}>
                 <div className="tl-day-now" style={allResolved ? { color: 'var(--nominal-light)' } : {}}>
                   {allResolved ? 'TODAY -- Day 12 -- THREAT AVERTED' : 'TODAY -- Day 12 -- Intervention Mandatory'}
                 </div>
@@ -122,7 +122,7 @@ export default function InterventionTimeline({ decisions }) {
             {/* Event 6 */}
             <div className="tl-event tl-projected" style={allResolved ? { opacity: 0.4 } : {}}>
               <div className="tl-marker" style={allResolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { border: '2px dashed var(--critical-border)' }}>
-                {allResolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '10px' }}>✓</span> : <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--critical-border)' }}></div>}
+                {allResolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '9px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--critical-border)' }}></div>}
               </div>
               <div className="tl-content" style={allResolved ? { borderLeft: '1px solid var(--nominal-border)', borderStyle: 'solid', background: 'transparent' } : {}}>
                 <div className="tl-day-projected" style={allResolved ? { color: 'var(--nominal-light)' } : {}}>Projected -- Day 15</div>
@@ -143,7 +143,7 @@ export default function InterventionTimeline({ decisions }) {
             {/* Event 7 */}
             <div className="tl-event tl-projected" style={allResolved ? { opacity: 0.4 } : {}}>
               <div className="tl-marker" style={allResolved ? { background: 'var(--nominal-bg)', border: '2px solid var(--nominal-light)' } : { border: '2px dashed var(--critical-border)' }}>
-                {allResolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '10px' }}>✓</span> : <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--critical-border)' }}></div>}
+                {allResolved ? <span style={{ color: 'var(--nominal-light)', fontSize: '9px', fontFamily: 'var(--font-mono)' }}>[OK]</span> : <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--critical-border)' }}></div>}
               </div>
               <div className="tl-content" style={allResolved ? { borderLeft: '1px solid var(--nominal-border)', borderStyle: 'solid', background: 'transparent' } : {}}>
                 <div className="tl-day-projected" style={allResolved ? { color: 'var(--nominal-light)' } : {}}>Projected -- Day 20</div>
@@ -161,7 +161,7 @@ export default function InterventionTimeline({ decisions }) {
           </div>
           
           <div className="timeline-action-banner" style={allResolved ? { borderLeftColor: 'var(--nominal-light)', background: 'linear-gradient(135deg, var(--nominal-bg) 0%, rgba(14,16,22,0) 100%)', borderColor: 'var(--nominal-border)' } : {}}>
-            <div className="tab-icon" style={allResolved ? { color: 'var(--nominal-light)' } : {}}>{allResolved ? '✓' : '⚡'}</div>
+            <div className="tab-icon" style={allResolved ? { color: 'var(--nominal-light)' } : {}}>{allResolved ? '[RESOLVED]' : '[ACTION]'}</div>
             <div>
               <div className="tab-headline" style={allResolved ? { color: 'var(--nominal-light)' } : {}}>
                 {allResolved ? 'All critical interventions completed' : 'Window for action: Today -- before 17:00 hrs'}

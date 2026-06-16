@@ -1,4 +1,4 @@
-const BASE_URL = "https://unity-backend-0i2e.onrender.com";
+const BASE_URL = "https://unity-backend-0i2e.onrender.com/api/v1";
 
 export const api = {
   // Consolidated dashboard status

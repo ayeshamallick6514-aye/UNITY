@@ -131,19 +131,14 @@ async function login(req, res) {
     }
 
     // Generate & store OTP for government roles (not citizens)
-    if (user.role !== 'citizen' && user.role !== 'guest') {
-      const otp = generateOtp();
-      otpStore.set(user.email, { otp, expiresAt: Date.now() + 5 * 60 * 1000 }); // 5 min TTL
-      console.log(`[UNITY Auth] OTP for ${user.email}: ${otp}`); // In prod: send via SMS/email
+    const { token, refreshToken } = signTokens(user);
 
-      return res.json({
-        requiresOtp: true,
-        email:       user.email,
-        name:        user.name,
-        role:        user.role,
-        message:     `OTP sent to registered mobile/email. (Demo OTP: ${otp})`,
-      });
-    }
+return res.json({
+    requiresOtp: false,
+    user: safeUser(user),
+    token,
+    refreshToken,
+});
 
     // Citizens skip OTP
     const { token, refreshToken } = signTokens(user);

@@ -109,91 +109,55 @@ function generateOtp() {
 /**
  * POST /api/v1/auth/login
  * Body: { identifier: string, password: string }
- * Returns: { user, token, refreshToken, requiresOtp }
+ * Returns: { user, token, refreshToken }
  */
 async function login(req, res) {
   try {
     const { identifier, password } = req.body;
 
     if (!identifier || !password) {
-      return res.status(400).json({ message: 'Employee ID / email and password are required.' });
+      return res.status(400).json({
+        message: "Employee ID / email and password are required.",
+      });
     }
 
-    const user = findUser(identifier.trim().toLowerCase()) || findUser(identifier.trim());
+    const user =
+      findUser(identifier.trim().toLowerCase()) ||
+      findUser(identifier.trim());
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials.' });
+      return res.status(401).json({
+        message: "Invalid credentials.",
+      });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+    const passwordMatch = await bcrypt.compare(
+      password,
+      user.passwordHash
+    );
+
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Invalid credentials.' });
+      return res.status(401).json({
+        message: "Invalid credentials.",
+      });
     }
 
-    // Generate & store OTP for government roles (not citizens)
+    // Issue JWT tokens
     const { token, refreshToken } = signTokens(user);
 
-return res.json({
-    requiresOtp: false,
-    user: safeUser(user),
-    token,
-    refreshToken,
-});
-
-    // Citizens skip OTP
-    const { token, refreshToken } = signTokens(user);
-    return res.json({
-      requiresOtp:  false,
-      user:         safeUser(user),
+    return res.status(200).json({
+      requiresOtp: false,
+      user: safeUser(user),
       token,
       refreshToken,
     });
 
   } catch (err) {
-    console.error('[Auth] Login error:', err);
-    res.status(500).json({ message: 'Internal server error.' });
-  }
-}
+    console.error("[Auth] Login error:", err);
 
-/**
- * POST /api/v1/auth/verify-otp
- * Body: { email: string, otp: string }
- * Returns: { user, token, refreshToken }
- */
-async function verifyOtp(req, res) {
-  try {
-    const { email, otp } = req.body;
-
-    if (!email || !otp) {
-      return res.status(400).json({ message: 'Email and OTP are required.' });
-    }
-
-    const record = otpStore.get(email.toLowerCase());
-
-    if (!record) {
-      return res.status(400).json({ message: 'OTP not found or already used. Please login again.' });
-    }
-
-    if (Date.now() > record.expiresAt) {
-      otpStore.delete(email);
-      return res.status(400).json({ message: 'OTP expired. Please login again.' });
-    }
-
-    if (record.otp !== otp.trim()) {
-      return res.status(400).json({ message: 'Incorrect OTP.' });
-    }
-
-    // OTP valid — clear it and issue tokens
-    otpStore.delete(email);
-    const user = DEMO_USERS.find((u) => u.email === email.toLowerCase());
-    if (!user) return res.status(404).json({ message: 'User not found.' });
-
-    const { token, refreshToken } = signTokens(user);
-    return res.json({ user: safeUser(user), token, refreshToken });
-
-  } catch (err) {
-    console.error('[Auth] OTP verify error:', err);
-    res.status(500).json({ message: 'Internal server error.' });
+    return res.status(500).json({
+      message: "Internal server error.",
+    });
   }
 }
 

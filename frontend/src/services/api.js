@@ -1,112 +1,95 @@
-const BASE_URL = "https://unity-backend-0i2e.onrender.com/api/v1";
+import axiosInstance from './axiosInstance';
 
+/**
+ * api — unified API layer using axiosInstance.
+ * Integrates directly with existing backend endpoints.
+ */
 export const api = {
   // Consolidated dashboard status
-  getDashboard: () => fetch(`${BASE_URL}/dashboard`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getDashboard() {
+    return axiosInstance.get('/dashboard');
+  },
 
   // Morning briefing stats
-  getBriefSummary: () => fetch(`${BASE_URL}/brief/summary`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getBriefSummary() {
+    return axiosInstance.get('/brief/summary');
+  },
 
   // Attention Panel task priorities
-  getAttentionPriorities: () => fetch(`${BASE_URL}/alerts/priorities`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getAttentionPriorities() {
+    return axiosInstance.get('/alerts/priorities');
+  },
 
   // Decisions board active items
-  getActiveDecisions: () => fetch(`${BASE_URL}/decisions/active`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getActiveDecisions() {
+    return axiosInstance.get('/decisions/active');
+  },
 
   // Department matrix grid
-  getMatrixGrid: () => fetch(`${BASE_URL}/matrix/grid`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getMatrixGrid() {
+    return axiosInstance.get('/matrix/grid');
+  },
 
   // Bottlenecks list & index scores
-  getBottlenecks: () => fetch(`${BASE_URL}/bottlenecks/index`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getBottlenecks() {
+    return axiosInstance.get('/bottlenecks/index');
+  },
 
   // Citizen impact details
-  getCitizenImpact: () => fetch(`${BASE_URL}/impact/citizens`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getCitizenImpact() {
+    return axiosInstance.get('/impact/citizens');
+  },
 
   // Logs event feed
-  getEvents: (filter = 'all') => fetch(`${BASE_URL}/events?filter=${filter}`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getEvents(filter = 'all') {
+    return axiosInstance.get(`/events?filter=${filter}`);
+  },
 
   // Decision directive action execution
-  executeDecisionAction: (data) => fetch(`${BASE_URL}/decisions/action`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-user-role': 'Collector' // Mock executive role
-    },
-    body: JSON.stringify(data)
-  }).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  executeDecisionAction(data, config) {
+    return axiosInstance.post('/decisions/action', data, config);
+  },
 
   // Ripple simulation cascade paths
-  simulateRipple: (dept, delay) => fetch(`${BASE_URL}/cascade/simulate?dept=${dept}&delay=${delay}`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  simulateRipple(dept, delay) {
+    return axiosInstance.get(`/cascade/simulate?dept=${dept}&delay=${delay}`);
+  },
 
   // Cost Exposure dynamic values
-  getCostExposure: () => fetch(`${BASE_URL}/cost/exposure`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  getCostExposure() {
+    return axiosInstance.get('/cost/exposure');
+  },
 
   // Sentinel policy query
-  sentinelQuery: (query) => fetch(`${BASE_URL}/sentinel/query`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query })
-  }).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  sentinelQuery(query) {
+    return axiosInstance.post('/sentinel/query', { query });
+  },
 
   // Sentinel decision compliance review
-  sentinelReview: (dependencyId, decisionKey) => fetch(`${BASE_URL}/sentinel/review`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ dependencyId, decisionKey })
-  }).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  sentinelReview(dependencyId, decisionKey) {
+    return axiosInstance.post('/sentinel/review', { dependencyId, decisionKey });
+  },
 
   // Sentinel document ingest
-  sentinelIngest: (data) => fetch(`${BASE_URL}/sentinel/ingest`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  }),
+  sentinelIngest(data) {
+    return axiosInstance.post('/sentinel/ingest', data);
+  },
 
   // Sentinel audit history log
-  sentinelHistory: () => fetch(`${BASE_URL}/sentinel/history`).then(res => {
-    if (!res.ok) throw new Error('Network response not OK');
-    return res.json();
-  })
+  sentinelHistory() {
+    return axiosInstance.get('/sentinel/history');
+  },
+
+  // ── CRI — Coordination Readiness Index ──────────────────────────────────
+
+  // Get CRI score for a specific project
+  fetchProjectCRI(projectId) {
+    return axiosInstance.get(`/projects/${projectId}/cri`);
+  },
+
+  // Get all projects with their CRI scores (for dashboard overview)
+  fetchAllProjectsCRI() {
+    return axiosInstance.get('/projects/cri/all');
+  },
 };
+export default api;

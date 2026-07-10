@@ -1,533 +1,194 @@
-import React, { useState, useEffect } from 'react';
-import TopBar from './components/TopBar';
-import MorningBrief from './components/MorningBrief';
-import AttentionPanel from './components/AttentionPanel';
-import DecisionsBoard from './components/DecisionsBoard';
-import CoordinationIssues from './components/CoordinationIssues';
-import DependenciesMatrix from './components/DependenciesMatrix';
-import BottleneckIndex from './components/BottleneckIndex';
-import CitizenImpact from './components/CitizenImpact';
-import EventLog from './components/EventLog';
-import IntelligenceMap from './components/IntelligenceMap';
-import ExecDecisions from './components/ExecDecisions';
-import PublicServiceImpact from './components/PublicServiceImpact';
-import CostIntelligence from './components/CostIntelligence';
-import RippleEffect from './components/RippleEffect';
-import NetworkGraph from './components/NetworkGraph';
-import InterventionTimeline from './components/InterventionTimeline';
-import InsightsForecast from './components/InsightsForecast';
-import DecisionModal from './components/DecisionModal';
-import Loader from './components/Loader';
-import UnitySentinel from './components/UnitySentinel';
-import { api } from './services/api';
+import React, { Suspense, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+// Shared core items
+import ProtectedRoute      from './components/shared/ProtectedRoute';
+import Loader              from './components/shared/Loader';
+import SessionTimeoutModal from './components/shared/SessionTimeoutModal';
+import ErrorBoundary       from './components/shared/ErrorBoundary';
+import { ToastProvider }   from './components/ui/Toast';
 
-const sectionIds = [
-  's-brief', 's-attention', 's-decisions', 's-pulse', 's-risk', 's-pressure',
-  's-impact', 's-feed', 's-map', 's-exec-decisions', 's-citizen', 's-cost',
-  's-ripple', 's-network', 's-timeline', 's-insights', 's-forecast'
-];
+// Layouts (Statically imported to preserve shell foundations)
+import AuthLayout       from './layouts/AuthLayout';
+import AuthorityLayout  from './layouts/AuthorityLayout';
+import CommandLayout    from './layouts/CommandLayout';
+import CitizenLayout    from './layouts/CitizenLayout';
+
+// Error Views (Statically imported for reliable fallback)
+import NotFoundPage     from './pages/error/NotFoundPage';
+import UnauthorizedPage from './pages/error/UnauthorizedPage';
+import ForbiddenPage    from './pages/error/ForbiddenPage';
+
+// Lazy Loaded Page Views
+const RoleSelectionPage = React.lazy(() => import('./pages/RoleSelectionPage'));
+
+// Auth Pages
+const LoginPage          = React.lazy(() => import('./pages/auth/LoginPage'));
+const OtpVerifyPage      = React.lazy(() => import('./pages/auth/OtpVerifyPage'));
+const ForgotPasswordPage = React.lazy(() => import('./pages/auth/ForgotPasswordPage'));
+
+// Authority Portal Pages
+const Dashboard      = React.lazy(() => import('./pages/authority/Dashboard'));
+const Projects       = React.lazy(() => import('./pages/authority/Projects'));
+const ProjectDetail  = React.lazy(() => import('./pages/authority/ProjectDetail'));
+const LiveMap        = React.lazy(() => import('./pages/authority/LiveMap'));
+const Departments    = React.lazy(() => import('./pages/authority/Departments'));
+const Coordination   = React.lazy(() => import('./pages/authority/Coordination'));
+const Approvals      = React.lazy(() => import('./pages/authority/Approvals'));
+const ExecutiveBrief = React.lazy(() => import('./pages/authority/ExecutiveBrief'));
+
+// Command Portal Pages
+const MissionOverview   = React.lazy(() => import('./pages/command/MissionOverview'));
+const Escalations       = React.lazy(() => import('./pages/command/Escalations'));
+const DeptMatrix        = React.lazy(() => import('./pages/command/DeptMatrix'));
+const ProjectMonitoring = React.lazy(() => import('./pages/command/ProjectMonitoring'));
+const CitizenAlerts     = React.lazy(() => import('./pages/command/CitizenAlerts'));
+const FundingRisks      = React.lazy(() => import('./pages/command/FundingRisks'));
+const ExecutiveReports  = React.lazy(() => import('./pages/command/ExecutiveReports'));
+const PerformanceKPIs   = React.lazy(() => import('./pages/command/PerformanceKPIs'));
+const SystemHealth      = React.lazy(() => import('./pages/command/SystemHealth'));
+const AIRecommendations = React.lazy(() => import('./pages/command/AIRecommendations'));
+
+// Citizen Portal Pages
+const CitizenHome          = React.lazy(() => import('./pages/citizen/CitizenHome'));
+const ReportIssue          = React.lazy(() => import('./pages/citizen/ReportIssue'));
+const NearbyProjects       = React.lazy(() => import('./pages/citizen/NearbyProjects'));
+const GovSchemes           = React.lazy(() => import('./pages/citizen/GovSchemes'));
+const TrackComplaint       = React.lazy(() => import('./pages/citizen/TrackComplaint'));
+const CitizenNotifications = React.lazy(() => import('./pages/citizen/CitizenNotifications'));
+const CitizenProfile       = React.lazy(() => import('./pages/citizen/CitizenProfile'));
+
+// Placeholder views for not-yet-implemented routes
+const PlaceholderPage = ({ title }) => (
+  <div className="p-6">
+    <div className="bg-white border border-gray-100 rounded-lg px-6 py-8 text-center max-w-lg mx-auto mt-8">
+      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+        <span className="text-gray-400 text-lg">⚙</span>
+      </div>
+      <h2 className="text-base font-semibold text-gray-900 mb-1">{title}</h2>
+      <p className="text-sm text-gray-400">
+        This view is registered in the architecture and routing configuration. Layout rendering is fully active.
+      </p>
+    </div>
+  </div>
+);
+
+const AUTHORITY_ROLES = ['collector', 'commissioner', 'executive_engineer', 'dept_officer'];
+const COMMAND_ROLES   = ['nodal_officer', 'chief_secretary'];
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 30_000,
+    },
+  },
+});
 
 export default function App() {
-  const [decisions, setDecisions] = useState({
-    dc1: { status: 'idle' },
-    dc2: { status: 'idle' },
-    dc3: { status: 'idle' }
-  });
+  const [booting, setBooting] = useState(true);
 
-  const [refreshKey, setRefreshKey] = useState(0);
-  const [events, setEvents] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [activeModalKey, setActiveModalKey] = useState(null);
-  const [sentinelOpen, setSentinelOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('s-brief');
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [syncTime, setSyncTime] = useState('--:--:--');
-  const [loadProgress, setLoadProgress] = useState(0);
-  const [loadStage, setLoadStage] = useState('Initializing Command Center');
-  const [error, setError] = useState(null);
-  const [summary, setSummary] = useState(null);
-
-  const fetchSummary = async () => {
-    try {
-      const data = await api.getBriefSummary();
-      setSummary(data);
-    } catch (err) {
-      console.error('Error fetching summary:', err);
-    }
-  };
-
-  const fetchDecisions = async () => {
-    try {
-      const data = await api.getActiveDecisions();
-      const mapped = {};
-      data.forEach((d, idx) => {
-        let key = `dc${idx + 1}`;
-        if (d.project.includes('MP Nagar')) key = 'dc1';
-        else if (d.project.includes('AIIMS')) key = 'dc2';
-        else if (d.project.includes('Kolar')) key = 'dc3';
-
-        mapped[key] = {
-          dbId: d.id,
-          status: d.escalationStatus,
-          project: d.project,
-          situation: d.situation,
-          blockingDept: d.blockingDept,
-          waitingDept: d.waitingDept,
-          daysPending: d.daysPending
-        };
-      });
-      setDecisions(mapped);
-      setRefreshKey(prev => prev + 1);
-    } catch (err) {
-      console.error('Error fetching decisions:', err);
-      setError('Server connection failed. Please verify the backend is running.');
-    }
-  };
-
-  const fetchEvents = async (filter) => {
-    try {
-      const data = await api.getEvents(filter);
-      setEvents(data);
-    } catch (err) {
-      console.error('Error fetching events:', err);
-    }
-  };
-
-  // Initial load
-  useEffect(() => {
-    const loadData = async () => {
-      await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
-    };
-    loadData();
-
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.floor(Math.random() * 12) + 6;
-      if (progress >= 100) {
-        progress = 100;
-        setLoadProgress(100);
-        setLoadStage('System Ready');
-        clearInterval(interval);
-      } else {
-        setLoadProgress(progress);
-        if (progress < 25) {
-          setLoadStage('Initializing Command Center');
-        } else if (progress < 50) {
-          setLoadStage('Connecting Department Network');
-        } else if (progress < 75) {
-          setLoadStage('Building Dependency Matrix');
-        } else {
-          setLoadStage('Generating Situation Overview');
-        }
-      }
-    }, 120);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Fetch events when filter changes
-  useEffect(() => {
-    fetchEvents(activeFilter);
-  }, [activeFilter]);
-
-  // Sync running clock in footer
-  useEffect(() => {
-    const tick = () => {
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2, '0');
-      const m = String(now.getMinutes()).padStart(2, '0');
-      const s = String(now.getSeconds()).padStart(2, '0');
-      setSyncTime(`${h}:${m}:${s}`);
-    };
-    tick();
-    const interval = setInterval(tick, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Periodic live events refresh
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchEvents(activeFilter);
-    }, 14000);
-
-    return () => clearInterval(interval);
-  }, [activeFilter]);
-
-  // Scroll spy & back to top listener
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setShowBackToTop(scrollY > 400);
-
-      const topbarH = 56;
-      let current = sectionIds[0];
-
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= topbarH + 120) {
-            current = id;
-          }
-        }
-      }
-      setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Progressive Section Reveal Observer
-  useEffect(() => {
-    const sections = document.querySelectorAll('.section');
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('unity-visible');
-          revealObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
-
-    sections.forEach((sec, i) => {
-      const rect = sec.getBoundingClientRect();
-      if (rect.top < window.innerHeight) {
-        // Already visible on load — reveal immediately with slight stagger
-        setTimeout(() => sec.classList.add('unity-visible'), i * 80);
-      } else {
-        revealObs.observe(sec);
-      }
-    });
-
-    return () => {
-      revealObs.disconnect();
-    };
-  }, []);
-
-  const handleEscalate = async (key, title, dept) => {
-    const dbId = decisions[key]?.dbId;
-    if (!dbId) return;
-    try {
-      const res = await api.executeDecisionAction({
-        dependencyId: dbId,
-        action: 'escalate',
-        reason: `Escalated — ${title}. Awaiting response from ${dept}.`,
-        authorizedBy: 'District Collector'
-      });
-      if (res.success) {
-        await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleDefer = async (key) => {
-    const dbId = decisions[key]?.dbId;
-    if (!dbId) return;
-    try {
-      const res = await api.executeDecisionAction({
-        dependencyId: dbId,
-        action: 'defer',
-        reason: 'Scheduled review deferred.',
-        authorizedBy: 'District Collector'
-      });
-      if (res.success) {
-        await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleAuthorize = async (key, actionLabel) => {
-    const dbId = decisions[key]?.dbId;
-    if (!dbId) return;
-    try {
-      const res = await api.executeDecisionAction({
-        dependencyId: dbId,
-        action: 'authorize',
-        reason: actionLabel,
-        authorizedBy: 'District Collector'
-      });
-      if (res.success) {
-        await Promise.all([fetchDecisions(), fetchEvents(activeFilter), fetchSummary()]);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleLogModalAction = (key, actionLabel) => {
-    console.log(`Log modal action: ${actionLabel}`);
-  };
-
-  const openModal = (key) => setActiveModalKey(key);
-  const closeModal = () => setActiveModalKey(null);
-
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const topbarH = 56;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - topbarH;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
+  if (booting) {
+    return <Loader onComplete={() => setBooting(false)} />;
+  }
 
   return (
-    <>
-      <Loader actualProgress={loadProgress} loadStage={loadStage} />
-      <TopBar summary={summary} decisions={decisions} onOpenSentinel={() => setSentinelOpen(true)} />
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>
+        <ErrorBoundary>
+          <BrowserRouter>
+            <SessionTimeoutModal />
 
-      <main>
-        <MorningBrief refreshKey={refreshKey} decisions={decisions} />
+            <Suspense fallback={
+              <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+                <div className="animate-pulse flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 bg-blue-600 rounded-md" />
+                  <span className="text-xs font-semibold text-gray-400 tracking-wide uppercase">Loading System Workspace...</span>
+                </div>
+              </div>
+            }>
+              <Routes>
+                {/* Root Gateway Redirect */}
+                <Route path="/" element={<Navigate to="/select-role" replace />} />
+                <Route path="/select-role" element={<RoleSelectionPage />} />
 
-        <AttentionPanel refreshKey={refreshKey} />
+                {/* Authentication Routes */}
+                <Route element={<AuthLayout />}>
+                  <Route path="/auth/login"  element={<LoginPage />} />
+                  <Route path="/auth/verify" element={<OtpVerifyPage />} />
+                  <Route path="/auth/forgot" element={<ForgotPasswordPage />} />
+                </Route>
 
-        <DecisionsBoard 
-          decisions={decisions}
-          onIssueDirection={openModal}
-          onEscalate={handleEscalate}
-          onDefer={handleDefer}
-        />
+                {/* Secure Error Views */}
+                <Route path="/unauthorized" element={<UnauthorizedPage />} />
+                <Route path="/forbidden"    element={<ForbiddenPage />} />
 
-        <CoordinationIssues 
-          decisions={decisions}
-          onIssueDirection={openModal}
-          onEscalate={handleEscalate}
-          onDefer={handleDefer}
-        />
+                {/* Authority Workspace */}
+                <Route
+                  path="/authority"
+                  element={
+                    <ProtectedRoute allowedRoles={AUTHORITY_ROLES}>
+                      <AuthorityLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index                element={<Navigate to="dashboard" replace />} />
+                  <Route path="dashboard"     element={<Dashboard />} />
+                  <Route path="projects"      element={<Projects />} />
+                  <Route path="projects/:id"  element={<ProjectDetail />} />
+                  <Route path="map"           element={<LiveMap />} />
+                  <Route path="departments"   element={<Departments />} />
+                  <Route path="departments/:id" element={<PlaceholderPage title="Department Detail" />} />
+                  <Route path="coordination"  element={<Coordination />} />
+                  <Route path="approvals"     element={<Approvals />} />
+                  <Route path="brief"         element={<ExecutiveBrief />} />
+                  <Route path="analytics"     element={<PlaceholderPage title="Analytics Console" />} />
+                  <Route path="settings"      element={<PlaceholderPage title="System Settings" />} />
+                </Route>
 
-        <DependenciesMatrix refreshKey={refreshKey} />
+                {/* Command Centre Workspace */}
+                <Route
+                  path="/command"
+                  element={
+                    <ProtectedRoute allowedRoles={COMMAND_ROLES}>
+                      <CommandLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index                element={<Navigate to="overview" replace />} />
+                  <Route path="overview"      element={<MissionOverview />} />
+                  <Route path="escalations"   element={<Escalations />} />
+                  <Route path="matrix"        element={<DeptMatrix />} />
+                  <Route path="projects"      element={<ProjectMonitoring />} />
+                  <Route path="citizens"      element={<CitizenAlerts />} />
+                  <Route path="funding"       element={<FundingRisks />} />
+                  <Route path="reports"       element={<ExecutiveReports />} />
+                  <Route path="kpis"          element={<PerformanceKPIs />} />
+                  <Route path="health"        element={<SystemHealth />} />
+                  <Route path="ai"            element={<AIRecommendations />} />
+                </Route>
 
-        <BottleneckIndex refreshKey={refreshKey} />
+                {/* Citizen Portal (Guest Allowed) */}
+                <Route path="/citizen" element={<CitizenLayout />}>
+                  <Route index                element={<Navigate to="home" replace />} />
+                  <Route path="home"          element={<CitizenHome />} />
+                  <Route path="report"        element={<ReportIssue />} />
+                  <Route path="projects"      element={<NearbyProjects />} />
+                  <Route path="schemes"       element={<GovSchemes />} />
+                  <Route path="track"         element={<TrackComplaint />} />
+                  <Route path="notifications" element={<CitizenNotifications />} />
+                  <Route path="profile"       element={<CitizenProfile />} />
+                </Route>
 
-        <CitizenImpact refreshKey={refreshKey} />
-
-        <EventLog 
-          events={events}
-          activeFilter={activeFilter}
-          setActiveFilter={setActiveFilter}
-        />
-
-        <IntelligenceMap decisions={decisions} />
-
-        {/* LAYER 2 DIVIDER */}
-        <div className="layer-divider">
-          <div className="layer-divider-inner">
-            <span className="layer-divider-line"></span>
-            <span className="layer-divider-label">ADMINISTRATIVE ACTIONS — LAYER II</span>
-            <span className="layer-divider-line"></span>
-          </div>
-        </div>
-
-        <ExecDecisions 
-          decisions={decisions}
-          onIssueDirection={openModal}
-          onEscalate={handleEscalate}
-          onDefer={handleDefer}
-        />
-
-        <PublicServiceImpact refreshKey={refreshKey} />
-
-        <CostIntelligence refreshKey={refreshKey} />
-
-        <RippleEffect refreshKey={refreshKey} onIssueDirection={openModal} />
-
-        <NetworkGraph decisions={decisions} />
-
-        <InterventionTimeline decisions={decisions} />
-
-        <InsightsForecast decisions={decisions} />
-      </main>
-
-      {/* FOOTER */}
-      <footer className="command-footer">
-        <div className="cf-inner">
-          <div className="cf-left">
-            <div className="cf-entity">BHOPAL MUNICIPAL CORPORATION</div>
-            <div className="cf-sub">UNITY — Unified Network for Interdepartmental Transparency and Yield — Classified Internal Use</div>
-          </div>
-          <div className="cf-center">
-            <div className="cf-classification">OFFICIAL — RESTRICTED</div>
-          </div>
-          <div className="cf-right">
-            <div className="cf-version">UNITY v3.0.0</div>
-            <div className="cf-timestamp">Last sync: {syncTime}</div>
-          </div>
-        </div>
-      </footer>
-
-      {/* SECTION NAVIGATOR */}
-      <nav className="section-nav" id="sectionNav" aria-label="Section Navigation">
-        <div className="sn-label">NAVIGATE</div>
-        <a 
-          href="#s-brief" 
-          className={`sn-item ${activeSection === 's-brief' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-brief'); }}
-          title="Coordination Brief"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Brief</span>
-        </a>
-        <a 
-          href="#s-attention" 
-          className={`sn-item ${activeSection === 's-attention' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-attention'); }}
-          title="Admin Attention"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Attention</span>
-        </a>
-        <a 
-          href="#s-decisions" 
-          className={`sn-item ${activeSection === 's-decisions' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-decisions'); }}
-          title="Active Decisions"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Decisions</span>
-        </a>
-        <a 
-          href="#s-pulse" 
-          className={`sn-item ${activeSection === 's-pulse' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-pulse'); }}
-          title="Coordination Issues"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Coord</span>
-        </a>
-        <a 
-          href="#s-risk" 
-          className={`sn-item ${activeSection === 's-risk' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-risk'); }}
-          title="Who Waits for Whom"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Waiting</span>
-        </a>
-        <a 
-          href="#s-pressure" 
-          className={`sn-item ${activeSection === 's-pressure' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-pressure'); }}
-          title="Bottleneck Index"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Bottleneck</span>
-        </a>
-        <a 
-          href="#s-impact" 
-          className={`sn-item ${activeSection === 's-impact' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-impact'); }}
-          title="Citizen Impact"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Impact</span>
-        </a>
-        <a 
-          href="#s-feed" 
-          className={`sn-item ${activeSection === 's-feed' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-feed'); }}
-          title="Dependency Feed"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Feed</span>
-        </a>
-        <a 
-          href="#s-map" 
-          className={`sn-item ${activeSection === 's-map' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-map'); }}
-          title="Coord Map"
-        >
-          <span className="sn-dot"></span><span className="sn-text">Map</span>
-        </a>
-        
-        <div className="sn-layer-divider"></div>
-
-        <a 
-          href="#s-exec-decisions" 
-          className={`sn-item ${activeSection === 's-exec-decisions' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-exec-decisions'); }}
-          title="Administrative Actions"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Actions</span>
-        </a>
-        <a 
-          href="#s-citizen" 
-          className={`sn-item ${activeSection === 's-citizen' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-citizen'); }}
-          title="Citizen Impact"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Citizen</span>
-        </a>
-        <a 
-          href="#s-cost" 
-          className={`sn-item ${activeSection === 's-cost' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-cost'); }}
-          title="Cost Intelligence"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Cost</span>
-        </a>
-        <a 
-          href="#s-ripple" 
-          className={`sn-item ${activeSection === 's-ripple' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-ripple'); }}
-          title="Dependency Chain"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Chain</span>
-        </a>
-        <a 
-          href="#s-network" 
-          className={`sn-item ${activeSection === 's-network' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-network'); }}
-          title="Dependency Graph"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Network</span>
-        </a>
-        <a 
-          href="#s-timeline" 
-          className={`sn-item ${activeSection === 's-timeline' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-timeline'); }}
-          title="Intervention Timeline"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Timeline</span>
-        </a>
-        <a 
-          href="#s-insights" 
-          className={`sn-item ${activeSection === 's-insights' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-insights'); }}
-          title="Inter-Dept Insights"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Insights</span>
-        </a>
-        <a 
-          href="#s-forecast" 
-          className={`sn-item ${activeSection === 's-forecast' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); scrollToSection('s-forecast'); }}
-          title="Coordination Forecast"
-        >
-          <span className="sn-dot sn-dot-gold"></span><span className="sn-text">Forecast</span>
-        </a>
-      </nav>
-
-      {/* Back to top button */}
-      <button 
-        className={`back-to-top ${showBackToTop ? 'visible' : ''}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
-      >
-        ↑ Top
-      </button>
-
-      {/* Decision Modal component */}
-      <DecisionModal 
-        activeKey={activeModalKey}
-        onClose={closeModal}
-        onAuthorize={handleAuthorize}
-        onLogAction={handleLogModalAction}
-      />
-
-      {/* Unity Sentinel Decision Engine Drawer */}
-      <UnitySentinel isOpen={sentinelOpen} onClose={() => setSentinelOpen(false)} />
-    </>
+                {/* Fallback 404 Handler */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </ErrorBoundary>
+      </ToastProvider>
+    </QueryClientProvider>
   );
 }

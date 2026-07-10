@@ -431,6 +431,166 @@ const getCostExposureData = async (req, res) => {
   }
 };
 
+// 11. Coordination Readiness Index (CRI) — per project scoring
+const getProjectCRI = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const project = await Project.findById(id);
+    if (!project) return res.status(404).json({ error: 'Project not found' });
+
+    const tasks = await Task.find({ projectId: id }).populate('departmentId');
+    const dependencies = await Dependency.find()
+      .populate({ path: 'blockedTaskId', match: { projectId: id } })
+      .populate('blockingTaskId');
+
+    const activeDeps = dependencies.filter(d => d.blockedTaskId !== null);
+    const blockedTasks = tasks.filter(t => t.status === 'blocked');
+    const pendingTasks = tasks.filter(t => t.status === 'pending');
+    const completedTasks = tasks.filter(t => t.status === 'completed');
+    const maxStall = tasks.reduce((m, t) => Math.max(m, t.daysStalled || 0), 0);
+
+    // 1. Land Readiness (0–20): Based on Revenue dept task status
+    const landTasks = tasks.filter(t => t.departmentId?._id === 'revenue' || t.departmentId?.name?.includes('Revenue'));
+    let landReadiness = 20;
+    if (landTasks.length > 0) {
+      const landBlocked = landTasks.filter(t => t.status === 'blocked' || t.status === 'pending').length;
+      landReadiness = Math.round(20 * (1 - landBlocked / landTasks.length));
+    }
+
+    // 2. Utility Readiness (0–20): Based on Energy/Water/Transport task status
+    const utilityDepts = ['energy', 'water_supply', 'transport'];
+    const utilityTasks = tasks.filter(t => utilityDepts.includes(t.departmentId?._id));
+    let utilityReadiness = 20;
+    if (utilityTasks.length > 0) {
+      const utilBlocked = utilityTasks.filter(t => t.status === 'blocked' || t.status === 'pending').length;
+      utilityReadiness = Math.round(20 * (1 - (utilBlocked * 0.7) / Math.max(utilityTasks.length, 1)));
+    }
+
+    // 3. Department Responses (0–20): Based on ratio of unresolved dependencies
+    let deptResponses = 20;
+    if (activeDeps.length > 0) {
+      const resolved = activeDeps.filter(d => d.escalationStatus === 'authorized').length;
+      deptResponses = Math.round(20 * (resolved / activeDeps.length));
+    }
+
+    // 4. Budget Readiness (0–20): Based on penalty proximity and idle burn
+    let budgetReadiness = 20;
+    if (project.penaltyActivationDate) {
+      const daysTopenalty = Math.ceil((new Date(project.penaltyActivationDate) - new Date()) / (1000 * 60 * 60 * 24));
+      if (daysTopenalty <= 0) budgetReadiness = 4;
+      else if (daysTopenalty <= 3) budgetReadiness = 8;
+      else if (daysTopenalty <= 7) budgetReadiness = 12;
+      else if (daysTopenalty <= 14) budgetReadiness = 16;
+    }
+
+    // 5. Risk Assessment (0–20): Inverse of delay severity
+    let riskAssessment = 20;
+    if (maxStall > 0) {
+      // Max threshold ~30 days for worst case
+      riskAssessment = Math.max(0, Math.round(20 * (1 - maxStall / 30)));
+    }
+
+    const totalCRI = landReadiness + utilityReadiness + deptResponses + budgetReadiness + riskAssessment;
+
+    let status = 'Ready';
+    let statusLevel = 'ready';
+    if (totalCRI < 50) { status = 'Critical'; statusLevel = 'critical'; }
+    else if (totalCRI < 80) { status = 'Moderate Risk'; statusLevel = 'moderate'; }
+
+    // Build coordination tasks list (department assignments)
+    const coordinationTasks = tasks.map(t => ({
+      id: t._id,
+      title: t.title,
+      department: t.departmentId?.name || 'Unknown Dept',
+      departmentId: t.departmentId?._id,
+      status: t.status,
+      daysStalled: t.daysStalled || 0,
+      plannedEndDate: t.plannedEndDate
+    }));
+
+    // Build dependency chain
+    const dependencyChain = activeDeps.map(d => ({
+      id: d._id,
+      blockedTask: d.blockedTaskId?.title || 'N/A',
+      blockingTask: d.blockingTaskId?.title || 'N/A',
+      escalationStatus: d.escalationStatus,
+      type: d.dependencyType
+    }));
+
+    res.json({
+      projectId: id,
+      projectName: project.name,
+      totalCRI,
+      status,
+      statusLevel,
+      dimensions: {
+        landReadiness:    { score: landReadiness,    max: 20, label: 'Land Readiness' },
+        utilityReadiness: { score: utilityReadiness, max: 20, label: 'Utility Readiness' },
+        deptResponses:    { score: deptResponses,    max: 20, label: 'Dept Responses' },
+        budgetReadiness:  { score: budgetReadiness,  max: 20, label: 'Budget Readiness' },
+        riskAssessment:   { score: riskAssessment,   max: 20, label: 'Risk Assessment' }
+      },
+      coordinationTasks,
+      dependencyChain,
+      stats: {
+        totalTasks: tasks.length,
+        blockedTasks: blockedTasks.length,
+        pendingTasks: pendingTasks.length,
+        completedTasks: completedTasks.length,
+        activeDependencies: activeDeps.length,
+        maxStallDays: maxStall
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// 12. All Projects with CRI scores for heatmap
+const getAllProjectsCRI = async (req, res) => {
+  try {
+    const projects = await Project.find();
+    const results = [];
+
+    for (const project of projects) {
+      const tasks = await Task.find({ projectId: project._id });
+      const dependencies = await Dependency.find()
+        .populate({ path: 'blockedTaskId', match: { projectId: project._id } })
+        .populate('blockingTaskId');
+
+      const activeDeps = dependencies.filter(d => d.blockedTaskId !== null);
+      const maxStall = tasks.reduce((m, t) => Math.max(m, t.daysStalled || 0), 0);
+      const blockedTasks = tasks.filter(t => t.status === 'blocked');
+
+      // Quick CRI estimate
+      let cri = 100;
+      cri -= blockedTasks.length * 15;
+      cri -= activeDeps.filter(d => d.escalationStatus !== 'authorized').length * 10;
+      cri -= Math.min(maxStall, 20);
+      cri = Math.max(0, Math.min(100, Math.round(cri)));
+
+      let statusLevel = 'ready';
+      if (cri < 50) statusLevel = 'critical';
+      else if (cri < 80) statusLevel = 'moderate';
+
+      results.push({
+        id: project._id,
+        name: project.name,
+        budget: project.budget,
+        dailyIdleBurn: project.dailyIdleBurn,
+        cri,
+        statusLevel,
+        blockedTasks: blockedTasks.length,
+        maxStallDays: maxStall
+      });
+    }
+
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getDashboardData,
   getBriefSummary,
@@ -441,5 +601,7 @@ module.exports = {
   getCitizenImpactData,
   getEventLog,
   executeDecisionAction,
-  getCostExposureData
+  getCostExposureData,
+  getProjectCRI,
+  getAllProjectsCRI
 };

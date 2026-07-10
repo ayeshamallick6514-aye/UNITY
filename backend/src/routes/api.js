@@ -11,7 +11,9 @@ const {
   getCitizenImpactData,
   getEventLog,
   executeDecisionAction,
-  getCostExposureData
+  getCostExposureData,
+  getProjectCRI,
+  getAllProjectsCRI
 } = require('../controllers/mainController');
 
 const { simulateRippleDelay } = require('../controllers/rippleController');
@@ -49,5 +51,11 @@ router.get('/cost/exposure', getCostExposureData);
 // Cascade ripple simulation
 router.get('/cascade/simulate', simulateRippleDelay);
 router.post('/cascade/simulate', simulateRippleDelay);
+
+// Coordination Readiness Index — per project
+router.get('/projects/:id/cri', getProjectCRI);
+
+// All projects with CRI scores (heatmap)
+router.get('/projects/cri/all', getAllProjectsCRI);
 
 module.exports = router;

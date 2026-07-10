@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { connectDB } = require('./src/config/db');
-const apiRoutes = require('./src/routes/api');
+const apiRoutes      = require('./src/routes/api');
 const sentinelRoutes = require('./src/routes/sentinel');
+const authRoutes     = require('./src/routes/auth');
 
 // Load env variables
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 // API Routes
 app.use('/api/v1', apiRoutes);
 app.use('/api/v1/sentinel', sentinelRoutes);
+app.use('/api/v1/auth',    authRoutes);
 
 // Health Check
 app.get('/health', (req, res) => {

@@ -5,21 +5,21 @@ export const APP_TAGLINE = 'Government Coordination & Decision Intelligence Plat
 export const APP_CITY = 'Bhopal, Madhya Pradesh';
 export const APP_VERSION = '2.0.0';
 
-// API base (dynamically resolved to backend Render URL in production)
+// API base — hardcoded for production Render deployment
 const getApiBase = () => {
+  // Explicit env override always wins (set VITE_API_URL in Render frontend env vars)
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
-    // Check if we are running on Render static hosting
     if (hostname.includes('onrender.com')) {
-      // If the hostname has 'frontend', swap it with 'backend'
-      if (hostname.includes('frontend')) {
-        const backendHost = hostname.replace('frontend', 'backend');
-        return `https://${backendHost}/api/v1`;
-      }
-      return 'https://unity-backend.onrender.com/api/v1';
+      // Hardcoded Render backend URL — update if backend service URL changes
+      return 'https://unity-backend-0i2e.onrender.com/api/v1';
     }
   }
-  return import.meta.env.VITE_API_URL || '/api/v1';
+  // Local dev — proxied by Vite to localhost:5001
+  return '/api/v1';
 };
 
 export const API_BASE = getApiBase();

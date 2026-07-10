@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import authService  from '../services/authService';
 import { getHomeRoute } from '../utils/roleConfig';
+import { API_BASE } from '../utils/constants';
 
 /**
- * useAuth — encapsulates the full authentication flow.
+ * useAuth — encapsulates the complete authentication flow.
  *
  * Provides:
- *   login(identifier, password)  → handles OTP requirement
- *   verifyOtp(email, otp)        → completes sign-in, redirects to workspace
+ *   login(identifier, password)  → authenticates and redirects to workspace
+ *   verifyOtp(email, otp)        → stub (OTP disabled)
  *   logout()                     → clears store, redirects to /select-role
  *   forgotPassword(email)
  *   loading, error, otpPending, pendingEmail
@@ -24,35 +25,54 @@ export default function useAuth() {
   const [pendingEmail, setPendingEmail] = useState('');
   const [otpMessage,   setOtpMessage]   = useState('');
 
+  // ─── Login ─────────────────────────────────────────────────────────────────
   async function login(identifier, password) {
     setLoading(true);
     setError(null);
+
     try {
       const data = await authService.login(identifier, password);
-      // Direct login for all roles
-      storeLogin(data.user, data.token, data.refreshToken);
-      navigate(getHomeRoute(data.user.role), { replace: true });
+
+      // ── Defensive extraction — handle both response shapes ─────────────────
+      // Shape A (current): { requiresOtp: false, user, token, refreshToken }
+      // Shape B (legacy):  { requiresOtp: true, email, name, role, message }
+
+      const user         = data?.user         || null;
+      const token        = data?.token        || null;
+      const refreshToken = data?.refreshToken || null;
+
+      // Validate we got a usable user object with a role
+      if (!user || typeof user.role !== 'string') {
+        const isLegacyOtpResponse = data?.requiresOtp === true;
+        if (isLegacyOtpResponse) {
+          setError('Server is using an older protocol. Please contact support or try again in a moment — the backend may be redeploying.');
+        } else {
+          setError(`Login failed: server returned an unexpected response. API: ${API_BASE}`);
+        }
+        return;
+      }
+
+      if (!token) {
+        setError('Login failed: no authentication token received. Please try again.');
+        return;
+      }
+
+      // ── Store session and navigate ─────────────────────────────────────────
+      storeLogin(user, token, refreshToken);
+      navigate(getHomeRoute(user.role), { replace: true });
+
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      // err is { status, message } from axiosInstance interceptor
+      const msg = err?.message || 'Login failed. Please check your credentials.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
   }
 
-  // ─── Step 2: Verify OTP ────────────────────────────────────────────────────
+  // ─── Verify OTP (stub — disabled) ──────────────────────────────────────────
   async function verifyOtp(email, otp) {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await authService.verifyOtp(email, otp);
-      storeLogin(data.user, data.token, data.refreshToken);
-      setOtpPending(false);
-      navigate(getHomeRoute(data.user.role), { replace: true });
-    } catch (err) {
-      setError(err.message || 'Invalid or expired OTP.');
-    } finally {
-      setLoading(false);
-    }
+    setError('OTP verification is disabled. Please use direct login.');
   }
 
   // ─── Logout ────────────────────────────────────────────────────────────────
@@ -68,9 +88,9 @@ export default function useAuth() {
     setError(null);
     try {
       const data = await authService.forgotPassword(email);
-      return data.message;
+      return data?.message || 'Reset instructions sent.';
     } catch (err) {
-      setError(err.message || 'Failed to send reset instructions.');
+      setError(err?.message || 'Failed to send reset instructions.');
       return null;
     } finally {
       setLoading(false);

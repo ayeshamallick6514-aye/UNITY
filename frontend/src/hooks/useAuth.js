@@ -24,23 +24,14 @@ export default function useAuth() {
   const [pendingEmail, setPendingEmail] = useState('');
   const [otpMessage,   setOtpMessage]   = useState('');
 
-  // ─── Step 1: Login ──────────────────────────────────────────────────────────
   async function login(identifier, password) {
     setLoading(true);
     setError(null);
     try {
       const data = await authService.login(identifier, password);
-
-      if (data.requiresOtp) {
-        // Gov user — move to OTP step
-        setPendingEmail(data.email);
-        setOtpMessage(data.message);
-        setOtpPending(true);
-      } else {
-        // Citizen — direct login
-        storeLogin(data.user, data.token, data.refreshToken);
-        navigate(getHomeRoute(data.user.role), { replace: true });
-      }
+      // Direct login for all roles
+      storeLogin(data.user, data.token, data.refreshToken);
+      navigate(getHomeRoute(data.user.role), { replace: true });
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials.');
     } finally {

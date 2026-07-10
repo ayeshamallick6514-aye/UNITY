@@ -213,14 +213,14 @@ async function logout(req, res) {
   return res.json({ success: true, message: 'Logged out successfully.' });
 }
 
-/**
- * GET /api/v1/auth/me
- * Returns current user from token (protected route).
- */
 async function me(req, res) {
   const user = DEMO_USERS.find((u) => u.id === req.user.id);
   if (!user) return res.status(404).json({ message: 'User not found.' });
   return res.json({ user: safeUser(user) });
+}
+
+async function verifyOtp(req, res) {
+  return res.status(400).json({ message: "OTP verification is disabled. Please use direct login." });
 }
 
 module.exports = { login, verifyOtp, refresh, forgotPassword, logout, me };

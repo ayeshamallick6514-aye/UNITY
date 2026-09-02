@@ -2,7 +2,29 @@
 
 > Policy-Aware Government Decision Intelligence Platform
 
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://unity-frontend-c9z7.onrender.com)
+
+**🔗 Live Demo:** [https://unity-frontend-c9z7.onrender.com](https://unity-frontend-c9z7.onrender.com)
+
 UNITY is an AI-powered governance platform designed to improve inter-departmental coordination, identify administrative bottlenecks, predict cascading project impacts, and assist decision-makers through intelligent executive recommendations.
+
+---
+
+## Table of Contents
+
+- [Problem](#problem)
+- [Solution](#solution)
+- [Live Demo](#live-demo)
+- [Core Features](#core-features)
+- [UNITY Sentinel](#unity-sentinel)
+- [Executive Decision Brief](#executive-decision-brief)
+- [Technology Stack](#technology-stack)
+- [System Architecture](#system-architecture)
+- [Example Workflow](#example-workflow)
+- [Impact](#impact)
+- [Future Roadmap](#future-roadmap)
+- [Vision](#vision)
+- [Team](#team-unity)
 
 ---
 
@@ -20,7 +42,7 @@ A delay in one department can silently impact multiple dependent projects, resul
 
 Current systems provide visibility into data but rarely provide actionable intelligence.
 
-UNITY bridges this gap.
+**UNITY bridges this gap.**
 
 ---
 
@@ -39,9 +61,17 @@ The platform transforms fragmented administrative workflows into a coordinated d
 
 ---
 
-# Core Features
+## Live Demo
 
-## Executive Coordination Dashboard
+Try UNITY here: **[https://unity-frontend-c9z7.onrender.com](https://unity-frontend-c9z7.onrender.com)**
+
+> Note: The demo is hosted on Render's free tier — the first load after a period of inactivity may take a few seconds while the instance spins up.
+
+---
+
+## Core Features
+
+### Executive Coordination Dashboard
 
 A centralized command center for monitoring:
 
@@ -52,9 +82,7 @@ A centralized command center for monitoring:
 - Dependency chains
 - Citizen impact indicators
 
----
-
-## Dependency Intelligence Engine
+### Dependency Intelligence Engine
 
 Identifies:
 
@@ -65,9 +93,7 @@ Identifies:
 
 Providing visibility before failures become crises.
 
----
-
-## Ripple Impact Simulation
+### Ripple Impact Simulation
 
 Simulates how delays or interventions affect:
 
@@ -78,9 +104,7 @@ Simulates how delays or interventions affect:
 
 Enabling proactive governance.
 
----
-
-## Real-Time Event Monitoring
+### Real-Time Event Monitoring
 
 Maintains a live operational feed containing:
 
@@ -92,15 +116,13 @@ Maintains a live operational feed containing:
 
 ---
 
-# UNITY Sentinel
+## UNITY Sentinel
 
-## Policy-Aware Decision Intelligence Engine
+### Policy-Aware Decision Intelligence Engine
 
 UNITY Sentinel is the flagship AI capability of the platform.
 
-Unlike traditional AI chatbots, Sentinel functions as an executive decision-support system.
-
-It evaluates operational conflicts using:
+Unlike traditional AI chatbots, Sentinel functions as an executive decision-support system. It evaluates operational conflicts using:
 
 - Policy guidance
 - Administrative procedures
@@ -110,125 +132,59 @@ It evaluates operational conflicts using:
 
 and produces explainable executive recommendations.
 
----
+### Sentinel Modules
 
-## Sentinel Modules
-
-### Compliance Auditor
-
-Audits active administrative conflicts against:
-
-- Circulars
-- Guidelines
-- Operational procedures
-- Regulatory requirements
+| Module | Description |
+|---|---|
+| **Compliance Auditor** | Audits active administrative conflicts against circulars, guidelines, operational procedures, and regulatory requirements |
+| **Policy Search** | Allows officers to retrieve relevant policy references and supporting regulations |
+| **Knowledge Ingestion** | Supports ingestion of circulars, SOPs, administrative orders, meeting minutes, and governance documents for future analysis and retrieval |
+| **Audit Logs** | Maintains a historical record of audits, queries, recommendations, and compliance reviews |
 
 ---
 
-### Policy Search
+## Executive Decision Brief
 
-Allows officers to retrieve relevant policy references and supporting regulations.
+For every conflict, Sentinel generates a structured brief:
 
----
-
-### Knowledge Ingestion
-
-Supports ingestion of:
-
-- Circulars
-- SOPs
-- Administrative Orders
-- Meeting Minutes
-- Governance Documents
-
-for future analysis and retrieval.
+1. **Situation Overview** — Summary of the operational issue
+2. **Root Cause Analysis** — Identification of the primary bottleneck
+3. **Operational Impact** — Assessment of disruption and execution risk
+4. **Inter-Departmental Effect** — Departments affected by the conflict
+5. **Public Service Impact** — Impact on citizens and service delivery
+6. **Economic Exposure** — Potential financial consequences
+7. **Dependency Cascade Forecast** — Predicted downstream impact chain
+8. **Projected Failure Scenario** — Expected consequences if no action is taken
+9. **Recommended Executive Directive** — AI-assisted intervention strategy
 
 ---
 
-### Audit Logs
+## Technology Stack
 
-Maintains a historical record of:
-
-- Audits
-- Queries
-- Recommendations
-- Compliance reviews
-
----
-
-# Executive Decision Brief
-
-For every conflict, Sentinel generates:
-
-### Situation Overview
-
-Summary of the operational issue.
-
-### Root Cause Analysis
-
-Identification of the primary bottleneck.
-
-### Operational Impact
-
-Assessment of disruption and execution risk.
-
-### Inter-Departmental Effect
-
-Departments affected by the conflict.
-
-### Public Service Impact
-
-Impact on citizens and service delivery.
-
-### Economic Exposure
-
-Potential financial consequences.
-
-### Dependency Cascade Forecast
-
-Predicted downstream impact chain.
-
-### Projected Failure Scenario
-
-Expected consequences if no action is taken.
-
-### Recommended Executive Directive
-
-AI-assisted intervention strategy.
-
----
-
-# Technology Stack
-
-### Frontend
-
+**Frontend**
 - React
 - Vite
 - Modern Component Architecture
 
-### Backend
-
+**Backend**
 - Node.js
 - Express.js
 
-### Database
-
+**Database**
 - MongoDB Atlas
 
-### AI Layer
-
+**AI Layer**
 - Executive Decision Intelligence Engine
 - Policy-Aware Recommendation Framework
 - Compliance Analysis Engine
 
-### Version Control
-
+**Version Control**
 - Git
 - GitHub
 
 ---
 
-# System Architecture
+## System Architecture
 
 ```text
 Departments
@@ -255,21 +211,17 @@ Audit Search  Knowledge
 
 ---
 
-# Example Workflow
+## Example Workflow
 
-### Scenario
-
-A road widening project is blocked because the Revenue Department has not issued land clearance.
+**Scenario:** A road widening project is blocked because the Revenue Department has not issued land clearance.
 
 ### Traditional Process
-
 - Manual follow-ups
 - Delayed escalations
 - Limited visibility
 - Increased project delays
 
 ### Using UNITY
-
 1. Dependency Engine detects the blockage.
 2. Sentinel audits the conflict.
 3. Relevant policies are evaluated.
@@ -280,7 +232,7 @@ A road widening project is blocked because the Revenue Department has not issued
 
 ---
 
-# Impact
+## Impact
 
 UNITY enables:
 
@@ -293,21 +245,21 @@ UNITY enables:
 
 ---
 
-# Future Roadmap
+## Future Roadmap
 
-- Advanced RAG-based policy retrieval
-- Multi-document intelligence analysis
-- Predictive governance analytics
-- Automated escalation workflows
-- Natural language executive queries
-- Cross-district intelligence networks
-- AI-powered policy conflict detection
+- [ ] Advanced RAG-based policy retrieval
+- [ ] Multi-document intelligence analysis
+- [ ] Predictive governance analytics
+- [ ] Automated escalation workflows
+- [ ] Natural language executive queries
+- [ ] Cross-district intelligence networks
+- [ ] AI-powered policy conflict detection
 
 ---
 
-# Vision
+## Vision
 
-> From Reactive Governance to Predictive Governance
+> **From Reactive Governance to Predictive Governance**
 
 UNITY reimagines government coordination through intelligence-driven decision support, transforming fragmented administrative processes into a transparent, proactive, and data-informed governance ecosystem.
 

@@ -120,5 +120,32 @@ export const api = {
   getWards() {
     return axiosInstance.get('/geo/wards');
   },
+
+  // ── C-Lock (Coordination Lock) State Engine ─────────────────────────────
+
+  // Fetch all projects with multi-departmental C-Lock states
+  getCLockProjects() {
+    return axiosInstance.get('/clock/projects');
+  },
+
+  // Fetch detailed C-Lock status for a single project
+  getCLockProject(projectId) {
+    return axiosInstance.get(`/clock/project/${projectId}`);
+  },
+
+  // Execute departmental sign-off or clearance directive
+  signOffDepartment(projectId, deptCode, authorityRole, referenceNote) {
+    return axiosInstance.post('/clock/sign-off', {
+      projectId,
+      deptCode,
+      authorityRole,
+      referenceNote,
+    });
+  },
+
+  // Reset C-Lock demonstration states
+  resetCLock() {
+    return axiosInstance.post('/clock/reset');
+  },
 };
 export default api;

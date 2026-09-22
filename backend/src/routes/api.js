@@ -18,6 +18,13 @@ const {
 
 const { simulateRippleDelay } = require('../controllers/rippleController');
 
+const {
+  getAllProjectsCLockState,
+  getSingleProjectCLockState,
+  executeDepartmentSignOff,
+  resetCLockDemoState
+} = require('../controllers/cLockController');
+
 // Main dashboard consolidated endpoint
 router.get('/dashboard', getDashboardData);
 
@@ -57,5 +64,11 @@ router.get('/projects/:id/cri', getProjectCRI);
 
 // All projects with CRI scores (heatmap)
 router.get('/projects/cri/all', getAllProjectsCRI);
+
+// ─── C-Lock (Coordination Lock) State Engine Endpoints ──────────────────────
+router.get('/clock/projects',     getAllProjectsCLockState);
+router.get('/clock/project/:id',  getSingleProjectCLockState);
+router.post('/clock/sign-off',    executeDepartmentSignOff);
+router.post('/clock/reset',       resetCLockDemoState);
 
 module.exports = router;

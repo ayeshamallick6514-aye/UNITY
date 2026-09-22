@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, LogOut, Shield, Lock, ChevronDown } from 'lucide-react';
+import { Bell, LogOut, Shield, Lock, ChevronDown, Cpu } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
+import SentinelAssistantModal from './SentinelAssistantModal';
 
 // ─── Role token map — no personal names ───────────────────────────────────────
 const ROLE_TOKEN = {
@@ -23,12 +24,13 @@ const NAV_ITEMS = [
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function AuthorityTopBar({ pageTitle = '' }) {
-  const [time,     setTime]     = useState('');
-  const [date,     setDate]     = useState('');
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logout }        = useAuthStore();
-  const navigate                = useNavigate();
-  const location                = useLocation();
+  const [time,         setTime]         = useState('');
+  const [date,         setDate]         = useState('');
+  const [menuOpen,     setMenuOpen]     = useState(false);
+  const [sentinelOpen, setSentinelOpen] = useState(false);
+  const { user, logout }                = useAuthStore();
+  const navigate                        = useNavigate();
+  const location                        = useLocation();
 
   // Live IST clock
   useEffect(() => {
@@ -135,8 +137,19 @@ export default function AuthorityTopBar({ pageTitle = '' }) {
           })}
         </nav>
 
-        {/* Right cluster — clock + bell + user */}
+        {/* Right cluster — Sentinel AI trigger + clock + bell + user */}
         <div className="flex items-center gap-3 py-1">
+          
+          {/* Sentinel AI Assistant Modal Trigger */}
+          <button
+            onClick={() => setSentinelOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0B1B3D] text-white hover:bg-[#162444] rounded text-[10px] font-bold uppercase tracking-wider transition-colors shadow-2xs"
+            title="Open Sentinel Policy RAG Assistant"
+          >
+            <Cpu size={12} className="text-amber-400" />
+            <span>Sentinel AI</span>
+          </button>
+
           {/* Clock */}
           <div className="hidden sm:block text-right">
             <p className="text-[11px] font-mono font-bold text-slate-800 tabular-nums leading-none">{time}</p>
@@ -148,7 +161,7 @@ export default function AuthorityTopBar({ pageTitle = '' }) {
 
           {/* Notifications */}
           <button
-            className="relative p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all"
+            className="relative p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all rounded"
             aria-label="Notifications"
           >
             <Bell size={14} />
@@ -159,7 +172,7 @@ export default function AuthorityTopBar({ pageTitle = '' }) {
           <div className="relative">
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="flex items-center gap-2 px-2.5 py-1.5 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all"
+              className="flex items-center gap-2 px-2.5 py-1.5 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all rounded"
               aria-haspopup="true"
               aria-expanded={menuOpen}
             >
@@ -195,6 +208,13 @@ export default function AuthorityTopBar({ pageTitle = '' }) {
           </div>
         </div>
       </div>
+
+      {/* ── Sentinel Assistant Modal Dialog ────────────────────────────── */}
+      <SentinelAssistantModal
+        isOpen={sentinelOpen}
+        onClose={() => setSentinelOpen(false)}
+      />
+
     </header>
   );
 }

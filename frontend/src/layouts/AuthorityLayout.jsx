@@ -25,7 +25,7 @@ export default function AuthorityLayout() {
   const pageTitle = PAGE_TITLES[location.pathname] ?? '';
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-slate-100">
       {/* Fixed Sidebar */}
       <AuthoritySidebar />
 

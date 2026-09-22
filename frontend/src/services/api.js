@@ -91,5 +91,34 @@ export const api = {
   fetchAllProjectsCRI() {
     return axiosInstance.get('/projects/cri/all');
   },
+
+  // ── Open-Source OCR & Geospatial Integration ────────────────────────────
+
+  // Run Tesseract OCR on uploaded civic photo / evidence
+  analyzeImageOCR(formData) {
+    return axiosInstance.post('/ocr/analyze', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+
+  // Health probe for OCR engine
+  getOcrStatus() {
+    return axiosInstance.get('/ocr/status');
+  },
+
+  // Reverse geocode lat/lng to Bhopal municipal ward address
+  reverseGeocode(lat, lng) {
+    return axiosInstance.get(`/geo/reverse?lat=${lat}&lng=${lng}`);
+  },
+
+  // Batch reverse geocode points
+  batchGeocode(points) {
+    return axiosInstance.post('/geo/batch', { points });
+  },
+
+  // Fetch full Bhopal municipal ward directory
+  getWards() {
+    return axiosInstance.get('/geo/wards');
+  },
 };
 export default api;

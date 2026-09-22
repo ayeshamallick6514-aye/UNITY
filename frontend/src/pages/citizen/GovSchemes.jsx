@@ -422,7 +422,7 @@ export default function GovSchemes() {
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Full Name (As in Samagra/Aadhaar) *</label>
                 <input
                   required
-                  placeholder="e.g. Ramesh Kumar Patel"
+                  placeholder="e.g. Applicant Full Name (as per Aadhaar)"
                   className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-850 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
                 />
               </div>

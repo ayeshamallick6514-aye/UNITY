@@ -14,7 +14,7 @@ const DEMO_PASSWORD_HASH = bcrypt.hashSync('Unity@2025', 10);
 const DEMO_USERS = [
   {
     id:          'usr_001',
-    name:        'Shri Rajesh Agrawal',
+    name:        'District Collector, Bhopal',
     email:       'collector@bhopal.mp.gov.in',
     employeeId:  'IAS-MP-2201',
     role:        'collector',
@@ -25,7 +25,7 @@ const DEMO_USERS = [
   },
   {
     id:          'usr_002',
-    name:        'Shri Pradeep Verma',
+    name:        'Executive Engineer, PWD',
     email:       'engineer@bhopal.mp.gov.in',
     employeeId:  'PWD-BPL-4412',
     role:        'executive_engineer',
@@ -36,7 +36,7 @@ const DEMO_USERS = [
   },
   {
     id:          'usr_003',
-    name:        'Smt. Kavita Singh',
+    name:        'Municipal Commissioner, BMC',
     email:       'commissioner@bhopal.mp.gov.in',
     employeeId:  'IAS-MP-1887',
     role:        'commissioner',
@@ -47,7 +47,7 @@ const DEMO_USERS = [
   },
   {
     id:          'usr_004',
-    name:        'Shri Anand Pathak',
+    name:        'Nodal Officer, Bhopal',
     email:       'nodal@bhopal.mp.gov.in',
     employeeId:  'GOV-MP-7731',
     role:        'nodal_officer',
@@ -58,7 +58,7 @@ const DEMO_USERS = [
   },
   {
     id:          'usr_005',
-    name:        'Ramesh Kumar',
+    name:        'Citizen Applicant',
     email:       'citizen@bhopal.mp.gov.in',
     employeeId:  null,
     role:        'citizen',

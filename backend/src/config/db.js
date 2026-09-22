@@ -60,11 +60,11 @@ const autoSeedIfEmpty = async () => {
     
     // Seed Departments
     const depts = [
-      { _id: 'revenue', name: 'Revenue Dept', nodalOfficer: 'Shri A. K. Verma', contact: '+919425010022' },
-      { _id: 'pwd', name: 'Public Works Dept', nodalOfficer: 'Shri R. C. Jain', contact: '+919425021133' },
-      { _id: 'energy', name: 'Energy Dept (MPEB)', nodalOfficer: 'Shri S. K. Dwivedi', contact: '+919425032244' },
-      { _id: 'water_supply', name: 'Water Supply Dept', nodalOfficer: 'Shri Manoj Patel', contact: '+919425043355' },
-      { _id: 'transport', name: 'Urban Transport/Traffic Cell', nodalOfficer: 'Shri Vineet Kumar', contact: '+919425054466' }
+      { _id: 'revenue', name: 'Revenue Dept', nodalOfficer: 'Revenue Nodal Cell', contact: '+91-755-2540101' },
+      { _id: 'pwd', name: 'Public Works Dept', nodalOfficer: 'PWD Project Cell', contact: '+91-755-2540102' },
+      { _id: 'energy', name: 'Energy Dept (MPEB)', nodalOfficer: 'MPEB Shifting Desk', contact: '+91-755-2540103' },
+      { _id: 'water_supply', name: 'Water Supply Dept', nodalOfficer: 'BMC Water Nodal Desk', contact: '+91-755-2540104' },
+      { _id: 'transport', name: 'Urban Transport/Traffic Cell', nodalOfficer: 'Traffic Coordination Cell', contact: '+91-755-2540105' }
     ];
     await Department.insertMany(depts);
 

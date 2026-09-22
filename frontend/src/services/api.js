@@ -147,5 +147,37 @@ export const api = {
   resetCLock() {
     return axiosInstance.post('/clock/reset');
   },
+
+  // ── Multi-Domain Citizen Portal (Education, Scholarships, Recruitment) ──
+
+  // Fetch cross-domain citizen telemetry summary
+  getCitizenSummary() {
+    return axiosInstance.get('/citizen/services/summary');
+  },
+
+  // AI-assisted scholarship merit eligibility & criteria verification
+  verifyScholarshipMerit(data) {
+    return axiosInstance.post('/citizen/scholarship/verify', data);
+  },
+
+  // Direct Benefit Transfer (DBT) & Scholarship status tracking
+  getScholarshipStatus(appId) {
+    return axiosInstance.get(`/citizen/scholarship/status/${appId}`);
+  },
+
+  // School infrastructure & digital learning grievance filing
+  reportEducationGrievance(data) {
+    return axiosInstance.post('/citizen/education/report', data);
+  },
+
+  // State recruitment examination & admit card tracking
+  trackRecruitmentRecord(rollNo) {
+    return axiosInstance.get(`/citizen/recruitment/track/${rollNo}`);
+  },
+
+  // Exam center / answer key challenge grievance submission
+  reportRecruitmentGrievance(data) {
+    return axiosInstance.post('/citizen/recruitment/grievance', data);
+  },
 };
 export default api;

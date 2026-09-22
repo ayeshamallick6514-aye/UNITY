@@ -51,13 +51,14 @@ const SystemHealth      = React.lazy(() => import('./pages/command/SystemHealth'
 const AIRecommendations = React.lazy(() => import('./pages/command/AIRecommendations'));
 
 // Citizen Portal Pages
-const CitizenHome          = React.lazy(() => import('./pages/citizen/CitizenHome'));
-const ReportIssue          = React.lazy(() => import('./pages/citizen/ReportIssue'));
-const NearbyProjects       = React.lazy(() => import('./pages/citizen/NearbyProjects'));
-const GovSchemes           = React.lazy(() => import('./pages/citizen/GovSchemes'));
-const TrackComplaint       = React.lazy(() => import('./pages/citizen/TrackComplaint'));
+const CitizenPortalHub   = React.lazy(() => import('./pages/citizen/CitizenPortalHub'));
+const CitizenHome        = React.lazy(() => import('./pages/citizen/CitizenHome'));
+const ReportIssue        = React.lazy(() => import('./pages/citizen/ReportIssue'));
+const NearbyProjects     = React.lazy(() => import('./pages/citizen/NearbyProjects'));
+const GovSchemes         = React.lazy(() => import('./pages/citizen/GovSchemes'));
+const TrackComplaint     = React.lazy(() => import('./pages/citizen/TrackComplaint'));
 const CitizenNotifications = React.lazy(() => import('./pages/citizen/CitizenNotifications'));
-const CitizenProfile       = React.lazy(() => import('./pages/citizen/CitizenProfile'));
+const CitizenProfile     = React.lazy(() => import('./pages/citizen/CitizenProfile'));
 
 // Placeholder views for not-yet-implemented routes
 const PlaceholderPage = ({ title }) => (
@@ -173,7 +174,8 @@ export default function App() {
                 {/* Citizen Portal (Guest Allowed) */}
                 <Route path="/citizen" element={<CitizenLayout />}>
                   <Route index                element={<Navigate to="home" replace />} />
-                  <Route path="home"          element={<CitizenHome />} />
+                  <Route path="home"          element={<CitizenPortalHub />} />
+                  <Route path="portal"        element={<CitizenPortalHub />} />
                   <Route path="report"        element={<ReportIssue />} />
                   <Route path="projects"      element={<NearbyProjects />} />
                   <Route path="schemes"       element={<GovSchemes />} />

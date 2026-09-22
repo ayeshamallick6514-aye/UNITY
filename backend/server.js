@@ -6,6 +6,7 @@ const apiRoutes        = require('./src/routes/api');
 const sentinelRoutes   = require('./src/routes/sentinel');
 const authRoutes       = require('./src/routes/auth');
 const civicRoutes      = require('./src/routes/civic');
+const citizenRoutes    = require('./src/routes/citizen');
 
 // Load .env (local dev only — Render injects env vars directly)
 dotenv.config();
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 // ─── Routes ─────────────────────────────────────────────────────────────────
 app.use('/api/v1/auth',     authRoutes);
 app.use('/api/v1/sentinel', sentinelRoutes);
+app.use('/api/v1/citizen',  citizenRoutes);
 app.use('/api/v1',          civicRoutes);
 app.use('/api/v1',          apiRoutes);
 

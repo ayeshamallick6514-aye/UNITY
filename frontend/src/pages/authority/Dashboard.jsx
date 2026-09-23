@@ -118,7 +118,7 @@ export default function Dashboard() {
             District Operations — Command View
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Bhopal Metro Zone 01 &nbsp;·&nbsp; MPOnline Problem Statement 5 &nbsp;·&nbsp; Synced {syncTs || '--:--'}
+            Bhopal Metro Zone 01 &nbsp;·&nbsp; Integrated Urban Governance Console &nbsp;·&nbsp; Synced {syncTs || '--:--'}
           </p>
         </div>
         <button

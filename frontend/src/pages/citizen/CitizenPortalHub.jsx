@@ -766,7 +766,7 @@ export default function CitizenPortalHub() {
         status: 'UNDER_VALIDATION',
         dept: 'Bhopal District Nodal Cell',
         summary: 'Application received and routed to the competent municipal authority.',
-        lastUpdate: 'Synced live with MPOnline Portal',
+        lastUpdate: 'Synced live with State Citizen Services Gateway',
         color: 'text-amber-800 bg-amber-50 border-amber-300'
       });
     }
@@ -852,7 +852,7 @@ export default function CitizenPortalHub() {
                   GOVERNMENT OF MADHYA PRADESH • CITIZEN SERVICES PORTAL
                 </h1>
                 <span className="text-[9px] font-mono bg-white/15 px-2 py-0.5 rounded text-slate-200">
-                  PS-5 COMPLETE SUITE
+                  PUBLIC CITIZEN SERVICES
                 </span>
               </div>
               <p className="text-[10px] text-slate-300 font-mono mt-1">
@@ -862,7 +862,7 @@ export default function CitizenPortalHub() {
           </div>
 
           <div className="flex items-center gap-3 text-[9px] font-mono text-white/70">
-            <span>PORTAL: <strong>MPONLINE_PS5_SECURE</strong></span>
+            <span>PORTAL: <strong>MP_CITIZEN_GATEWAY_V2</strong></span>
             <span>•</span>
             <span className="text-amber-400 font-bold">[ROLE: CITIZEN_APPLICANT]</span>
           </div>
@@ -1915,7 +1915,7 @@ export default function CitizenPortalHub() {
                 Universal Multi-Domain Grievance &amp; Application Tracker
               </h3>
               <p className="text-xs text-slate-500">
-                Track live status across all 9 MPOnline PS-5 governance domains using any reference token.
+                Track live status across all 9 state governance domains using any official reference token.
               </p>
             </div>
 

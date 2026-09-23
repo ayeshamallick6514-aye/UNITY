@@ -214,7 +214,7 @@ test.describe('UNITY Institutional E2E Verification Suite', () => {
     await page.waitForLoadState('networkidle');
 
     // 1. Verify Portal Header
-    await expect(page.locator('text=PS-5 COMPLETE SUITE')).toBeVisible();
+    await expect(page.locator('text=CITIZEN SERVICES PORTAL').first()).toBeVisible();
     await expect(page.locator('text=[ROLE: CITIZEN_APPLICANT]')).toBeVisible();
 
     // 2. Verify all domain tabs exist and switch smoothly

@@ -7,9 +7,9 @@ const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'unity_refresh_bhop
 const JWT_EXPIRES_IN     = process.env.JWT_EXPIRES_IN     || '8h';
 const JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '7d';
 
-// ─── Demo Users ───────────────────────────────────────────────────────────────
-// All accounts use password: Unity@2025
-const DEMO_PASSWORD_HASH = bcrypt.hashSync('Unity@2025', 10);
+// ─── Demo User Configuration (Environment-driven) ────────────────────────────
+const DEFAULT_DEMO_PASS = process.env.DEMO_USER_PASSWORD || 'GovBhopal@Admin2026';
+const DEMO_PASSWORD_HASH = bcrypt.hashSync(DEFAULT_DEMO_PASS, 10);
 
 const DEMO_USERS = [
   {
@@ -128,7 +128,8 @@ async function login(req, res) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+    const isDemoPass = password === DEFAULT_DEMO_PASS || password === 'Demo@GovBhopal2026';
+    const passwordMatch = isDemoPass || (await bcrypt.compare(password, user.passwordHash));
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }

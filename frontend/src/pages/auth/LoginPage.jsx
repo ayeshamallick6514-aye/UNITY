@@ -49,25 +49,34 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* Seeded Credentials Grid Card */}
-          <div className="bg-[#081225] border border-blue-900/30 rounded-lg p-4 text-xs text-slate-300 flex flex-col gap-2.5">
-            <span className="font-bold text-[10px] text-blue-400 uppercase tracking-widest block mb-0.5">
-              Demo Credentials:
+          {/* Quick-Fill Demonstration Selector */}
+          <div className="bg-[#081225] border border-blue-900/30 rounded-lg p-3 text-xs text-slate-300 flex flex-col gap-2">
+            <span className="font-bold text-[10px] text-blue-400 uppercase tracking-widest block">
+              Quick-Select Demo Role:
             </span>
-            
-            <div className="flex items-center gap-2">
-              <User size={13} className="text-slate-400" />
-              <span>Collector: <code className="font-mono text-white ml-1">collector@bhopal.mp.gov.in</code></span>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Briefcase size={13} className="text-slate-400" />
-              <span>Engineer: <code className="font-mono text-white ml-1">PWD-BPL-4412</code></span>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Lock size={13} className="text-slate-400" />
-              <span>Password: <code className="font-mono text-white ml-1">Unity@2025</code></span>
+            <div className="grid grid-cols-2 gap-1.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setIdentifier('collector@bhopal.mp.gov.in');
+                  setPassword('GovBhopal@Admin2026');
+                }}
+                className="text-left px-2.5 py-1.5 rounded bg-blue-950/40 hover:bg-blue-900/50 border border-blue-800/40 text-[11px] text-slate-200 transition-colors flex items-center gap-1.5"
+              >
+                <User size={12} className="text-blue-400" />
+                <span>Collector (Bhopal)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIdentifier('PWD-BPL-4412');
+                  setPassword('GovBhopal@Admin2026');
+                }}
+                className="text-left px-2.5 py-1.5 rounded bg-blue-950/40 hover:bg-blue-900/50 border border-blue-800/40 text-[11px] text-slate-200 transition-colors flex items-center gap-1.5"
+              >
+                <Briefcase size={12} className="text-blue-400" />
+                <span>Executive Engineer</span>
+              </button>
             </div>
           </div>
 

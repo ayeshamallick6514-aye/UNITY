@@ -18,7 +18,7 @@ async function loginAsCollector(page) {
 
   // Fill credentials
   await page.fill('input[type="text"], input[type="email"]', 'collector@bhopal.mp.gov.in');
-  await page.fill('input[type="password"]', 'Unity@2025');
+  await page.fill('input[type="password"]', process.env.TEST_USER_PASSWORD || 'GovBhopal@Admin2026');
   await page.click('button[type="submit"]');
 
   // Verify successful redirection to authority dashboard

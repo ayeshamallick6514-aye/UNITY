@@ -10,3 +10,8 @@ dist/
 build/
 
 .vscode/
+*.traineddata
+.agent/
+.agents/
+.codex/
+skills-lock.json

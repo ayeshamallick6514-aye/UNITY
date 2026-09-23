@@ -107,7 +107,7 @@ async function runDiagnostics() {
     await checkEndpoint('Authority Login Check', '/api/v1/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'collector@bhopal.mp.gov.in', password: 'Unity@2025' }),
+      body: JSON.stringify({ email: 'collector@bhopal.mp.gov.in', password: process.env.DEMO_USER_PASSWORD || 'GovBhopal@Admin2026' }),
     });
 
     // ── SECTION 2: COMMAND CENTER, CRI & C-LOCK ENGINE ───────────────────────

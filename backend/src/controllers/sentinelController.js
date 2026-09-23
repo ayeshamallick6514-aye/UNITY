@@ -68,8 +68,12 @@ const GROUNDED_MUNICIPAL_POLICIES = [
 
 // Helper to seed initial policy chunks if vector chunk collection is empty
 async function ensurePolicyChunksSeeded() {
+  const mongoose = require('mongoose');
+  if (!mongoose.connection || mongoose.connection.readyState !== 1) {
+    return;
+  }
   try {
-    const count = await VectorChunk.countDocuments();
+    const count = await VectorChunk.countDocuments().maxTimeMS(500);
     if (count === 0) {
       console.log('[Sentinel] Seeding initial municipal policy RAG chunks...');
       for (const pol of GROUNDED_MUNICIPAL_POLICIES) {

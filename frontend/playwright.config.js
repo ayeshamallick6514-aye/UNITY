@@ -28,6 +28,12 @@ export default defineConfig({
   ],
   webServer: [
     {
+      command: 'node ../backend/server.js',
+      url: 'http://localhost:5001/health',
+      reuseExistingServer: true,
+      timeout: 30000,
+    },
+    {
       command: 'npm run dev',
       url: 'http://localhost:5173',
       reuseExistingServer: true,

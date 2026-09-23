@@ -14,6 +14,7 @@
  * 'C-LOCK RELEASED' (Emerald), authorizing ground mobilization.
  */
 
+const mongoose   = require('mongoose');
 const Project    = require('../models/Project');
 const Task       = require('../models/Task');
 const Dependency = require('../models/Dependency');
@@ -64,10 +65,12 @@ function _getProjectSignOffs(projectId) {
  */
 async function calculateProjectCLock(projectId) {
   let project = null;
-  try {
-    project = await Project.findById(projectId);
-  } catch {
-    // Graceful fallback if project id is string key
+  if (mongoose.connection && mongoose.connection.readyState === 1) {
+    try {
+      project = await Project.findById(projectId).maxTimeMS(500).exec();
+    } catch {
+      // Graceful fallback if project id is string key
+    }
   }
 
   const signOffs = _getProjectSignOffs(projectId);

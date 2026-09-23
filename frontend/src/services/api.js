@@ -213,5 +213,56 @@ export const api = {
   reportCropDamageGrievance(data) {
     return axiosInstance.post('/agriculture/crop-damage/report', data);
   },
+
+  // ── Transport Services & Transit Fleet Telemetry ────────────────────────
+
+  // Live BCLL transit fleet & route telemetry
+  getTransportTelemetry() {
+    return axiosInstance.get('/transport/telemetry');
+  },
+
+  // Transport & traffic / permit grievance filing
+  reportTransportGrievance(data) {
+    return axiosInstance.post('/transport/grievance', data);
+  },
+
+  // Track transport grievance by reference ID
+  trackTransportGrievance(refId) {
+    return axiosInstance.get(`/transport/track/${refId}`);
+  },
+
+  // ── Tourism & Cultural Heritage Assets ──────────────────────────────────
+
+  // Live heritage footfall & cleanliness score telemetry
+  getTourismTelemetry() {
+    return axiosInstance.get('/tourism/telemetry');
+  },
+
+  // Tourist facility / heritage maintenance grievance filing
+  reportTourismGrievance(data) {
+    return axiosInstance.post('/tourism/grievance', data);
+  },
+
+  // Track tourist grievance by reference ID
+  trackTourismGrievance(refId) {
+    return axiosInstance.get(`/tourism/track/${refId}`);
+  },
+
+  // ── Rural Development & Panchayat Governance ────────────────────────────
+
+  // Gram Panchayat fund utilization & MGNREGA telemetry
+  getRuralTelemetry() {
+    return axiosInstance.get('/rural/telemetry');
+  },
+
+  // Gram Panchayat detailed audit record
+  getPanchayatDetails(code) {
+    return axiosInstance.get(`/rural/panchayat/${code}`);
+  },
+
+  // Rural development & MGNREGA / Jal Jeevan grievance filing
+  reportRuralGrievance(data) {
+    return axiosInstance.post('/rural/grievance', data);
+  },
 };
 export default api;

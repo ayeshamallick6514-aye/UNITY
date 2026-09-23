@@ -9,6 +9,9 @@ const civicRoutes      = require('./src/routes/civic');
 const citizenRoutes    = require('./src/routes/citizen');
 const healthcareRoutes = require('./src/routes/healthcare');
 const agricultureRoutes= require('./src/routes/agriculture');
+const transportRoutes  = require('./src/routes/transport');
+const tourismRoutes    = require('./src/routes/tourism');
+const ruralRoutes      = require('./src/routes/rural');
 
 // Load .env (local dev only — Render injects env vars directly)
 dotenv.config();
@@ -38,6 +41,9 @@ app.use('/api/v1/sentinel',    sentinelRoutes);
 app.use('/api/v1/citizen',     citizenRoutes);
 app.use('/api/v1/healthcare',  healthcareRoutes);
 app.use('/api/v1/agriculture', agricultureRoutes);
+app.use('/api/v1/transport',   transportRoutes);
+app.use('/api/v1/tourism',     tourismRoutes);
+app.use('/api/v1/rural',       ruralRoutes);
 app.use('/api/v1',             civicRoutes);
 app.use('/api/v1',             apiRoutes);
 

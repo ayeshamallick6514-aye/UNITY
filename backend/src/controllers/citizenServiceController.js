@@ -137,6 +137,24 @@ exports.getCitizenServicesSummary = function getCitizenServicesSummary(_req, res
         dbtDisbursedThisQuarter: '₹18.84 Cr',
         activeMandiArrivals: '1,420 Tonnes/day',
         fertilizerBufferStatus: 'SUFFICIENT_FOR_RABI',
+      },
+      transportTransit: {
+        bcllBusesActive: 220,
+        electricBuses: 85,
+        dailyFootfall: '1.45 Lakhs',
+        gpsCompliance: '100%',
+      },
+      tourismHeritage: {
+        heritageSitesMonitored: 4,
+        dailyTouristFootfall: 15350,
+        avgCleanlinessScore: '96.2 / 100',
+        certifiedGuides: 86,
+      },
+      ruralDevelopment: {
+        gramPanchayats: 228,
+        fundUtilizationRate: '94.8%',
+        jalJeevanTapWaterPct: '96.2%',
+        activeJobCards: 68400,
       }
     },
     meta: {

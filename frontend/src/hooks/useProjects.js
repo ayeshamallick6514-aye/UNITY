@@ -55,6 +55,94 @@ const STATIC_PROJECTS_DETAIL = {
     documents: [
       { name: 'Kolar Transmission Lines Blueprint.dwg', size: '8.4 MB', uploader: 'Energy Dept' },
     ]
+  },
+  proj_bhopal_metro: {
+    id: 'proj_bhopal_metro',
+    name: 'Bhopal Metro Orange Line (Subhash Nagar to Karond)',
+    description: 'Viaduct pier construction and 33KV high-tension grid relocation along 14.99 km corridor.',
+    budget: 215.0, // in Cr
+    dailyIdleBurn: 150000,
+    penaltyValue: 45000000,
+    penaltyActivationDate: '2025-08-01T00:00:00.000Z',
+    timeline: [
+      { milestone: 'Alignment & Pier Soil Testing', date: 'Jan 2025', status: 'completed' },
+      { milestone: '33KV Electrical Grid Shifting', date: 'Apr 2025', status: 'pending' },
+      { milestone: 'Viaduct Pier Foundation Casting', date: 'Jul 2025', status: 'blocked' },
+      { milestone: 'Metro Station Concourse Civil Works', date: 'Nov 2025', status: 'pending' },
+    ],
+    documents: [
+      { name: 'Bhopal Metro Line-2 Detailed Project Report.pdf', size: '12.6 MB', uploader: 'MPMRCL' },
+      { name: 'Subhash Nagar Grid Relocation Clearance.pdf', size: '3.4 MB', uploader: 'Energy Dept' },
+    ]
+  },
+  proj_bhadbhada_flyover: {
+    id: 'proj_bhadbhada_flyover',
+    name: 'Bhadbhada Junction 4-Lane Flyover',
+    description: '1.2 km grade separator construction to eliminate traffic bottleneck at New Market - Kaliasot axis.',
+    budget: 85.0, // in Cr
+    dailyIdleBurn: 65000,
+    penaltyValue: 12000000,
+    penaltyActivationDate: '2025-08-15T00:00:00.000Z',
+    timeline: [
+      { milestone: 'Structural Stability & Geotechnical Survey', date: 'Feb 2025', status: 'completed' },
+      { milestone: 'Forest Land & Tree Translocation NOC', date: 'May 2025', status: 'pending' },
+      { milestone: 'Girder Launching & Pier Cap Installation', date: 'Aug 2025', status: 'blocked' },
+    ],
+    documents: [
+      { name: 'Bhadbhada Flyover Engineering Blueprint.pdf', size: '6.8 MB', uploader: 'PWD' },
+    ]
+  },
+  proj_hoshangabad_brts: {
+    id: 'proj_hoshangabad_brts',
+    name: 'Hoshangabad Road Corridor Redesign & Drain Network',
+    description: 'Reconstruction of mixed traffic lanes and sub-surface stormwater culvert widening along Misrod corridor.',
+    budget: 120.0, // in Cr
+    dailyIdleBurn: 90000,
+    penaltyValue: 18000000,
+    penaltyActivationDate: '2025-09-01T00:00:00.000Z',
+    timeline: [
+      { milestone: 'Topographic & Traffic Volume Survey', date: 'Feb 2025', status: 'completed' },
+      { milestone: 'Underground Ducting & Utility Shifting', date: 'Jun 2025', status: 'pending' },
+      { milestone: 'Stormwater Culvert Widening & Paving', date: 'Sep 2025', status: 'blocked' },
+    ],
+    documents: [
+      { name: 'Hoshangabad Corridor Redesign Feasibility.pdf', size: '5.1 MB', uploader: 'BMC' },
+    ]
+  },
+  proj_upper_lake_stp: {
+    id: 'proj_upper_lake_stp',
+    name: 'Upper Lake Catchment 50 MLD STP Project',
+    description: 'Interception and diversion of untreated nullahs entering Bhoj Wetland with SBR technology.',
+    budget: 165.0, // in Cr
+    dailyIdleBurn: 75000,
+    penaltyValue: 28000000,
+    penaltyActivationDate: '2025-07-20T00:00:00.000Z',
+    timeline: [
+      { milestone: 'Wetland Hydrological Impact Study', date: 'Jan 2025', status: 'completed' },
+      { milestone: 'MPPCB Environmental Consent to Establish', date: 'May 2025', status: 'pending' },
+      { milestone: 'Primary Sedimentation Tank Excavation', date: 'Jul 2025', status: 'blocked' },
+      { milestone: 'SBR Basin Electromechanical Installation', date: 'Dec 2025', status: 'pending' },
+    ],
+    documents: [
+      { name: 'Upper Lake Environmental Protection Report.pdf', size: '9.2 MB', uploader: 'EPCO' },
+    ]
+  },
+  proj_hamidia_smart_corridor: {
+    id: 'proj_hamidia_smart_corridor',
+    name: 'Hamidia Hospital Smart Transit Access Corridor',
+    description: 'Pedestrian and emergency ambulance transit spine widening around historic Hamidia Medical Campus.',
+    budget: 48.0, // in Cr
+    dailyIdleBurn: 45000,
+    penaltyValue: 7500000,
+    penaltyActivationDate: '2025-07-01T00:00:00.000Z',
+    timeline: [
+      { milestone: 'Old City Traffic & Encroachment Survey', date: 'Jan 2025', status: 'completed' },
+      { milestone: 'Revenue Encroachment Compensation & Right of Way', date: 'Apr 2025', status: 'pending' },
+      { milestone: 'Emergency Ambulance Corridor Widening', date: 'Jun 2025', status: 'blocked' },
+    ],
+    documents: [
+      { name: 'Hamidia Emergency Access Plan.pdf', size: '4.5 MB', uploader: 'Smart City' },
+    ]
   }
 };
 

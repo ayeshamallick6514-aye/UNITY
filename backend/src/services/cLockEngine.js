@@ -40,6 +40,36 @@ const DEFAULT_DEPARTMENT_CHECKLIST = {
     { code: 'traffic',      name: 'Bhopal Traffic Police Cell',          status: 'CLEARED',  stage: 'VERIFIED',         daysPending: 0,  verifiedBy: '[ROLE: ACP_TRAFFIC_BPL]', token: 'TRF-BPL-NOC-7723' },
     { code: 'telecom',      name: 'BSNL / Fiber Coordination Cell',      status: 'CLEARED',  stage: 'VERIFIED',         daysPending: 0,  verifiedBy: '[ROLE: DGM_BSNL_BPL]', token: 'TEL-BPL-NOC-5509' },
   ],
+  proj_bhopal_metro: [
+    { code: 'energy',       name: 'MP Poorv Kshetra Vidyut Vitaran',     status: 'BLOCKED',  stage: '33KV_GRID_SHIFTING', daysPending: 18, verifiedBy: null, token: null },
+    { code: 'traffic',      name: 'Bhopal Traffic Police Cell',          status: 'IN_REVIEW',stage: 'PEAK_HOUR_DIVERSION', daysPending: 11, verifiedBy: null, token: null },
+    { code: 'water_supply', name: 'BMC Water Supply Division',           status: 'CLEARED',  stage: 'VERIFIED',           daysPending: 0,  verifiedBy: '[ROLE: EE_WATER_BMC]', token: 'BMC-MET-NOC-1092' },
+    { code: 'pwd',          name: 'MP Public Works Dept (PWD)',          status: 'CLEARED',  stage: 'VERIFIED',           daysPending: 0,  verifiedBy: '[ROLE: SE_PWD_BHOPAL]', token: 'PWD-MET-NOC-7721' },
+  ],
+  proj_bhadbhada_flyover: [
+    { code: 'revenue',      name: 'Revenue Department, GoMP',            status: 'BLOCKED',  stage: 'FOREST_TREE_TRANSFER', daysPending: 22, verifiedBy: null, token: null },
+    { code: 'pwd',          name: 'MP Public Works Dept (PWD)',          status: 'IN_REVIEW',stage: 'FOUNDATION_PILING',   daysPending: 9,  verifiedBy: null, token: null },
+    { code: 'traffic',      name: 'Bhopal Traffic Police Cell',          status: 'CLEARED',  stage: 'VERIFIED',             daysPending: 0,  verifiedBy: '[ROLE: ACP_TRAFFIC_BPL]', token: 'TRF-BPL-NOC-3310' },
+    { code: 'water_supply', name: 'BMC Water Supply Division',           status: 'CLEARED',  stage: 'VERIFIED',             daysPending: 0,  verifiedBy: '[ROLE: EE_WATER_BMC]', token: 'BMC-WTR-NOC-4481' },
+  ],
+  proj_hoshangabad_brts: [
+    { code: 'energy',       name: 'MP Poorv Kshetra Vidyut Vitaran',     status: 'BLOCKED',  stage: 'UNDERGROUND_DUCTING', daysPending: 15, verifiedBy: null, token: null },
+    { code: 'telecom',      name: 'BSNL / Fiber Coordination Cell',      status: 'IN_REVIEW',stage: 'OPTICAL_FIBER_RELOC', daysPending: 7,  verifiedBy: null, token: null },
+    { code: 'pwd',          name: 'MP Public Works Dept (PWD)',          status: 'CLEARED',  stage: 'VERIFIED',           daysPending: 0,  verifiedBy: '[ROLE: EE_PWD_ZONE_2]', token: 'PWD-HOS-NOC-9901' },
+    { code: 'traffic',      name: 'Bhopal Traffic Police Cell',          status: 'CLEARED',  stage: 'VERIFIED',           daysPending: 0,  verifiedBy: '[ROLE: ACP_TRAFFIC_BPL]', token: 'TRF-HOS-NOC-5520' },
+  ],
+  proj_upper_lake_stp: [
+    { code: 'water_supply', name: 'BMC Water Supply Division',           status: 'BLOCKED',  stage: 'POLLUTION_BOARD_CONSENT', daysPending: 26, verifiedBy: null, token: null },
+    { code: 'energy',       name: 'MP Poorv Kshetra Vidyut Vitaran',     status: 'IN_REVIEW',stage: 'DEDICATED_FEEDER_SETUP',  daysPending: 12, verifiedBy: null, token: null },
+    { code: 'pwd',          name: 'MP Public Works Dept (PWD)',          status: 'CLEARED',  stage: 'VERIFIED',               daysPending: 0,  verifiedBy: '[ROLE: SE_PWD_BHOPAL]', token: 'PWD-STP-NOC-6601' },
+    { code: 'bscdc',        name: 'Bhopal Smart City Development Corp',  status: 'CLEARED',  stage: 'VERIFIED',               daysPending: 0,  verifiedBy: '[ROLE: GM_SMART_CITY]', token: 'BSC-STP-NOC-2041' },
+  ],
+  proj_hamidia_smart_corridor: [
+    { code: 'revenue',      name: 'Revenue Department, GoMP',            status: 'BLOCKED',  stage: 'OLD_CITY_ENCROACHMENT', daysPending: 31, verifiedBy: null, token: null },
+    { code: 'traffic',      name: 'Bhopal Traffic Police Cell',          status: 'IN_REVIEW',stage: 'EMERGENCY_AMBULANCE_BAY', daysPending: 10, verifiedBy: null, token: null },
+    { code: 'energy',       name: 'MP Poorv Kshetra Vidyut Vitaran',     status: 'CLEARED',  stage: 'VERIFIED',             daysPending: 0,  verifiedBy: '[ROLE: EE_MPEB]', token: 'MPEB-HAM-NOC-1823' },
+    { code: 'pwd',          name: 'MP Public Works Dept (PWD)',          status: 'CLEARED',  stage: 'VERIFIED',             daysPending: 0,  verifiedBy: '[ROLE: EE_PWD_ZONE_1]', token: 'PWD-HAM-NOC-3049' },
+  ],
 };
 
 // In-memory state store for live sign-off updates during evaluation session
@@ -103,7 +133,12 @@ async function calculateProjectCLock(projectId) {
     projectName: project?.name || (
       projectId === 'proj_mp_nagar' ? 'MP Nagar Road Widening' :
       projectId === 'proj_aiims'    ? 'AIIMS Pipeline Upgrade' :
-      projectId === 'proj_kolar'    ? 'Kolar Road Utility Relocation' : 'Bhopal Civic Infrastructure Work'
+      projectId === 'proj_kolar'    ? 'Kolar Road Utility Relocation' :
+      projectId === 'proj_bhopal_metro' ? 'Bhopal Metro Orange Line (Subhash Nagar to Karond)' :
+      projectId === 'proj_bhadbhada_flyover' ? 'Bhadbhada Junction 4-Lane Flyover' :
+      projectId === 'proj_hoshangabad_brts' ? 'Hoshangabad Road Corridor Redesign & Drain Network' :
+      projectId === 'proj_upper_lake_stp' ? 'Upper Lake Catchment 50 MLD STP Project' :
+      projectId === 'proj_hamidia_smart_corridor' ? 'Hamidia Hospital Smart Transit Access Corridor' : 'Bhopal Civic Infrastructure Work'
     ),
     cLockStatus,
     badgeVariant,
@@ -118,7 +153,12 @@ async function calculateProjectCLock(projectId) {
     dailyIdleBurn: project?.dailyIdleBurn || (
       projectId === 'proj_mp_nagar' ? 80000 :
       projectId === 'proj_aiims'    ? 25000 :
-      projectId === 'proj_kolar'    ? 40000 : 35000
+      projectId === 'proj_kolar'    ? 40000 :
+      projectId === 'proj_bhopal_metro' ? 150000 :
+      projectId === 'proj_bhadbhada_flyover' ? 65000 :
+      projectId === 'proj_hoshangabad_brts' ? 90000 :
+      projectId === 'proj_upper_lake_stp' ? 75000 :
+      projectId === 'proj_hamidia_smart_corridor' ? 45000 : 35000
     ),
     signOffs,
     blockingAgencies: blockedDepts.map(b => ({
@@ -137,7 +177,16 @@ async function calculateProjectCLock(projectId) {
  * Aggregates C-Lock synchronization across all major Bhopal work packages.
  */
 async function getAllProjectsCLock() {
-  const projectIds = ['proj_mp_nagar', 'proj_aiims', 'proj_kolar'];
+  const projectIds = [
+    'proj_mp_nagar',
+    'proj_aiims',
+    'proj_kolar',
+    'proj_bhopal_metro',
+    'proj_bhadbhada_flyover',
+    'proj_hoshangabad_brts',
+    'proj_upper_lake_stp',
+    'proj_hamidia_smart_corridor'
+  ];
   const results = [];
 
   for (const pid of projectIds) {

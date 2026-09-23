@@ -109,6 +109,51 @@ const autoSeedIfEmpty = async () => {
         dailyIdleBurn: 40000,
         penaltyActivationDate: oneDayAgo,
         penaltyValue: 8000000
+      },
+      {
+        _id: 'proj_bhopal_metro',
+        name: 'Bhopal Metro Orange Line (Subhash Nagar to Karond)',
+        description: 'Viaduct pier construction and 33KV high-tension grid relocation along 14.99 km corridor.',
+        budget: 2150000000,
+        dailyIdleBurn: 150000,
+        penaltyActivationDate: new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000),
+        penaltyValue: 45000000
+      },
+      {
+        _id: 'proj_bhadbhada_flyover',
+        name: 'Bhadbhada Junction 4-Lane Flyover',
+        description: '1.2 km grade separator construction to eliminate traffic bottleneck at New Market - Kaliasot axis.',
+        budget: 850000000,
+        dailyIdleBurn: 65000,
+        penaltyActivationDate: new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000),
+        penaltyValue: 12000000
+      },
+      {
+        _id: 'proj_hoshangabad_brts',
+        name: 'Hoshangabad Road Corridor Redesign & Drain Network',
+        description: 'Reconstruction of mixed traffic lanes and sub-surface stormwater culvert widening along Misrod corridor.',
+        budget: 1200000000,
+        dailyIdleBurn: 90000,
+        penaltyActivationDate: new Date(today.getTime() + 12 * 24 * 60 * 60 * 1000),
+        penaltyValue: 18000000
+      },
+      {
+        _id: 'proj_upper_lake_stp',
+        name: 'Upper Lake Catchment 50 MLD STP Project',
+        description: 'Interception and diversion of untreated nullahs entering Bhoj Wetland with SBR technology.',
+        budget: 1650000000,
+        dailyIdleBurn: 75000,
+        penaltyActivationDate: new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000),
+        penaltyValue: 28000000
+      },
+      {
+        _id: 'proj_hamidia_smart_corridor',
+        name: 'Hamidia Hospital Smart Transit Access Corridor',
+        description: 'Pedestrian and emergency ambulance transit spine widening around historic Hamidia Medical Campus.',
+        budget: 480000000,
+        dailyIdleBurn: 45000,
+        penaltyActivationDate: oneDayAgo,
+        penaltyValue: 7500000
       }
     ];
     await Project.insertMany(projects);
@@ -177,13 +222,63 @@ const autoSeedIfEmpty = async () => {
       },
       {
         _id: new mongoose.Types.ObjectId(),
-        projectId: 'proj_kolar',
-        departmentId: 'transport',
-        title: 'Temporary traffic diversion plan clearance',
+        projectId: 'proj_bhopal_metro',
+        departmentId: 'energy',
+        title: '33KV electrical grid shifting along Subhash Nagar railway crossing',
         status: 'pending',
-        plannedStartDate: new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000),
-        plannedEndDate: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000),
-        daysStalled: 5
+        plannedStartDate: new Date(today.getTime() - 20 * 24 * 60 * 60 * 1000),
+        plannedEndDate: threeDaysFromNow,
+        daysStalled: 18
+      },
+      {
+        _id: new mongoose.Types.ObjectId(),
+        projectId: 'proj_bhopal_metro',
+        departmentId: 'pwd',
+        title: 'Elevated metro viaduct pier foundation casting',
+        status: 'blocked',
+        plannedStartDate: new Date(today.getTime() - 8 * 24 * 60 * 60 * 1000),
+        plannedEndDate: new Date(today.getTime() + 45 * 24 * 60 * 60 * 1000),
+        daysStalled: 18
+      },
+      {
+        _id: new mongoose.Types.ObjectId(),
+        projectId: 'proj_bhadbhada_flyover',
+        departmentId: 'revenue',
+        title: 'Forest Dept and tree translocation NOC for approach road',
+        status: 'pending',
+        plannedStartDate: new Date(today.getTime() - 22 * 24 * 60 * 60 * 1000),
+        plannedEndDate: threeDaysFromNow,
+        daysStalled: 22
+      },
+      {
+        _id: new mongoose.Types.ObjectId(),
+        projectId: 'proj_bhadbhada_flyover',
+        departmentId: 'pwd',
+        title: 'Flyover girder launching and pier cap installation',
+        status: 'blocked',
+        plannedStartDate: new Date(today.getTime() - 12 * 24 * 60 * 60 * 1000),
+        plannedEndDate: new Date(today.getTime() + 60 * 24 * 60 * 60 * 1000),
+        daysStalled: 22
+      },
+      {
+        _id: new mongoose.Types.ObjectId(),
+        projectId: 'proj_upper_lake_stp',
+        departmentId: 'water_supply',
+        title: 'MPPCB environmental consent to establish & wetland buffer clearance',
+        status: 'pending',
+        plannedStartDate: new Date(today.getTime() - 26 * 24 * 60 * 60 * 1000),
+        plannedEndDate: oneDayAgo,
+        daysStalled: 26
+      },
+      {
+        _id: new mongoose.Types.ObjectId(),
+        projectId: 'proj_upper_lake_stp',
+        departmentId: 'pwd',
+        title: 'STP civil structure and primary sedimentation tank excavation',
+        status: 'blocked',
+        plannedStartDate: new Date(today.getTime() - 14 * 24 * 60 * 60 * 1000),
+        plannedEndDate: new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000),
+        daysStalled: 26
       }
     ];
     await Task.insertMany(tasks);
@@ -207,6 +302,24 @@ const autoSeedIfEmpty = async () => {
         blockingTaskId: tasks[4]._id,
         dependencyType: 'finish_to_start',
         escalationStatus: 'idle'
+      },
+      {
+        blockedTaskId: tasks[7]._id,
+        blockingTaskId: tasks[6]._id,
+        dependencyType: 'finish_to_start',
+        escalationStatus: 'idle'
+      },
+      {
+        blockedTaskId: tasks[9]._id,
+        blockingTaskId: tasks[8]._id,
+        dependencyType: 'finish_to_start',
+        escalationStatus: 'idle'
+      },
+      {
+        blockedTaskId: tasks[11]._id,
+        blockingTaskId: tasks[10]._id,
+        dependencyType: 'finish_to_start',
+        escalationStatus: 'idle'
       }
     ];
     await Dependency.insertMany(dependencies);
@@ -216,7 +329,11 @@ const autoSeedIfEmpty = async () => {
       { name: 'AIIMS Bhopal Corridor Hospital Water Supply', impactType: 'healthcare', citizensAffected: 800, projectId: 'proj_aiims' },
       { name: 'Kolar Road Ambulance Corridor Vehicle Access', impactType: 'emergency_route', citizensAffected: 1200, projectId: 'proj_kolar' },
       { name: 'MP Nagar School Bus Transport Route Carmel Convent/Campion', impactType: 'education', citizensAffected: 2400, projectId: 'proj_mp_nagar' },
-      { name: 'MP Nagar Zone 2 Local Traders Commercial Corridor', impactType: 'commercial', citizensAffected: 350, projectId: 'proj_mp_nagar' }
+      { name: 'MP Nagar Zone 2 Local Traders Commercial Corridor', impactType: 'commercial', citizensAffected: 350, projectId: 'proj_mp_nagar' },
+      { name: 'Subhash Nagar - Karond Metro Corridor Commuter Flow', impactType: 'transit', citizensAffected: 4500, projectId: 'proj_bhopal_metro' },
+      { name: 'Bhadbhada Junction Peak Hour Congestion Relief', impactType: 'transit', citizensAffected: 3200, projectId: 'proj_bhadbhada_flyover' },
+      { name: 'Bhoj Wetland Upper Lake Water Purity & Public Health', impactType: 'environmental', citizensAffected: 18000, projectId: 'proj_upper_lake_stp' },
+      { name: 'Hamidia Hospital Emergency Patient Access Corridor', impactType: 'healthcare', citizensAffected: 1500, projectId: 'proj_hamidia_smart_corridor' }
     ];
     await CitizenImpact.insertMany(impacts);
 

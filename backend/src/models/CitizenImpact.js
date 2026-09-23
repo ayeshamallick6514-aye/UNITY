@@ -7,7 +7,7 @@ const citizenImpactSchema = new mongoose.Schema({
   },
   impactType: {
     type: String,
-    enum: ['healthcare', 'education', 'emergency_route', 'commercial'],
+    enum: ['healthcare', 'education', 'emergency_route', 'commercial', 'transit', 'environmental', 'residential'],
     required: true
   },
   citizensAffected: {

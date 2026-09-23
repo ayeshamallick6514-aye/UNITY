@@ -204,4 +204,47 @@ test.describe('UNITY Institutional E2E Verification Suite', () => {
     console.log('[E2E Test 4] Sentinel Policy RAG interaction verified.');
   });
 
+  // ── TEST 5: Multi-Domain Citizen Portal & Universal Tracker ─────────────────
+  test('05. Verify Multi-Domain Citizen Portal Hub & Cross-Domain Tracking', async ({ page }) => {
+    console.log('[E2E Test 5] Testing Multi-Domain Citizen Portal...');
+    await page.goto('/citizen/portal');
+    await page.waitForLoadState('networkidle');
+
+    // 1. Verify Portal Header
+    await expect(page.locator('text=PS-5 COMPLETE SUITE')).toBeVisible();
+    await expect(page.locator('text=[ROLE: CITIZEN_APPLICANT]')).toBeVisible();
+
+    // 2. Verify all domain tabs exist and switch smoothly
+    const domainTabs = [
+      { label: 'Education',        expectedContent: 'File School Infrastructure & Digital Learning Grievance' },
+      { label: 'Scholarships',     expectedContent: 'AI-Assisted Merit & Fee Waiver Eligibility Engine' },
+      { label: 'Recruitment',      expectedContent: 'Candidate Admit Card & Objection Status' },
+      { label: 'Healthcare',       expectedContent: 'Bhopal Hospitals & ICU Availability' },
+      { label: 'Agriculture',      expectedContent: 'Krishi Upaj Mandi Samiti, Karond' },
+      { label: 'Transport',        expectedContent: 'Bhopal Key Transit Corridors & Live Frequencies' },
+      { label: 'Tourism',          expectedContent: 'Bhopal Heritage Assets & Cleanliness Telemetry' },
+      { label: 'Rural Development',expectedContent: 'Audit Gram Panchayat Schemes & Fund Utilization' },
+      { label: 'Universal Tracker',expectedContent: 'Universal Multi-Domain Grievance & Application Tracker' },
+    ];
+
+    for (const tab of domainTabs) {
+      console.log(`[E2E Test 5] Clicking tab: ${tab.label}`);
+      await page.click(`button:has-text("${tab.label}")`);
+      await expect(page.locator(`text=${tab.expectedContent}`).first()).toBeVisible({ timeout: 6000 });
+      await page.waitForTimeout(300);
+    }
+
+    // 3. Test Universal Grievance Tracker query
+    await page.click('button:has-text("Universal Tracker")');
+    await page.fill('input[placeholder*="Enter Token"]', 'HLTH-BPL-2026-8812');
+    await page.click('button:has-text("Track Live Status")');
+
+    // Verify result card
+    await expect(page.locator('text=Healthcare & Public Health')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=DISPATCHED_TO_CMHO_CELL')).toBeVisible();
+
+    console.log('[E2E Test 5] Multi-Domain Citizen Portal & Universal Tracker verified.');
+  });
+
 });
+

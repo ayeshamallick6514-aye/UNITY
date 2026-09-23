@@ -115,7 +115,8 @@ function signTokens(user) {
  */
 async function login(req, res) {
   try {
-    const { identifier, password } = req.body;
+    const identifier = req.body.identifier || req.body.email || req.body.employeeId;
+    const { password } = req.body;
 
     if (!identifier || !password) {
       return res.status(400).json({ message: 'Employee ID / email and password are required.' });

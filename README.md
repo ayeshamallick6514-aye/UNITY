@@ -118,15 +118,21 @@ flowchart TD
 
 ## 🚀 Live Demo & Quickstart Guide
 
-### 🌐 Direct Application Links
-| Portal Interface | URL Path | Persona / Purpose |
+### 🌐 Official Cloud Deployments (Render)
+- **Frontend Web Application**: [https://unity-frontend-c9z7.onrender.com](https://unity-frontend-c9z7.onrender.com)
+- **Backend API & Health Service**: [https://unity-backend-0i2e.onrender.com/health](https://unity-backend-0i2e.onrender.com/health)
+
+### 🔗 Direct Portal Navigation Links
+| Portal Interface | Cloud URL Link | Persona / Core Capability |
 |---|---|---|
-| **Role Selector (Entry)** | [`/select-role`](http://localhost:5173/select-role) | Choose between Authority Officer and Citizen |
-| **Authority Priorities Dashboard** | [`/authority/dashboard`](http://localhost:5173/authority/dashboard) | High-level CRI heatmaps & emergency escalations |
-| **Mission Control Workspace** | [`/authority/projects`](http://localhost:5173/authority/projects) | Project blocker registry, NOC handshake & directives |
-| **Citizen Services Hub** | [`/citizen/home`](http://localhost:5173/citizen/home) | 9-domain public services & welfare scheme access |
-| **File Civic Complaint** | [`/citizen/report`](http://localhost:5173/citizen/report) | Upload photo with Tesseract OCR & ward mapping |
-| **Universal Complaint Tracker** | [`/citizen/track`](http://localhost:5173/citizen/track) | Track any ticket with real-time institutional progress |
+| **Role Selector (Gateway)** | [**Open Entry Gateway**](https://unity-frontend-c9z7.onrender.com) | Choose between District Authority and Citizen portal |
+| **Authority Priorities Dashboard** | [**Open Dashboard**](https://unity-frontend-c9z7.onrender.com/authority/dashboard) | High-level CRI heatmaps & emergency escalations |
+| **Mission Control Workspace** | [**Open Mission Control**](https://unity-frontend-c9z7.onrender.com/authority/projects) | 8 Bhopal megaprojects, blocker register & directives |
+| **Citizen Services Hub** | [**Open Citizen Hub**](https://unity-frontend-c9z7.onrender.com/citizen/home) | 9-domain public services, live weather & schemes |
+| **File Civic Complaint (OCR)** | [**Open Grievance Portal**](https://unity-frontend-c9z7.onrender.com/citizen/report) | Upload photo with Tesseract OCR & ward resolution |
+| **Universal Complaint Tracker** | [**Open Ticket Tracker**](https://unity-frontend-c9z7.onrender.com/citizen/track) | Live 4-stage tracking across all domain tickets |
+
+> **Note for Judges**: If accessing after a period of dormancy, Render's free tier spins up instances within ~15–30 seconds on initial connection. Subsequent queries are instantaneous.
 
 ---
 

@@ -170,6 +170,17 @@ export default function ReportIssue() {
     const existing = JSON.parse(sessionStorage.getItem('complaints') || '[]');
     sessionStorage.setItem('complaints', JSON.stringify([complaint, ...existing]));
 
+    // Synchronize to universal backend tracking engine
+    try {
+      api.fileComplaint({
+        domain: 'civic',
+        title,
+        description: desc,
+        location: loc,
+        contact: 'Citizen Portal Applicant'
+      }).catch(() => {});
+    } catch (_) {}
+
     setRefId(newRefId);
     setTitle('');
     setDesc('');

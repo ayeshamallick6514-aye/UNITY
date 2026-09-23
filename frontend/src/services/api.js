@@ -264,5 +264,17 @@ export const api = {
   reportRuralGrievance(data) {
     return axiosInstance.post('/rural/grievance', data);
   },
+
+  // ── Universal Complaint Tracker ──────────────────────────────────────────
+
+  // Universal complaint tracker — searches all domains by refId
+  trackComplaint(refId) {
+    return axiosInstance.get(`/complaints/track/${encodeURIComponent(refId)}`);
+  },
+
+  // Universal complaint filing
+  fileComplaint(data) {
+    return axiosInstance.post('/complaints/file', data);
+  },
 };
 export default api;

@@ -12,6 +12,7 @@ const agricultureRoutes= require('./src/routes/agriculture');
 const transportRoutes  = require('./src/routes/transport');
 const tourismRoutes    = require('./src/routes/tourism');
 const ruralRoutes      = require('./src/routes/rural');
+const complaintRoutes  = require('./src/routes/complaints');
 
 // Load .env (local dev only — Render injects env vars directly)
 dotenv.config();
@@ -44,6 +45,7 @@ app.use('/api/v1/agriculture', agricultureRoutes);
 app.use('/api/v1/transport',   transportRoutes);
 app.use('/api/v1/tourism',     tourismRoutes);
 app.use('/api/v1/rural',       ruralRoutes);
+app.use('/api/v1/complaints',  complaintRoutes);
 app.use('/api/v1',             civicRoutes);
 app.use('/api/v1',             apiRoutes);
 

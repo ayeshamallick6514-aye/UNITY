@@ -125,6 +125,18 @@ exports.getCitizenServicesSummary = function getCitizenServicesSummary(_req, res
         totalCandidatesEnrolled: 82000,
         grievancesAddressed: 341,
         transparentAuditScore: '96.8 / 100',
+      },
+      healthcareServices: {
+        empaneledHospitals: 78,
+        active108Ambulances: 42,
+        avgResponseMinutes: 11.4,
+        ayushmanCardsIssued: '8.42 Lakhs',
+      },
+      agriculturalGovernance: {
+        registeredFarmers: 94200,
+        dbtDisbursedThisQuarter: '₹18.84 Cr',
+        activeMandiArrivals: '1,420 Tonnes/day',
+        fertilizerBufferStatus: 'SUFFICIENT_FOR_RABI',
       }
     },
     meta: {

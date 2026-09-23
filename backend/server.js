@@ -7,6 +7,8 @@ const sentinelRoutes   = require('./src/routes/sentinel');
 const authRoutes       = require('./src/routes/auth');
 const civicRoutes      = require('./src/routes/civic');
 const citizenRoutes    = require('./src/routes/citizen');
+const healthcareRoutes = require('./src/routes/healthcare');
+const agricultureRoutes= require('./src/routes/agriculture');
 
 // Load .env (local dev only — Render injects env vars directly)
 dotenv.config();
@@ -31,11 +33,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ─── Routes ─────────────────────────────────────────────────────────────────
-app.use('/api/v1/auth',     authRoutes);
-app.use('/api/v1/sentinel', sentinelRoutes);
-app.use('/api/v1/citizen',  citizenRoutes);
-app.use('/api/v1',          civicRoutes);
-app.use('/api/v1',          apiRoutes);
+app.use('/api/v1/auth',        authRoutes);
+app.use('/api/v1/sentinel',    sentinelRoutes);
+app.use('/api/v1/citizen',     citizenRoutes);
+app.use('/api/v1/healthcare',  healthcareRoutes);
+app.use('/api/v1/agriculture', agricultureRoutes);
+app.use('/api/v1',             civicRoutes);
+app.use('/api/v1',             apiRoutes);
 
 // ─── Health Check ───────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {

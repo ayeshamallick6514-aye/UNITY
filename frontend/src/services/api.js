@@ -179,5 +179,39 @@ export const api = {
   reportRecruitmentGrievance(data) {
     return axiosInstance.post('/citizen/recruitment/grievance', data);
   },
+
+  // ── Healthcare Services & Hospital Telemetry ────────────────────────────
+
+  // Live hospital telemetry & ICU/oxygen buffers
+  getHealthcareTelemetry() {
+    return axiosInstance.get('/healthcare/telemetry');
+  },
+
+  // Medical / public health grievance filing
+  reportHealthGrievance(data) {
+    return axiosInstance.post('/healthcare/grievance', data);
+  },
+
+  // Track medical grievance by reference ID
+  trackHealthGrievance(refId) {
+    return axiosInstance.get(`/healthcare/track/${refId}`);
+  },
+
+  // ── Agricultural Governance & Mandi E-Uparjan ───────────────────────────
+
+  // Mandi prices, arrival telemetry & DBT summary
+  getAgricultureTelemetry() {
+    return axiosInstance.get('/agriculture/telemetry');
+  },
+
+  // Farmer PM-Kisan / Mukhyamantri Kisan Kalyan DBT status
+  getFarmerDbtStatus(farmerId) {
+    return axiosInstance.get(`/agriculture/dbt/status/${farmerId}`);
+  },
+
+  // PMFBY Crop damage re-survey appeal submission
+  reportCropDamageGrievance(data) {
+    return axiosInstance.post('/agriculture/crop-damage/report', data);
+  },
 };
 export default api;

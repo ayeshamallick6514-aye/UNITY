@@ -4,14 +4,16 @@ import {
   Building2, GraduationCap, Award, Briefcase, Search,
   Plus, Calendar, CheckCircle2, AlertCircle, Clock,
   FileText, ShieldCheck, ChevronRight, Send, ArrowRight,
-  Loader2, RotateCcw, MapPin, Compass, Landmark, Lock
+  Loader2, RotateCcw, MapPin, Compass, Landmark, Lock,
+  HeartPulse, Stethoscope, Wheat, Sprout, Truck, TrendingUp,
+  Droplets, Pill, Activity
 } from 'lucide-react';
 import UnityMap from '../../components/map/UnityMap';
 import api from '../../services/api';
 
 export default function CitizenPortalHub() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('urban'); // 'urban' | 'education' | 'scholarships' | 'recruitment' | 'tracker'
+  const [activeTab, setActiveTab] = useState('urban'); // 'urban' | 'education' | 'scholarships' | 'recruitment' | 'healthcare' | 'agriculture' | 'tracker'
   const [summary, setSummary] = useState(null);
   const [loadingSummary, setLoadingSummary] = useState(true);
 
@@ -50,23 +52,56 @@ export default function CitizenPortalHub() {
   const [recSubmitting, setRecSubmitting] = useState(false);
   const [recResult, setRecResult] = useState(null);
 
+  // ─── Healthcare State ──────────────────────────────────────────────────────
+  const [healthTelemetry, setHealthTelemetry] = useState(null);
+  const [healthHospital, setHealthHospital] = useState('Jay Prakash (JP) District Hospital, 1250 Hospital Rd');
+  const [healthCategory, setHealthCategory] = useState('MEDICINE_STOCKOUT');
+  const [healthDesc, setHealthDesc] = useState('');
+  const [healthSubmitting, setHealthSubmitting] = useState(false);
+  const [healthResult, setHealthResult] = useState(null);
+  const [healthTrackRefId, setHealthTrackRefId] = useState('HLTH-BPL-2026-8812');
+  const [healthTracking, setHealthTracking] = useState(false);
+  const [healthTrackRecord, setHealthTrackRecord] = useState(null);
+  const [healthTrackError, setHealthTrackError] = useState('');
+
+  // ─── Agriculture State ─────────────────────────────────────────────────────
+  const [agriTelemetry, setAgriTelemetry] = useState(null);
+  const [farmerId, setFarmerId] = useState('FARM-MP-2026-90412');
+  const [farmerDbtTracking, setFarmerDbtTracking] = useState(false);
+  const [farmerDbtRecord, setFarmerDbtRecord] = useState(null);
+  const [farmerDbtError, setFarmerDbtError] = useState('');
+  const [cropFarmerId, setCropFarmerId] = useState('FARM-MP-2026-33104');
+  const [cropKhasra, setCropKhasra] = useState('Plot 88/1, Berasia Tehsil, Bhopal');
+  const [cropName, setCropName] = useState('Soybean (Yellow - Kharif)');
+  const [cropLossPct, setCropLossPct] = useState('65%');
+  const [cropDamageCause, setCropDamageCause] = useState('EXCESS_RAINFALL');
+  const [cropDesc, setCropDesc] = useState('');
+  const [cropSubmitting, setCropSubmitting] = useState(false);
+  const [cropResult, setCropResult] = useState(null);
+
   // ─── Unified Ticket Tracker State ──────────────────────────────────────────
   const [universalToken, setUniversalToken] = useState('');
   const [universalStatus, setUniversalStatus] = useState(null);
 
   useEffect(() => {
-    async function fetchSummary() {
+    async function fetchPortalData() {
       try {
         setLoadingSummary(true);
-        const res = await api.getCitizenSummary();
-        setSummary(res);
+        const [summaryRes, healthRes, agriRes] = await Promise.allSettled([
+          api.getCitizenSummary(),
+          api.getHealthcareTelemetry(),
+          api.getAgricultureTelemetry()
+        ]);
+        if (summaryRes.status === 'fulfilled') setSummary(summaryRes.value);
+        if (healthRes.status === 'fulfilled') setHealthTelemetry(healthRes.value);
+        if (agriRes.status === 'fulfilled') setAgriTelemetry(agriRes.value);
       } catch (err) {
-        console.error('[Citizen Summary Error]', err);
+        console.error('[Citizen Portal Data Fetch Error]', err);
       } finally {
         setLoadingSummary(false);
       }
     }
-    fetchSummary();
+    fetchPortalData();
   }, []);
 
   // ─── Handlers ──────────────────────────────────────────────────────────────
@@ -164,6 +199,82 @@ export default function CitizenPortalHub() {
     }
   };
 
+  const handleHealthSubmit = async (e) => {
+    e.preventDefault();
+    if (!healthDesc.trim()) return;
+    setHealthSubmitting(true);
+    setHealthResult(null);
+    try {
+      const res = await api.reportHealthGrievance({
+        hospitalName: healthHospital,
+        category: healthCategory,
+        description: healthDesc,
+        wardCode: 'WARD_031',
+      });
+      setHealthResult(res);
+      setHealthDesc('');
+    } catch (err) {
+      alert(err.message || 'Failed to register health grievance.');
+    } finally {
+      setHealthSubmitting(false);
+    }
+  };
+
+  const handleHealthTrack = async (e) => {
+    e.preventDefault();
+    if (!healthTrackRefId.trim()) return;
+    setHealthTracking(true);
+    setHealthTrackError('');
+    setHealthTrackRecord(null);
+    try {
+      const res = await api.trackHealthGrievance(healthTrackRefId.trim());
+      setHealthTrackRecord(res);
+    } catch (err) {
+      setHealthTrackError(err.message || 'Health grievance not found. Try sample: HLTH-BPL-2026-8812');
+    } finally {
+      setHealthTracking(false);
+    }
+  };
+
+  const handleFarmerDbtTrack = async (e) => {
+    e.preventDefault();
+    if (!farmerId.trim()) return;
+    setFarmerDbtTracking(true);
+    setFarmerDbtError('');
+    setFarmerDbtRecord(null);
+    try {
+      const res = await api.getFarmerDbtStatus(farmerId.trim());
+      setFarmerDbtRecord(res);
+    } catch (err) {
+      setFarmerDbtError(err.message || 'Farmer record not found. Try sample: FARM-MP-2026-90412 or FARM-MP-2026-33104');
+    } finally {
+      setFarmerDbtTracking(false);
+    }
+  };
+
+  const handleCropDamageSubmit = async (e) => {
+    e.preventDefault();
+    if (!cropDesc.trim()) return;
+    setCropSubmitting(true);
+    setCropResult(null);
+    try {
+      const res = await api.reportCropDamageGrievance({
+        farmerId: cropFarmerId,
+        khasraNumber: cropKhasra,
+        cropName: cropName,
+        estimatedLossPct: cropLossPct,
+        damageCause: cropDamageCause,
+        description: cropDesc,
+      });
+      setCropResult(res);
+      setCropDesc('');
+    } catch (err) {
+      alert(err.message || 'Failed to submit crop damage re-survey appeal.');
+    } finally {
+      setCropSubmitting(false);
+    }
+  };
+
   const handleUniversalTrack = (e) => {
     e.preventDefault();
     const token = universalToken.trim().toUpperCase();
@@ -209,6 +320,26 @@ export default function CitizenPortalHub() {
         lastUpdate: '20 Sep 2026',
         color: 'text-purple-800 bg-purple-50 border-purple-300'
       });
+    } else if (token.startsWith('HLTH-') || token.startsWith('HOSP-')) {
+      setUniversalStatus({
+        token,
+        domain: 'Healthcare & Public Health',
+        status: 'DISPATCHED_TO_CMHO_CELL',
+        dept: 'Dept of Public Health & Family Welfare, GoMP',
+        summary: 'Medical buffer stock and facility inspection ticket verified by CMHO Command Room.',
+        lastUpdate: 'Today, 02:40 PM IST',
+        color: 'text-rose-800 bg-rose-50 border-rose-300'
+      });
+    } else if (token.startsWith('AGRI-') || token.startsWith('FARM-') || token.startsWith('PMFBY')) {
+      setUniversalStatus({
+        token,
+        domain: 'Agriculture & Mandi Welfare',
+        status: 'JOINT_SURVEY_SCHEDULED',
+        dept: 'Dept of Farmer Welfare and Agriculture Development, GoMP',
+        summary: 'Crop loss re-survey scheduled with Revenue Patwari & PMFBY insurance assessor.',
+        lastUpdate: 'Today, 01:15 PM IST',
+        color: 'text-emerald-800 bg-emerald-50 border-emerald-300'
+      });
     } else {
       setUniversalStatus({
         token,
@@ -223,6 +354,35 @@ export default function CitizenPortalHub() {
   };
 
   const t = summary?.telemetry;
+  const ht = healthTelemetry || {
+    hospitalUnits: [
+      { id: 'HOSP-01', name: 'AIIMS Bhopal (Apex Medical Center)', type: 'TERTIARY_CENTRAL', ward: 'WARD_028', icuBedsAvailable: 14, icuTotal: 80, oxygenBufferDays: 12.5, emergencyStatus: 'NORMAL', bloodBankStock: 'OPTIMAL (A+, B+, O+, AB+ available)' },
+      { id: 'HOSP-02', name: 'Hamidia Hospital & Gandhi Medical College', type: 'DISTRICT_TEACHING', ward: 'WARD_011', icuBedsAvailable: 8, icuTotal: 65, oxygenBufferDays: 9.0, emergencyStatus: 'NORMAL', bloodBankStock: 'ADEQUATE' },
+      { id: 'HOSP-03', name: 'Jay Prakash (JP) District Hospital, 1250 Hospital Rd', type: 'DISTRICT_CIVIL', ward: 'WARD_031', icuBedsAvailable: 6, icuTotal: 30, oxygenBufferDays: 7.2, emergencyStatus: 'NORMAL', bloodBankStock: 'OPTIMAL' },
+      { id: 'HOSP-04', name: 'Community Health Center (CHC) Kolar', type: 'COMMUNITY_HEALTH_CENTER', ward: 'WARD_055', icuBedsAvailable: 3, icuTotal: 10, oxygenBufferDays: 5.5, emergencyStatus: 'NORMAL', bloodBankStock: 'CRITICAL_O_NEG_REQUIRED' }
+    ],
+    ambulance108: { activeFleetCount: 42, avgResponseTimeMinutes: 11.4, emergencyTriagesToday: 188, gpsTrackedPct: '100%' },
+    ayushmanBharat: { cardsIssuedBhopal: '8,42,000', claimsSettledThisQuarter: '₹28.4 Cr', hospitalEmpaneledCount: 78 }
+  };
+
+  const at = agriTelemetry || {
+    mandiKarond: {
+      mandiName: 'Krishi Upaj Mandi Samiti, Karond (Bhopal)',
+      operationalStatus: 'OPEN_NORMAL',
+      dailyArrivalTonnes: 1420,
+      activeTrucksInQueue: 18,
+      avgUnloadingWaitHours: 1.2,
+      gatePassProtocol: 'E_UPARJAN_DIGITAL_TOKEN',
+      currentCommodityPrices: [
+        { crop: 'Wheat (Sharbati - Grade A)', msp: '₹2,275 / Qtl', modalPrice: '₹2,850 / Qtl', trend: 'UP' },
+        { crop: 'Soybean (Yellow)', msp: '₹4,892 / Qtl', modalPrice: '₹4,940 / Qtl', trend: 'STABLE' },
+        { crop: 'Gram (Chana - Desi)', msp: '₹5,440 / Qtl', modalPrice: '₹5,750 / Qtl', trend: 'UP' },
+        { crop: 'Paddy (Basmati)', msp: '₹2,300 / Qtl', modalPrice: '₹3,200 / Qtl', trend: 'UP' }
+      ]
+    },
+    dbtSummary: { totalFarmersCovered: 94200, disbursedThisInstallment: '₹18.84 Cr', dbtSuccessRate: '99.8%' },
+    fertilizerStockBuffer: { ureaStockMT: 4800, dapStockMT: 2600, npkStockMT: 1900, status: 'SUFFICIENT_FOR_RABI_SEASON' }
+  };
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans text-slate-900">
@@ -247,7 +407,7 @@ export default function CitizenPortalHub() {
                 </span>
               </div>
               <p className="text-[10px] text-slate-300 font-mono mt-1">
-                Unified Portal for Urban Governance, Education, DBT Scholarships &amp; State Recruitment
+                Unified Portal for Urban Governance, Education, Scholarships, Recruitment, Healthcare &amp; Agriculture
               </p>
             </div>
           </div>
@@ -266,11 +426,13 @@ export default function CitizenPortalHub() {
         {/* ── Multi-Domain Pillar Switcher Tabs ───────────────────────────── */}
         <div className="bg-white border border-slate-200 p-1.5 rounded-md shadow-2xs flex flex-wrap gap-1.5">
           {[
-            { id: 'urban',        label: 'Urban Services & Infrastructure',  icon: Building2,      badge: 'Bhopal GIS' },
-            { id: 'education',    label: 'Education & Digital Learning',      icon: GraduationCap,  badge: '384 Schools' },
-            { id: 'scholarships', label: 'Scholarships & DBT Status',        icon: Award,          badge: '₹14.8 Cr Disbursed' },
-            { id: 'recruitment',  label: 'State Recruitment & Exams',        icon: Briefcase,      badge: 'MPPSC / ESB' },
-            { id: 'tracker',      label: 'Universal Grievance Tracker',       icon: Search,         badge: 'All Domains' },
+            { id: 'urban',        label: 'Urban Services & Infrastructure', icon: Building2,     badge: 'Bhopal GIS' },
+            { id: 'education',    label: 'Education & Digital Learning',     icon: GraduationCap, badge: '384 Schools' },
+            { id: 'scholarships', label: 'Scholarships & DBT Status',       icon: Award,         badge: '₹14.8 Cr' },
+            { id: 'recruitment',  label: 'State Recruitment & Exams',       icon: Briefcase,     badge: 'MPPSC / ESB' },
+            { id: 'healthcare',   label: 'Healthcare & Hospitals',          icon: HeartPulse,    badge: '78 Empaneled' },
+            { id: 'agriculture',  label: 'Agriculture & Mandi',             icon: Wheat,         badge: 'Karond Mandi' },
+            { id: 'tracker',      label: 'Universal Grievance Tracker',      icon: Search,        badge: 'All Domains' },
           ].map((tab) => {
             const Icon = tab.icon;
             const active = activeTab === tab.id;
@@ -278,17 +440,17 @@ export default function CitizenPortalHub() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 min-w-[200px] flex items-center justify-between px-4 py-2.5 rounded transition-all text-xs font-bold uppercase tracking-wider ${
+                className={`flex-1 min-w-[150px] flex items-center justify-between px-3 py-2.5 rounded transition-all text-[11px] font-bold uppercase tracking-wider ${
                   active
                     ? 'bg-[#0B1B3D] text-white shadow-2xs'
                     : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/60'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <Icon size={14} className={active ? 'text-amber-400' : 'text-slate-500'} />
-                  <span>{tab.label}</span>
+                <div className="flex items-center gap-1.5 truncate">
+                  <Icon size={13} className={active ? 'text-amber-400' : 'text-slate-500'} />
+                  <span className="truncate">{tab.label}</span>
                 </div>
-                <span className={`text-[8px] font-mono px-1.5 py-0.5 rounded ${
+                <span className={`text-[8px] font-mono px-1 py-0.2 rounded ml-1 shrink-0 ${
                   active ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-600'
                 }`}>
                   {tab.badge}
@@ -970,7 +1132,546 @@ export default function CitizenPortalHub() {
         )}
 
         {/* ══════════════════════════════════════════════════════════════════════
-            TAB 5: UNIVERSAL GRIEVANCE TRACKER (CROSS-DOMAIN)
+            TAB 5: HEALTHCARE SERVICES & HOSPITAL TELEMETRY
+           ══════════════════════════════════════════════════════════════════════ */}
+        {activeTab === 'healthcare' && (
+          <div className="space-y-6 animate-fade-in">
+            {/* Healthcare Telemetry ribbon */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Empaneled Hospitals</p>
+                <p className="text-2xl font-black font-mono text-slate-900 mt-1">{ht?.ayushmanBharat?.hospitalEmpaneledCount || 78}</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">Ayushman PM-JAY Bhopal Network</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">ICU Beds Available</p>
+                <p className="text-2xl font-black font-mono text-rose-700 mt-1">31 <span className="text-xs text-slate-400 font-sans font-normal">/ 185 Total</span></p>
+                <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">Live District Buffer</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">108 Ambulance Latency</p>
+                <p className="text-2xl font-black font-mono text-slate-900 mt-1">{ht?.ambulance108?.avgResponseTimeMinutes || 11.4} Min</p>
+                <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">100% GPS Live-Tracked</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Ayushman Disbursal</p>
+                <p className="text-2xl font-black font-mono text-emerald-700 mt-1">{ht?.ayushmanBharat?.claimsSettledThisQuarter || '₹28.4 Cr'}</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">{ht?.ayushmanBharat?.cardsIssuedBhopal || '8.42 Lakhs'} Cards Active</p>
+              </div>
+            </div>
+
+            {/* Split: Live Hospital Resource Matrix + Grievance Form */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              
+              {/* Left (7 Cols): Hospital Resource & Grievance Registration */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Hospital Units Status */}
+                <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-2xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                      Bhopal Apex Public Hospitals &amp; ICU Availability
+                    </h3>
+                    <span className="text-[9px] font-mono text-slate-400">TELEMETRY: ACTIVE</span>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {ht.hospitalUnits.map((hosp) => (
+                      <div key={hosp.id} className="p-3 bg-slate-50 border border-slate-200 rounded flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-slate-900 text-[11px]">{hosp.name}</span>
+                            <span className="text-[8px] font-mono bg-white border border-slate-200 px-1.5 py-0.2 rounded text-slate-600">
+                              {hosp.ward}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-slate-500">Blood Bank: <span className="font-medium text-slate-700">{hosp.bloodBankStock}</span></p>
+                        </div>
+
+                        <div className="flex items-center gap-3 shrink-0">
+                          <div className="text-right">
+                            <span className="text-[9px] text-slate-400 uppercase block font-mono">ICU Beds</span>
+                            <span className="text-xs font-black font-mono text-rose-800">{hosp.icuBedsAvailable} / {hosp.icuTotal}</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[9px] text-slate-400 uppercase block font-mono">Oxygen Buffer</span>
+                            <span className="text-xs font-black font-mono text-emerald-800">{hosp.oxygenBufferDays} Days</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Medical Grievance Form */}
+                <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-2xs">
+                  <div className="border-b border-slate-100 pb-2 flex items-center justify-between">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                      File Hospital Facility &amp; Medicine Stockout Grievance
+                    </h3>
+                    <span className="text-[9px] font-mono font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded">
+                      CMHO FAST-TRACK: 24-48 HRS
+                    </span>
+                  </div>
+
+                  {healthResult ? (
+                    <div className="p-6 bg-slate-50 border border-slate-200 rounded space-y-3 text-center">
+                      <CheckCircle2 size={32} className="text-emerald-700 mx-auto" />
+                      <h4 className="text-sm font-bold text-slate-900">Medical Grievance Logged &amp; Dispatched</h4>
+                      <p className="text-xs text-slate-600">Dispatched directly to the Chief Medical and Health Officer (CMHO Bhopal) rapid response cell.</p>
+                      <div className="p-3 bg-white border border-slate-200 rounded inline-block font-mono text-sm font-black text-slate-900">
+                        Tracking Token: {healthResult.refId}
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => setHealthResult(null)}
+                          className="text-xs font-bold text-blue-900 hover:underline uppercase tracking-wider"
+                        >
+                          File Another Medical Report
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleHealthSubmit} className="space-y-4">
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                          Target Hospital / Health Center <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                          value={healthHospital}
+                          onChange={(e) => setHealthHospital(e.target.value)}
+                          className="w-full border border-slate-300 rounded p-2.5 text-xs text-slate-800 outline-none focus:border-[#0B1B3D] bg-white font-sans"
+                        >
+                          <option value="Jay Prakash (JP) District Hospital, 1250 Hospital Rd">Jay Prakash (JP) District Hospital, 1250 Hospital Rd</option>
+                          <option value="Hamidia Hospital & Gandhi Medical College">Hamidia Hospital &amp; GMC Bhopal</option>
+                          <option value="AIIMS Bhopal (Apex Medical Center)">AIIMS Bhopal (Apex Medical Center)</option>
+                          <option value="Community Health Center (CHC) Kolar">Community Health Center (CHC) Kolar</option>
+                          <option value="Govt. Civil Hospital, Bairagarh">Govt. Civil Hospital, Bairagarh</option>
+                        </select>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                            Grievance Category <span className="text-red-500">*</span>
+                          </label>
+                          <select
+                            value={healthCategory}
+                            onChange={(e) => setHealthCategory(e.target.value)}
+                            className="w-full border border-slate-300 rounded p-2.5 text-xs text-slate-800 outline-none focus:border-[#0B1B3D] bg-white font-sans"
+                          >
+                            <option value="MEDICINE_STOCKOUT">Essential Medicine Stockout / Counter Closed (SLA: 24h)</option>
+                            <option value="DIAGNOSTIC_EQUIPMENT">Ultrasound / X-Ray / CT Scanner Malfunction</option>
+                            <option value="ICU_ADMISSION_DELAY">Emergency Triage / ICU Bed Admission Hold</option>
+                            <option value="AMBULANCE_DELAY">108 Emergency Ambulance Response Delay</option>
+                            <option value="AYUSHMAN_CARD_REJECTION">Ayushman PM-JAY Cashless Denial by Hospital</option>
+                          </select>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                            Ward Jurisdiction
+                          </label>
+                          <input
+                            type="text"
+                            disabled
+                            value="WARD_031 (Bhopal Central)"
+                            className="w-full border border-slate-200 bg-slate-50 rounded p-2.5 text-xs text-slate-500 font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                          Detailed Problem Description &amp; Counter / Ward Number <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                          rows={4}
+                          required
+                          value={healthDesc}
+                          onChange={(e) => setHealthDesc(e.target.value)}
+                          placeholder="e.g. Free OPD Pharmacy Counter 3 has run out of essential diabetes and blood pressure formulations for 3 consecutive days..."
+                          className="w-full border border-slate-300 rounded p-3 text-xs text-slate-900 outline-none focus:border-[#0B1B3D] bg-white font-sans"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={healthSubmitting || !healthDesc.trim()}
+                        className="bg-[#0B1B3D] hover:bg-[#162444] disabled:opacity-50 text-white font-bold px-5 py-2.5 rounded text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors shadow-2xs"
+                      >
+                        {healthSubmitting ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
+                        Submit Medical Grievance
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+
+              {/* Right (5 Cols): Health Grievance Tracker & Emergency Help */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-2xs">
+                  <div className="border-b border-slate-100 pb-2">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                      Track Medical Grievance Status
+                    </h3>
+                    <p className="text-[10px] text-slate-400 font-mono mt-0.5">District Health Command Cell (CMHO Bhopal)</p>
+                  </div>
+
+                  <form onSubmit={handleHealthTrack} className="space-y-3">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                        Healthcare Reference ID
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={healthTrackRefId}
+                          onChange={(e) => setHealthTrackRefId(e.target.value)}
+                          placeholder="e.g. HLTH-BPL-2026-8812"
+                          className="flex-1 border border-slate-300 rounded p-2 text-xs text-slate-900 font-mono outline-none focus:border-[#0B1B3D]"
+                        />
+                        <button
+                          type="submit"
+                          disabled={healthTracking}
+                          className="bg-[#0B1B3D] text-white px-3 py-2 rounded text-xs font-bold uppercase transition-colors"
+                        >
+                          {healthTracking ? <Loader2 size={12} className="animate-spin" /> : <Search size={12} />}
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  {healthTrackError && (
+                    <div className="bg-red-50 border border-red-200 p-2.5 rounded text-xs text-red-700">
+                      {healthTrackError}
+                    </div>
+                  )}
+
+                  {healthTrackRecord && (
+                    <div className="bg-slate-50 border border-slate-200 rounded p-4 space-y-3 animate-fade-in text-xs">
+                      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <span className="font-bold text-slate-900">{healthTrackRecord.refId}</span>
+                        <span className="text-[8.5px] font-mono font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded border border-emerald-300 uppercase">
+                          {healthTrackRecord.status}
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5 text-[11px]">
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Hospital:</strong> {healthTrackRecord.hospitalName}</p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Issue Category:</strong> {healthTrackRecord.category}</p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Description:</strong> {healthTrackRecord.description}</p>
+                        {healthTrackRecord.resolution && (
+                          <div className="p-2 bg-emerald-50 border border-emerald-200 rounded mt-2">
+                            <span className="text-[9px] font-bold uppercase text-emerald-900 block">Redressal Action:</span>
+                            <span className="text-[10px] text-emerald-800">{healthTrackRecord.resolution}</span>
+                          </div>
+                        )}
+                        <p className="text-[9px] font-mono text-slate-400 mt-2">FILED: {healthTrackRecord.filedAt}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="text-[9px] text-slate-500 bg-slate-50 border border-slate-200 p-3 rounded space-y-1">
+                    <p className="font-bold text-slate-800 uppercase">Sample Reference Keys:</p>
+                    <p className="font-mono text-blue-900 cursor-pointer" onClick={() => setHealthTrackRefId('HLTH-BPL-2026-8812')}>
+                      • HLTH-BPL-2026-8812 (JP Hospital Drug Stockout - Resolved)
+                    </p>
+                    <p className="font-mono text-blue-900 cursor-pointer" onClick={() => setHealthTrackRefId('HLTH-BPL-2026-3391')}>
+                      • HLTH-BPL-2026-3391 (CHC Kolar Ultrasound Probe - Dispatched)
+                    </p>
+                  </div>
+                </div>
+
+                {/* Emergency Card */}
+                <div className="bg-rose-50 border border-rose-200 p-4 rounded-md space-y-2 text-xs">
+                  <div className="flex items-center gap-1.5 text-rose-900 font-bold uppercase text-[10px] tracking-wider">
+                    <HeartPulse size={14} className="text-rose-600" />
+                    <span>Emergency Ambulance Direct Dial</span>
+                  </div>
+                  <p className="text-rose-900 text-[11px] leading-relaxed">
+                    For critical cardiac, road trauma or maternal emergencies, call <strong>108 (Sanjeevani Express)</strong> or dial <strong>104 Health Helpline</strong>.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            TAB 6: AGRICULTURE, MANDI E-UPARJAN & CROP WELFARE
+           ══════════════════════════════════════════════════════════════════════ */}
+        {activeTab === 'agriculture' && (
+          <div className="space-y-6 animate-fade-in">
+            {/* Agriculture Telemetry ribbon */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Karond Mandi Arrivals</p>
+                <p className="text-2xl font-black font-mono text-slate-900 mt-1">{at?.mandiKarond?.dailyArrivalTonnes || 1420} <span className="text-xs text-slate-400 font-sans font-normal">Tonnes/day</span></p>
+                <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">Gate Pass: E-Uparjan Live</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Farmers Covered under DBT</p>
+                <p className="text-2xl font-black font-mono text-slate-900 mt-1">{(at?.dbtSummary?.totalFarmersCovered || 94200).toLocaleString()}</p>
+                <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">100% Aadhaar Seeded</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">DBT Disbursed (Quarter)</p>
+                <p className="text-2xl font-black font-mono text-emerald-700 mt-1">{at?.dbtSummary?.disbursedThisInstallment || '₹18.84 Cr'}</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">PM-Kisan + CM Kisan Kalyan</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-md p-4 shadow-2xs">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Fertilizer District Stock</p>
+                <p className="text-2xl font-black font-mono text-slate-900 mt-1">{at?.fertilizerStockBuffer?.ureaStockMT || 4800} <span className="text-xs text-slate-400 font-sans font-normal">MT Urea</span></p>
+                <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">Sufficient for Rabi Season</p>
+              </div>
+            </div>
+
+            {/* Split: Mandi Price Feed + PMFBY Crop Damage Appeal */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              
+              {/* Left (7 Cols): Mandi Prices & Crop Damage Re-Survey Form */}
+              <div className="lg:col-span-7 space-y-6">
+                
+                {/* Mandi Karond Commodity Prices */}
+                <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-2xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <div>
+                      <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                        {at?.mandiKarond?.mandiName || 'Krishi Upaj Mandi Samiti, Karond (Bhopal)'}
+                      </h3>
+                      <p className="text-[10px] text-slate-500 font-mono mt-0.5">Official E-Uparjan Daily Commodity Price Matrix</p>
+                    </div>
+                    <span className="text-[9px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
+                      STATUS: OPEN
+                    </span>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-slate-200 text-slate-400 font-mono text-[9px] uppercase">
+                          <th className="py-2">Commodity / Grade</th>
+                          <th className="py-2">Govt MSP</th>
+                          <th className="py-2">Today's Modal Price</th>
+                          <th className="py-2 text-right">Market Trend</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 text-[11px]">
+                        {at?.mandiKarond?.currentCommodityPrices?.map((c, i) => (
+                          <tr key={i} className="hover:bg-slate-50">
+                            <td className="py-2 font-bold text-slate-900">{c.crop}</td>
+                            <td className="py-2 font-mono text-slate-600">{c.msp}</td>
+                            <td className="py-2 font-mono font-black text-emerald-800">{c.modalPrice}</td>
+                            <td className="py-2 text-right font-mono text-[10px]">
+                              <span className={`px-2 py-0.5 rounded font-bold ${
+                                c.trend === 'UP' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+                              }`}>
+                                {c.trend}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* PMFBY Crop Damage Grievance Form */}
+                <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-2xs">
+                  <div className="border-b border-slate-100 pb-2 flex items-center justify-between">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                      File PMFBY Crop Damage Assessment &amp; Re-Survey Appeal
+                    </h3>
+                    <span className="text-[9px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
+                      JOINT REVENUE SURVEY
+                    </span>
+                  </div>
+
+                  {cropResult ? (
+                    <div className="p-6 bg-slate-50 border border-slate-200 rounded space-y-3 text-center">
+                      <CheckCircle2 size={32} className="text-emerald-700 mx-auto" />
+                      <h4 className="text-sm font-bold text-slate-900">Crop Loss Appeal Registered</h4>
+                      <p className="text-xs text-slate-600">Dispatched to Tehsildar &amp; District Agriculture Officer (DAO Bhopal) for field inspection.</p>
+                      <div className="p-3 bg-white border border-slate-200 rounded inline-block font-mono text-sm font-black text-slate-900">
+                        Appeal Token: {cropResult.refId}
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => setCropResult(null)}
+                          className="text-xs font-bold text-blue-900 hover:underline uppercase tracking-wider"
+                        >
+                          Submit Another Crop Claim
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleCropDamageSubmit} className="space-y-4">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                            Farmer ID / Samagra Number <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={cropFarmerId}
+                            onChange={(e) => setCropFarmerId(e.target.value)}
+                            placeholder="e.g. FARM-MP-2026-33104"
+                            className="w-full border border-slate-300 rounded p-2.5 text-xs text-slate-900 font-mono outline-none focus:border-[#0B1B3D]"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                            Khasra / Plot Number <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={cropKhasra}
+                            onChange={(e) => setCropKhasra(e.target.value)}
+                            placeholder="e.g. Plot 88/1, Berasia Tehsil, Bhopal"
+                            className="w-full border border-slate-300 rounded p-2.5 text-xs text-slate-900 font-mono outline-none focus:border-[#0B1B3D]"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                            Damaged Crop &amp; Season <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={cropName}
+                            onChange={(e) => setCropName(e.target.value)}
+                            placeholder="e.g. Soybean (Yellow - Kharif)"
+                            className="w-full border border-slate-300 rounded p-2.5 text-xs text-slate-900 font-sans outline-none focus:border-[#0B1B3D]"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                            Cause of Crop Damage <span className="text-red-500">*</span>
+                          </label>
+                          <select
+                            value={cropDamageCause}
+                            onChange={(e) => setCropDamageCause(e.target.value)}
+                            className="w-full border border-slate-300 rounded p-2.5 text-xs text-slate-800 outline-none focus:border-[#0B1B3D] bg-white font-sans"
+                          >
+                            <option value="EXCESS_RAINFALL">Heavy Inundation &amp; Waterlogging</option>
+                            <option value="HAILSTORM">Unseasonal Hailstorm / Wind Gust</option>
+                            <option value="PEST_INFESTATION">Yellow Mosaic Virus / Girdle Beetle Attack</option>
+                            <option value="DROUGHT">Prolonged Monsoon Dry Spell</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                          Loss Details &amp; Discrepancy in Initial Survey <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                          rows={4}
+                          required
+                          value={cropDesc}
+                          onChange={(e) => setCropDesc(e.target.value)}
+                          placeholder="e.g. Initial village crop cutting survey recorded only 20% loss, but low-lying land in Khasra 88/1 suffered over 65% complete rot due to water stagnancy. Requesting joint re-survey..."
+                          className="w-full border border-slate-300 rounded p-3 text-xs text-slate-900 outline-none focus:border-[#0B1B3D] bg-white font-sans"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={cropSubmitting || !cropDesc.trim()}
+                        className="bg-[#0B1B3D] hover:bg-[#162444] disabled:opacity-50 text-white font-bold px-5 py-2.5 rounded text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors shadow-2xs"
+                      >
+                        {cropSubmitting ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
+                        Submit PMFBY Re-Survey Appeal
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+
+              {/* Right (5 Cols): Farmer DBT Tracker */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-2xs">
+                  <div className="border-b border-slate-100 pb-2">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                      PM-Kisan &amp; Kisan Kalyan DBT Tracker
+                    </h3>
+                    <p className="text-[10px] text-slate-400 font-mono mt-0.5">Direct Benefit Transfer to Bank A/C</p>
+                  </div>
+
+                  <form onSubmit={handleFarmerDbtTrack} className="space-y-3">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                        Farmer ID / Samagra Member ID
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={farmerId}
+                          onChange={(e) => setFarmerId(e.target.value)}
+                          placeholder="e.g. FARM-MP-2026-90412"
+                          className="flex-1 border border-slate-300 rounded p-2 text-xs text-slate-900 font-mono outline-none focus:border-[#0B1B3D]"
+                        />
+                        <button
+                          type="submit"
+                          disabled={farmerDbtTracking}
+                          className="bg-[#0B1B3D] text-white px-3 py-2 rounded text-xs font-bold uppercase transition-colors"
+                        >
+                          {farmerDbtTracking ? <Loader2 size={12} className="animate-spin" /> : <Search size={12} />}
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  {farmerDbtError && (
+                    <div className="bg-red-50 border border-red-200 p-2.5 rounded text-xs text-red-700">
+                      {farmerDbtError}
+                    </div>
+                  )}
+
+                  {farmerDbtRecord && (
+                    <div className="bg-slate-50 border border-slate-200 rounded p-4 space-y-3 animate-fade-in text-xs">
+                      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <span className="font-bold text-slate-900">{farmerDbtRecord.farmerId}</span>
+                        <span className="text-[8.5px] font-mono font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded border border-emerald-300 uppercase">
+                          AADHAAR: SEEDED
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5 text-[11px]">
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Land Record:</strong> {farmerDbtRecord.khasraNumber} ({farmerDbtRecord.landAreaAcres} Acres)</p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">PM-Kisan Installment:</strong> <span className="font-bold text-emerald-800">{farmerDbtRecord.pmKisanStatus}</span></p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Mukhyamantri Kalyan:</strong> <span className="font-bold text-emerald-800">{farmerDbtRecord.kisanKalyanStatus}</span></p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Total Disbursed:</strong> <span className="font-bold font-mono text-slate-900">{farmerDbtRecord.disbursedTotal}</span></p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">Beneficiary Bank:</strong> {farmerDbtRecord.dbtBank}</p>
+                        <p><strong className="text-slate-500 text-[10px] uppercase block">PMFBY Insurance Policy:</strong> <span className="font-mono">{farmerDbtRecord.pmfbyInsurancePolicy}</span></p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="text-[9px] text-slate-500 bg-slate-50 border border-slate-200 p-3 rounded space-y-1">
+                    <p className="font-bold text-slate-800 uppercase">Sample Farmer IDs:</p>
+                    <p className="font-mono text-blue-900 cursor-pointer" onClick={() => setFarmerId('FARM-MP-2026-90412')}>
+                      • FARM-MP-2026-90412 (Phanda Block - ₹12,000 Disbursed)
+                    </p>
+                    <p className="font-mono text-blue-900 cursor-pointer" onClick={() => setFarmerId('FARM-MP-2026-33104')}>
+                      • FARM-MP-2026-33104 (Berasia Tehsil - Survey Completed)
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            TAB 7: UNIVERSAL GRIEVANCE TRACKER (CROSS-DOMAIN)
            ══════════════════════════════════════════════════════════════════════ */}
         {activeTab === 'tracker' && (
           <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-md p-6 space-y-5 shadow-2xs animate-fade-in">
@@ -979,7 +1680,7 @@ export default function CitizenPortalHub() {
                 Universal Multi-Domain Grievance &amp; Application Tracker
               </h3>
               <p className="text-xs text-slate-500">
-                Track status across Urban Works, Education, DBT Scholarships, and State Recruitment using any reference key.
+                Track status across Urban Works, Education, Scholarships, Recruitment, Healthcare, and Agriculture using any reference key.
               </p>
             </div>
 
@@ -989,7 +1690,7 @@ export default function CitizenPortalHub() {
                 required
                 value={universalToken}
                 onChange={(e) => setUniversalToken(e.target.value)}
-                placeholder="Enter Token (e.g. BPL-GRV-88214, SCH-MP-2026-8814, EDU-BPL-10492, EXAM-MP-99412)"
+                placeholder="Enter Token (e.g. BPL-GRV-88214, SCH-MP-2026-8814, HLTH-BPL-2026-8812, AGRI-MP-2026-8814)"
                 className="flex-1 border border-slate-300 rounded px-4 py-3 text-xs text-slate-900 font-mono outline-none focus:border-[#0B1B3D]"
               />
               <button
@@ -1027,6 +1728,8 @@ export default function CitizenPortalHub() {
                 <span className="cursor-pointer hover:underline" onClick={() => setUniversalToken('SCH-MP-2026-8814')}>• SCH-MP-2026-8814 (MANIT DBT - ₹60,000)</span>
                 <span className="cursor-pointer hover:underline" onClick={() => setUniversalToken('EDU-BPL-90214')}>• EDU-BPL-90214 (Smart Class - TT Nagar)</span>
                 <span className="cursor-pointer hover:underline" onClick={() => setUniversalToken('EXAM-MP-33104')}>• EXAM-MP-33104 (ESB Answer Key Objection)</span>
+                <span className="cursor-pointer hover:underline" onClick={() => setUniversalToken('HLTH-BPL-2026-8812')}>• HLTH-BPL-2026-8812 (JP Hospital Medicine Stockout)</span>
+                <span className="cursor-pointer hover:underline" onClick={() => setUniversalToken('AGRI-MP-2026-8814')}>• AGRI-MP-2026-8814 (PMFBY Soybean Crop Loss)</span>
               </div>
             </div>
           </div>

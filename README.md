@@ -10,6 +10,25 @@
 
 ---
 
+## 🔗 Live Prototype & Deployment Links
+
+> **🌐 Live Application Gateway:** [**https://unity-frontend-c9z7.onrender.com**](https://unity-frontend-c9z7.onrender.com)  
+> **⚙️ Live Backend & Health API:** [**https://unity-backend-0i2e.onrender.com/health**](https://unity-backend-0i2e.onrender.com/health)
+
+### Quick Access Portals:
+| Portal | Direct Cloud URL | Description |
+|---|---|---|
+| **🏛️ Authority Portal (Executive)** | [**Launch Authority Portal**](https://unity-frontend-c9z7.onrender.com/authority/dashboard) | Priorities dashboard, C-Lock clearance, megaproject blockers & Sentinel RAG |
+| **🚀 Mission Control** | [**Launch Mission Control**](https://unity-frontend-c9z7.onrender.com/authority/projects) | 8 Bhopal infrastructure projects, active blockers, daily burn & emergency NOC overrides |
+| **👥 Citizen Services Hub** | [**Launch Citizen Portal**](https://unity-frontend-c9z7.onrender.com/citizen/home) | 9-domain public services hub, live weather & schemes catalog |
+| **📸 Report Civic Grievance** | [**Launch Grievance Portal**](https://unity-frontend-c9z7.onrender.com/citizen/report) | Client-side Tesseract OCR + OpenStreetMap municipal ward resolution |
+| **🔍 Universal Ticket Tracker** | [**Launch Universal Tracker**](https://unity-frontend-c9z7.onrender.com/citizen/track) | Live 4-stage tracking across all domain tickets (`HLTH-`, `AGR-`, `BPL-COM-`) |
+| **🚪 Dual Portal Selector** | [**Launch Role Gateway**](https://unity-frontend-c9z7.onrender.com/select-role) | Interactive persona selector for hackathon evaluators |
+
+*Note: Free-tier cloud instances spin up in ~15–30s on first connection if dormant.*
+
+---
+
 ## 🏛️ Executive Summary
 
 Government execution and citizen service delivery often stall in the **inter-agency blind spot**: 

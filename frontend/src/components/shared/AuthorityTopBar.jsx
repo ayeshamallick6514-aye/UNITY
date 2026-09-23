@@ -137,7 +137,7 @@ export default function AuthorityTopBar({ pageTitle = '' }) {
           })}
         </nav>
 
-        {/* Right cluster — Sentinel AI trigger + clock + bell + user */}
+        {/* Right cluster — Sentinel AI trigger + clock + bell + logout + user */}
         <div className="flex items-center gap-3 py-1">
           
           {/* Sentinel AI Assistant Modal Trigger */}
@@ -167,6 +167,17 @@ export default function AuthorityTopBar({ pageTitle = '' }) {
             <Bell size={14} />
             <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-red-600 rounded-full" />
           </button>
+
+          {/* ── Visible Logout — always present, no dropdown needed ── */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-300 rounded text-[10px] font-bold uppercase tracking-wider transition-colors"
+            title="Terminate secure session"
+          >
+            <LogOut size={12} />
+            <span className="hidden sm:inline">End Session</span>
+          </button>
+
 
           {/* User menu */}
           <div className="relative">

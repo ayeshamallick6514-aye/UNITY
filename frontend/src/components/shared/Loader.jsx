@@ -36,16 +36,16 @@ export default function Loader({ onComplete }) {
           setTimeout(() => {
             currentProgress += 1;
             setProgress(currentProgress);
-          }, 300);
+          }, 150);
         } else {
           currentProgress += increment;
           setProgress(currentProgress);
         }
       } else {
         clearInterval(interval);
-        setTimeout(onComplete, 800);
+        setTimeout(onComplete, 400);
       }
-    }, 45);
+    }, 22);
 
     return () => clearInterval(interval);
   }, [onComplete]);
@@ -176,9 +176,15 @@ export default function Loader({ onComplete }) {
             </p>
           </div>
         </div>
-        <div className="text-right">
-          <span className="text-[9px] font-mono font-bold bg-blue-950/60 text-blue-400 border border-blue-900/50 px-2 py-0.5 rounded uppercase tracking-wider">
-            Operational Node Gateway
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onComplete}
+            className="text-[9px] font-mono font-bold bg-white/10 hover:bg-white/20 text-slate-200 border border-white/20 px-2.5 py-1 rounded uppercase tracking-wider transition-colors cursor-pointer"
+          >
+            Skip Intro →
+          </button>
+          <span className="hidden sm:inline-block text-[9px] font-mono font-bold bg-blue-950/60 text-blue-400 border border-blue-900/50 px-2 py-0.5 rounded uppercase tracking-wider">
+            Node Gateway
           </span>
         </div>
       </div>

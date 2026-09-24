@@ -10,10 +10,12 @@ export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const roleType = searchParams.get('role') || 'authority'; // authority | command
 
-  const { login, loading, error, clearError, otpPending, pendingEmail, otpMessage } = useAuth();
+  const { login, instantLogin, loading, error, clearError, otpPending, pendingEmail, otpMessage } = useAuth();
   
-  const [identifier, setIdentifier] = useState('');
-  const [password, setPassword] = useState('');
+  const [identifier, setIdentifier] = useState(
+    roleType === 'command' ? 'nodal@bhopal.mp.gov.in' : 'collector@bhopal.mp.gov.in'
+  );
+  const [password, setPassword] = useState('GovBhopal@Admin2026');
 
   // Handle redirect if OTP verification is required
   useEffect(() => {
@@ -136,7 +138,16 @@ export default function LoginPage() {
         </Card.Body>
 
         {/* Action Buttons */}
-        <Card.Footer className="px-0 pb-0 pt-4 flex flex-col gap-3 border-t border-slate-800/80">
+        <Card.Footer className="px-0 pb-0 pt-4 flex flex-col gap-2.5 border-t border-slate-800/80">
+          {/* Instant 1-Click Demo Entry */}
+          <button
+            type="button"
+            onClick={() => instantLogin(roleType === 'command' ? 'nodal_officer' : 'collector')}
+            className="w-full py-2.5 rounded-lg font-bold bg-amber-500/20 border border-amber-500/50 hover:bg-amber-500/30 text-amber-300 text-xs flex items-center justify-center gap-2 transition-all shadow-xs"
+          >
+            <span>⚡ Instant 1-Click Access ({roleType === 'command' ? 'Nodal Officer' : 'District Collector'})</span>
+          </button>
+
           <Button
             type="submit"
             className="w-full py-2.5 rounded-lg font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md flex items-center justify-center gap-2"
@@ -147,7 +158,7 @@ export default function LoginPage() {
           </Button>
           <Link
             to="/select-role"
-            className="w-full text-center py-2 text-xs text-slate-400 hover:text-slate-200 transition-colors"
+            className="w-full text-center py-1.5 text-xs text-slate-400 hover:text-slate-200 transition-colors"
           >
             ← Back to Role Selection
           </Link>

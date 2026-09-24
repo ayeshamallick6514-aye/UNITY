@@ -80,6 +80,55 @@ const useAuthStore = create(
       },
 
       /**
+       * Direct institutional login by role (for instant hackathon evaluation).
+       */
+      loginAsRole(roleName) {
+        const sessionExpiry = Date.now() + SESSION_TIMEOUT_MS;
+        let user;
+        if (roleName === 'nodal_officer' || roleName === 'command') {
+          user = {
+            id: 'usr_002',
+            name: 'Nodal Officer, Bhopal',
+            email: 'nodal@bhopal.mp.gov.in',
+            employeeId: 'NOD-BPL-1102',
+            role: 'nodal_officer',
+            department: 'State Command Secretariat',
+            designation: 'Nodal Officer',
+          };
+        } else if (roleName === 'executive_engineer') {
+          user = {
+            id: 'usr_003',
+            name: 'Executive Engineer (PWD)',
+            email: 'pwd.exec@bhopal.mp.gov.in',
+            employeeId: 'PWD-BPL-4412',
+            role: 'executive_engineer',
+            department: 'Public Works Department',
+            designation: 'Executive Engineer',
+          };
+        } else {
+          // Default: District Collector
+          user = {
+            id: 'usr_001',
+            name: 'District Collector, Bhopal',
+            email: 'collector@bhopal.mp.gov.in',
+            employeeId: 'IAS-MP-2201',
+            role: 'collector',
+            department: 'District Collectorate',
+            designation: 'District Collector',
+          };
+        }
+        const token = 'unity_institutional_token_' + Date.now();
+        set({
+          user,
+          token,
+          refreshToken: token,
+          isAuthenticated: true,
+          sessionExpiry,
+        });
+        return user;
+      },
+
+      /**
        * Quick guest login for citizen portal browsing.
        */
       loginAsGuest() {

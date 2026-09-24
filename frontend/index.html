@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Single-Page-App URL bridge: translate direct path to client route
+      (function() {
+        var p = window.location.pathname;
+        if (p && p !== '/' && !window.location.hash && !p.includes('.')) {
+          window.location.replace('/#' + p + window.location.search);
+        }
+      })();
+    </script>
     <title>UNITY — Unified Network for Interdepartmental Transparency and Yield</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content="Executive inter-departmental coordination platform for Bhopal District — real-time dependency monitoring, blocked project resolution, and coordination failure analysis." />

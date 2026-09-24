@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Shared core items
@@ -89,17 +89,30 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
-  const [booting, setBooting] = useState(true);
+  const [booting, setBooting] = useState(() => {
+    try {
+      return !sessionStorage.getItem('unity_booted');
+    } catch {
+      return false;
+    }
+  });
+
+  const handleBootComplete = () => {
+    try {
+      sessionStorage.setItem('unity_booted', '1');
+    } catch (_) {}
+    setBooting(false);
+  };
 
   if (booting) {
-    return <Loader onComplete={() => setBooting(false)} />;
+    return <Loader onComplete={handleBootComplete} />;
   }
 
   return (
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
         <ErrorBoundary>
-          <BrowserRouter>
+          <Router>
             <SessionTimeoutModal />
 
             <Suspense fallback={
@@ -188,7 +201,7 @@ export default function App() {
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Suspense>
-          </BrowserRouter>
+          </Router>
         </ErrorBoundary>
       </ToastProvider>
     </QueryClientProvider>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home, ClipboardList, Layers, BookOpen, Bell, User,
-  Search, ChevronRight, Phone, Cloud, LogOut,
+  Search, ChevronRight, Phone, Cloud, LogOut, Landmark
 } from 'lucide-react';
 import { APP_NAME } from '../utils/constants';
 import UnityLogo from '../components/shared/UnityLogo';
@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { label: 'Report',   to: '/citizen/report',        icon: ClipboardList },
   { label: 'Projects', to: '/citizen/projects',      icon: Layers        },
   { label: 'Schemes',  to: '/citizen/schemes',       icon: BookOpen      },
+  { label: 'Track',    to: '/citizen/track',         icon: Search        },
   { label: 'Alerts',   to: '/citizen/notifications', icon: Bell          },
   { label: 'Profile',  to: '/citizen/profile',       icon: User          },
 ];
@@ -44,7 +45,7 @@ export default function CitizenLayout() {
       {/* ─── Scheme Eligibility Quiz Modal ───────────────────────── */}
       {quizOpen && <SchemeEligibilityQuiz onClose={() => setQuizOpen(false)} />}
 
-      {/* ─── LEFT SIDEBAR (Desktop) ──────────────────────────────── */}
+      {/* ─── LEFT SIDEBAR (Desktop: md:flex) ─────────────────────── */}
       <aside className="hidden md:flex flex-col w-64 bg-[#0a1829] text-slate-300 border-r border-slate-800 shrink-0 relative">
 
         {/* Brand */}
@@ -91,7 +92,7 @@ export default function CitizenLayout() {
             </p>
             <button
               onClick={() => setQuizOpen(true)}
-              className="w-full flex items-center justify-between bg-blue-900 hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-2 rounded-lg transition-colors"
+              className="w-full flex items-center justify-between bg-blue-900 hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-2 rounded-lg transition-colors cursor-pointer"
             >
               <span>Find My Schemes</span>
               <ChevronRight size={11} />
@@ -118,7 +119,7 @@ export default function CitizenLayout() {
           <span>End Session</span>
         </button>
 
-        {/* Brand/Watermark Footer */}
+        {/* Brand Footer */}
         <div className="p-4 border-t border-slate-800/80 bg-[#071321]/40 flex items-center gap-3">
           <svg className="w-8 h-8 text-slate-500 shrink-0" viewBox="0 0 100 100" fill="currentColor">
             <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2" />
@@ -135,11 +136,17 @@ export default function CitizenLayout() {
       {/* ─── MAIN APP AREA ───────────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
-        {/* Top Header Bar */}
-        <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 gap-4 shrink-0 z-20">
+        {/* Top Header Bar (Responsive) */}
+        <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 gap-2 sm:gap-4 shrink-0 z-20">
 
-          {/* Search */}
-          <div className="relative w-full max-w-sm">
+          {/* Mobile Logo Brand (md:hidden) */}
+          <div className="flex items-center gap-2 md:hidden">
+            <UnityLogo size={28} />
+            <span className="text-xs font-black text-slate-900 uppercase tracking-wider">UNITY</span>
+          </div>
+
+          {/* Desktop Search Schemes (hidden on mobile to prevent overflow) */}
+          <div className="relative w-full max-w-sm hidden md:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
             <input
               type="text"
@@ -148,41 +155,50 @@ export default function CitizenLayout() {
             />
           </div>
 
+          {/* Quick Quiz Button on Mobile Header */}
+          <button
+            onClick={() => setQuizOpen(true)}
+            className="md:hidden flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-800 border border-blue-200 rounded-full text-[10px] font-bold"
+          >
+            <Landmark size={11} className="text-blue-600" />
+            <span>Scheme Quiz</span>
+          </button>
+
           {/* Right cluster */}
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
 
             {/* Live weather — Bhopal */}
-            <div className="flex items-center gap-2">
-              <Cloud size={16} className="text-amber-500" />
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200/80 px-2 sm:px-2.5 py-1 rounded-md">
+              <Cloud size={14} className="text-amber-500 shrink-0" />
               <div>
                 <p className="text-[10px] font-bold text-slate-800 leading-none tabular-nums">
                   {temp !== null ? `${temp}°C` : '--°C'}
                 </p>
-                <p className="text-[8px] text-slate-400 font-bold leading-none mt-0.5">Bhopal</p>
+                <p className="text-[7px] sm:text-[8px] text-slate-400 font-bold leading-none mt-0.5">Bhopal</p>
               </div>
             </div>
 
-            {/* Notification */}
-            <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors">
+            {/* Notification (hidden on tiny screens) */}
+            <button className="hidden sm:block relative p-2 text-slate-400 hover:text-slate-600 transition-colors">
               <Bell size={16} />
               <span className="absolute top-1 right-1 w-3 h-3 bg-red-500 border border-white rounded-full text-[7px] text-white flex items-center justify-center font-bold">
                 2
               </span>
             </button>
 
-            {/* Profile badge */}
-            <div className="flex items-center gap-2.5 pl-3 border-l border-slate-200">
-              <UnityLogo size={32} />
+            {/* Profile badge (hidden on small mobile) */}
+            <div className="hidden lg:flex items-center gap-2 pl-3 border-l border-slate-200">
+              <UnityLogo size={28} />
               <div className="text-left">
-                <p className="text-[10px] font-bold text-slate-800 leading-none">Authorized Access</p>
-                <p className="text-[8px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-1">Citizen Portal</p>
+                <p className="text-[10px] font-bold text-slate-800 leading-none">Citizen Portal</p>
+                <p className="text-[8px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-1">Madhya Pradesh</p>
               </div>
             </div>
 
-            {/* Sign Out — top header */}
+            {/* Sign Out */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 text-slate-500 hover:text-red-600 hover:border-red-200 rounded text-[10px] font-bold uppercase tracking-wider transition-colors"
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 rounded text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0"
               title="End session"
             >
               <LogOut size={12} />
@@ -191,10 +207,40 @@ export default function CitizenLayout() {
           </div>
         </header>
 
-        {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-slate-50">
+        {/* Page Content (with pb-20 on mobile so bottom bar never covers content) */}
+        <main className="flex-1 overflow-y-auto bg-slate-50 pb-20 md:pb-0">
           <Outlet />
         </main>
+
+        {/* ─── MOBILE BOTTOM NAVIGATION BAR (md:hidden) ───────────── */}
+        <nav
+          className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 px-2 py-1.5 flex items-center justify-around shadow-2xl"
+          aria-label="Citizen mobile navigation"
+        >
+          {[
+            { label: 'Home',     to: '/citizen/home',     icon: Home          },
+            { label: 'Report',   to: '/citizen/report',   icon: ClipboardList },
+            { label: 'Projects', to: '/citizen/projects', icon: Layers        },
+            { label: 'Schemes',  to: '/citizen/schemes',  icon: BookOpen      },
+            { label: 'Track',    to: '/citizen/track',    icon: Search        },
+          ].map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `flex flex-col items-center justify-center py-1 px-2 rounded-lg transition-all text-center min-w-[50px] ${
+                  isActive
+                    ? 'text-blue-700 font-black'
+                    : 'text-slate-400 hover:text-slate-700'
+                }`
+              }
+            >
+              <item.icon size={18} className="shrink-0 mb-0.5" />
+              <span className="text-[9px] font-bold tracking-tight leading-none">{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
       </div>
 
     </div>

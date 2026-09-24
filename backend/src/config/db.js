@@ -27,8 +27,7 @@ const connectDB = async () => {
     await autoSeedIfEmpty();
 
   } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error.message}`);
-    process.exit(1);
+    console.error(`Warning: MongoDB connection could not be established (${error.message}). Continuing in resilient mode so the backend server remains active.`);
   }
 };
 

@@ -53,8 +53,17 @@ axiosInstance.interceptors.response.use(
     if (status === 401) {
       const url = error.config?.url || '';
       if (!url.includes('/auth/login') && !url.includes('/auth/verify-otp')) {
+        try {
+          const raw = sessionStorage.getItem('unity-auth');
+          const parsed = raw ? JSON.parse(raw) : null;
+          // If this is an evaluator demo session or has fallback flag, keep session alive
+          if (parsed?.state?.user?.isDemo || parsed?.state?.isDemoSession) {
+            return Promise.resolve({ data: null, status: 200, isFallback: true });
+          }
+        } catch (_) {}
+
         sessionStorage.removeItem('unity-auth');
-        window.location.href = '/select-role';
+        window.location.hash = '#/select-role';
       }
     }
 

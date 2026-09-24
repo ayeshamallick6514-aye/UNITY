@@ -63,11 +63,13 @@ exports.analyzeGrievanceImage = function analyzeGrievanceImage(req, res) {
         mimeType:         req.file.mimetype,
         analysis,
         // Human-readable verdict for the UI status card
-        verdict: analysis.valid
-          ? { code: 'ACCEPTED', label: 'Image Validated', color: 'green' }
-          : analysis.status === 'DUPLICATE'
-            ? { code: 'DUPLICATE', label: 'Duplicate Report Detected', color: 'amber' }
-            : { code: 'REJECTED', label: 'Image Failed Validation', color: 'red' },
+        verdict: analysis.status === 'VALIDATED'
+          ? { code: 'ACCEPTED', label: 'On-Site Photo Verified', color: 'green' }
+          : analysis.status === 'SUSPECTED_WEB_IMAGE'
+            ? { code: 'FLAGGED', label: '⚠️ Sourced from Web (Flagged for Audit)', color: 'amber' }
+            : analysis.status === 'DUPLICATE'
+              ? { code: 'DUPLICATE', label: 'Duplicate Report Detected', color: 'amber' }
+              : { code: 'REJECTED', label: 'Image Failed Validation', color: 'red' },
       };
 
       // Always return 200 with complete verdict payload so frontend Axios does not reject

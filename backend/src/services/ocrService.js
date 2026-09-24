@@ -71,7 +71,7 @@ function _scoreRelevance(text) {
   return { score, matchedKeywords: hits };
 }
 
-// ─── EXIF stub (sharp-based, graceful fallback) ───────────────────────────────
+// ─── EXIF stub (sharp-based with raw buffer fallback) ─────────────────────────
 async function _extractExif(buffer) {
   try {
     const sharp = require('sharp');
@@ -84,8 +84,23 @@ async function _extractExif(buffer) {
       density: meta.density  ?? null,
     };
   } catch {
-    return { format: 'unknown', widthPx: 0, heightPx: 0, hasExif: false };
+    // Graceful raw buffer inspection for JPEG EXIF header marker
+    const hasExifMarker = buffer.indexOf(Buffer.from([0x45, 0x78, 0x69, 0x66, 0x00, 0x00])) !== -1;
+    return { format: 'unknown', widthPx: 0, heightPx: 0, hasExif: hasExifMarker };
   }
+}
+
+// ─── Web / Google Download Detector ──────────────────────────────────────────
+function _detectWebOrigin(buffer, originalName, hasExif) {
+  const nameLower = (originalName || '').toLowerCase();
+  const webIndicators = [
+    'download', 'images', 'stock', 'shutterstock', 'istock', 'getty',
+    'pothole', 'potholes', 'wallpaper', 'preview', 'screenshot', 'internet',
+    'google', 'search', 'temp', 'unnamed', 'jfif'
+  ];
+  const isWebName = webIndicators.some(w => nameLower.includes(w));
+  // If EXIF camera sensor is missing OR filename matches web download signatures
+  return isWebName || !hasExif;
 }
 
 // ─── Main exported function ───────────────────────────────────────────────────
@@ -150,31 +165,37 @@ async function analyzeImage(buffer, originalName = 'upload') {
   // 5. Civic relevance
   const { score: relevanceScore, matchedKeywords } = _scoreRelevance(ocrText);
 
-  // 6. Validation decision
+  // 6. Validation decision & Anti-Fraud Origin Analysis
+  const isWebDownload = _detectWebOrigin(buffer, originalName, exif.hasExif);
   let status = 'VALIDATED';
-  let reason = 'Image passed validation checks.';
+  let reason = 'On-site camera evidence passed automated validation checks.';
 
   if (isDuplicate) {
     status = 'DUPLICATE';
-    reason = 'Identical image has already been submitted. Possible duplicate report.';
+    reason = 'Identical image has already been submitted in another report. Flagged for duplicate review.';
+  } else if (isWebDownload) {
+    status = 'SUSPECTED_WEB_IMAGE';
+    reason = 'Missing native camera sensor & GPS EXIF metadata (typical of downloaded Google/web images). Flagged for mandatory on-site physical verification by Ward Officer before dispatch.';
   } else if (confidence < 20 && ocrText.length < 5) {
     status = 'LOW_CONFIDENCE';
     reason = 'Low contrast or sparse text detected. Proceeding with standard visual audit.';
   }
 
   return {
-    valid:           status === 'VALIDATED',
+    valid:                 status === 'VALIDATED',
     status,
     reason,
-    ocrText:         ocrText.slice(0, 1000),     // cap to 1000 chars
-    confidence,
+    isWebDownload,
+    requiresPhysicalAudit: isWebDownload || isDuplicate,
+    ocrText:               ocrText.slice(0, 1000),     // cap to 1000 chars
+    confidence:            isWebDownload ? Math.min(confidence, 65) : confidence,
     relevanceScore,
     matchedKeywords,
     isDuplicate,
-    imageHash:       imgHash,
-    originalFileName:originalName,
+    imageHash:             imgHash,
+    originalFileName:      originalName,
     exif,
-    processingMs:    Date.now() - startMs,
+    processingMs:          Date.now() - startMs,
   };
 }
 

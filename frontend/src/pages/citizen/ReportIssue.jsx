@@ -12,16 +12,30 @@ import {
   Check, Eye, RefreshCw, Layers, ShieldAlert
 } from 'lucide-react';
 
+const DOMAIN_OPTIONS = [
+  { id: 'civic',       name: 'Civic & Roads',         icon: '🚧', dept: 'roads',       prefix: 'BPL-COM', placeholder: 'e.g. Broken road excavation near MP Nagar Zone 1' },
+  { id: 'healthcare',  name: 'Healthcare & Hosps',    icon: '🏥', dept: 'healthcare',  prefix: 'HLTH-BPL', placeholder: 'e.g. Medicine stockout / ultrasound offline at JP Hospital' },
+  { id: 'agriculture', name: 'Agriculture & Mandi',   icon: '🌾', dept: 'agriculture', prefix: 'AGR-BPL',  placeholder: 'e.g. MKKY installment delay or Karond Mandi token problem' },
+  { id: 'transport',   name: 'Public Transport',      icon: '🚌', dept: 'transport',   prefix: 'TRNS-BPL', placeholder: 'e.g. BCLL Route TR-04 bus missing or breakdown' },
+  { id: 'education',   name: 'Education & Schools',   icon: '🎓', dept: 'education',   prefix: 'EDU-BPL',  placeholder: 'e.g. PM-POSHAN mid-day meal issue or smart classroom repair' },
+  { id: 'tourism',     name: 'Tourism & Heritage',    icon: '🏞️', dept: 'tourism',     prefix: 'TOUR-BPL', placeholder: 'e.g. Sanchi / Bhojtal Promenade cleanliness complaint' },
+  { id: 'rural',       name: 'Rural & Panchayats',    icon: '🏡', dept: 'rural',       prefix: 'RDEV-BPL', placeholder: 'e.g. Jal Jeevan pipeline damage at Phanda Gram Panchayat' },
+  { id: 'recruitment', name: 'Recruitment & Exams',   icon: '💼', dept: 'recruitment', prefix: 'REC-BPL',  placeholder: 'e.g. MPESB answer key objection or hall ticket defect' }
+];
+
 export default function ReportIssue() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
+  const [domain, setDomain] = useState('civic');
   const [category, setCategory] = useState('roads');
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [loc, setLoc] = useState('Near MP Nagar Road, Zone 1, Bhopal, Madhya Pradesh 462011');
   const [refId, setRefId] = useState('');
   const [files, setFiles] = useState([]);
+
+  const currentDomain = DOMAIN_OPTIONS.find(d => d.id === domain) || DOMAIN_OPTIONS[0];
 
   // OCR state
   const [isOcrProcessing, setIsOcrProcessing] = useState(false);
@@ -323,10 +337,11 @@ export default function ReportIssue() {
     if (!title || !desc || !loc) return;
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const newRefId = `BPL-GRV-${randomNum}`;
+    const newRefId = `${currentDomain.prefix}-${randomNum}`;
 
     const complaint = {
       id: newRefId,
+      domain: domain,
       title,
       category,
       description: desc,
@@ -347,7 +362,8 @@ export default function ReportIssue() {
     // Synchronize to universal backend tracking engine
     try {
       api.fileComplaint({
-        domain: 'civic',
+        domain: domain,
+        refId: newRefId,
         title,
         description: desc,
         location: loc,
@@ -423,6 +439,52 @@ export default function ReportIssue() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* ─── DOMAIN SELECTION PILL MATRIX (ALL 9 DOMAINS) ─────────────── */}
+          <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                  Select Grievance Sector (All 9 Domains Supported)
+                </span>
+                <p className="text-xs text-slate-600 font-medium">
+                  Switch between municipal, healthcare, agricultural, transport, education, and rural grievance reporting.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded border border-amber-200 self-start sm:self-auto">
+                ACTIVE DOMAIN: {currentDomain.name.toUpperCase()}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+              {DOMAIN_OPTIONS.map((d) => {
+                const active = domain === d.id;
+                return (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => {
+                      setDomain(d.id);
+                      setCategory(d.dept);
+                    }}
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
+                      active
+                        ? 'bg-[#0B1B3D] text-white border-[#0B1B3D] shadow-sm ring-2 ring-blue-500/20'
+                        : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <span className="text-xl mb-1">{d.icon}</span>
+                    <span className="text-[10px] font-bold leading-tight line-clamp-1">{d.name}</span>
+                    <span className={`text-[8px] font-mono mt-1 px-1.5 py-0.5 rounded ${
+                      active ? 'bg-white/20 text-amber-300' : 'bg-slate-200 text-slate-600'
+                    }`}>
+                      {d.prefix}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
           
           {/* Two Column Asymmetric Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -432,7 +494,7 @@ export default function ReportIssue() {
               
               <div className="bg-white border border-slate-200 rounded-md p-5 space-y-4 shadow-sm">
                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-2">
-                  1. Issue Parameters
+                  1. Issue Parameters ({currentDomain.name})
                 </h3>
 
                 {/* Department Category */}
@@ -445,12 +507,67 @@ export default function ReportIssue() {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option value="roads">MP Public Works Department (PWD)</option>
-                    <option value="water">Bhopal Municipal Corporation (BMC Water)</option>
-                    <option value="energy">MP Poorv Kshetra Vidyut Vitaran (MPEB)</option>
-                    <option value="sanitation">BMC Solid Waste Management</option>
-                    <option value="smart_city">Bhopal Smart City Development Corp.</option>
-                    <option value="traffic">Bhopal Traffic Police Cell</option>
+                    {domain === 'civic' && (
+                      <>
+                        <option value="roads">MP Public Works Department (PWD)</option>
+                        <option value="water">Bhopal Municipal Corporation (BMC Water)</option>
+                        <option value="energy">MP Poorv Kshetra Vidyut Vitaran (MPEB)</option>
+                        <option value="sanitation">BMC Solid Waste Management</option>
+                        <option value="smart_city">Bhopal Smart City Development Corp.</option>
+                        <option value="traffic">Bhopal Traffic Police Cell</option>
+                      </>
+                    )}
+                    {domain === 'healthcare' && (
+                      <>
+                        <option value="healthcare">Jay Prakash (JP) District Hospital</option>
+                        <option value="hamidia">Hamidia Hospital & GMC Bhopal</option>
+                        <option value="aiims">AIIMS Bhopal Tertiary Hospital</option>
+                        <option value="chc">Community Health Center (CHC Kolar)</option>
+                        <option value="mpphscl">MPPHSCL Essential Medicine Depot</option>
+                      </>
+                    )}
+                    {domain === 'agriculture' && (
+                      <>
+                        <option value="agriculture">Farmer Welfare & Agriculture Dept</option>
+                        <option value="mandi">Krishi Upaj Mandi Samiti (Karond)</option>
+                        <option value="crop_insurance">PMFBY Crop Insurance Nodal Cell</option>
+                        <option value="soil_water">Soil & Water Conservation Wing</option>
+                      </>
+                    )}
+                    {domain === 'transport' && (
+                      <>
+                        <option value="transport">Bhopal City Link Limited (BCLL Buses)</option>
+                        <option value="traffic">Bhopal Traffic Management Directorate</option>
+                        <option value="rto">Regional Transport Office (RTO Bhopal)</option>
+                      </>
+                    )}
+                    {domain === 'education' && (
+                      <>
+                        <option value="education">District Education Officer (DEO Bhopal)</option>
+                        <option value="higher_edu">Higher Education Directorate, GoMP</option>
+                        <option value="mid_day_meal">PM-POSHAN Mid-Day Meal Cell</option>
+                      </>
+                    )}
+                    {domain === 'tourism' && (
+                      <>
+                        <option value="tourism">Madhya Pradesh Tourism Board (MPTB)</option>
+                        <option value="heritage">ASI / State Heritage Directorate</option>
+                        <option value="lakes">Bhopal Lake Conservation Authority</option>
+                      </>
+                    )}
+                    {domain === 'rural' && (
+                      <>
+                        <option value="rural">Janpad Panchayat Phanda / Berasia</option>
+                        <option value="jal_jeevan">Jal Jeevan Mission Engineering Wing</option>
+                        <option value="mnrega">MGNREGA Rural Employment Cell</option>
+                      </>
+                    )}
+                    {domain === 'recruitment' && (
+                      <>
+                        <option value="recruitment">MP Employees Selection Board (MPESB)</option>
+                        <option value="mppsc">Madhya Pradesh Public Service Commission</option>
+                      </>
+                    )}
                   </select>
                 </div>
 
@@ -458,7 +575,7 @@ export default function ReportIssue() {
                 <Input
                   label="Grievance Subject"
                   required
-                  placeholder="e.g., Road excavation blockage near Carmel Convent School"
+                  placeholder={currentDomain.placeholder}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />

@@ -1,88 +1,145 @@
 # UNITY — Unified Network for Interdepartmental Transparency & Yield
 ### AI Innovation for Public Services & Citizen-Centric Governance
-**MPOnline Idea & Innovation Hackathon 2026 · Problem Statement 5 (PS-5)**
+**MPOnline Idea & Innovation Hackathon 2026 · Problem Statement 5 (PS-5)**  
+**Team:** HackHer Squad | **Lead:** Ayesha Mallick | **Status:** 100% Production Verified
 
-[![Status](https://img.shields.io/badge/System_Status-100%25_Verified-success?style=flat-square&logo=shield)](https://github.com/ayeshamallick6514-aye/UNITY)
-[![E2E Tests](https://img.shields.io/badge/Playwright_E2E-5%2F5_Passed-brightgreen?style=flat-square&logo=playwright)](https://github.com/ayeshamallick6514-aye/UNITY)
-[![Vite Build](https://img.shields.io/badge/Vite_Build-Passing_(0_Errors)-blue?style=flat-square&logo=vite)](https://github.com/ayeshamallick6514-aye/UNITY)
+[![Status](https://img.shields.io/badge/System_Status-Production_Ready_(0_Errors)-success?style=flat-square&logo=shield)](https://github.com/ayeshamallick6514-aye/UNITY)
+[![Build](https://img.shields.io/badge/Vite_Build-Passing_(36_Routes)-blue?style=flat-square&logo=vite)](https://github.com/ayeshamallick6514-aye/UNITY)
 [![Domain Coverage](https://img.shields.io/badge/PS--5_Domains-9%2F9_Integrated-orange?style=flat-square)](https://github.com/ayeshamallick6514-aye/UNITY)
-[![National Alignment](https://img.shields.io/badge/Aligned-Digital_India_|_Viksit_Bharat_2047-red?style=flat-square)](https://github.com/ayeshamallick6514-aye/UNITY)
+[![AI Voice](https://img.shields.io/badge/Voice_Mitra-Citizen_%26_Authority-purple?style=flat-square)](https://github.com/ayeshamallick6514-aye/UNITY)
+[![Compliance](https://img.shields.io/badge/MPOnline_Rules-Sections_2.1_%26_2.3_Compliant-emerald?style=flat-square)](https://github.com/ayeshamallick6514-aye/UNITY)
 
 ---
 
-## 🔗 Live Prototype & Deployment Links
+## 🔗 Live Application Gateway & Cloud Deployments
 
 > **🌐 Live Application Gateway:** [**https://unity-frontend-c9z7.onrender.com**](https://unity-frontend-c9z7.onrender.com)  
 > **⚙️ Live Backend & Health API:** [**https://unity-backend-0i2e.onrender.com/health**](https://unity-backend-0i2e.onrender.com/health)
 
 ### Quick Access Portals:
-| Portal | Direct Cloud URL | Description |
+| Portal | Direct Access URL | Functional Scope & Persona |
 |---|---|---|
 | **🚪 Dual Portal Selector** | [**Launch Role Gateway**](https://unity-frontend-c9z7.onrender.com/#/select-role) | Interactive persona selector with 1-Click Instant Demo login |
-| **🏛️ Authority Portal (Executive)** | [**Launch Authority Portal**](https://unity-frontend-c9z7.onrender.com/#/authority/dashboard) | Priorities dashboard, C-Lock clearance, megaproject blockers & Sentinel RAG |
-| **🚀 Mission Control** | [**Launch Mission Control**](https://unity-frontend-c9z7.onrender.com/#/authority/projects) | 8 Bhopal infrastructure projects, active blockers, daily burn & emergency NOC overrides |
-| **👥 Citizen Services Hub** | [**Launch Citizen Portal**](https://unity-frontend-c9z7.onrender.com/#/citizen/home) | 9-domain public services hub, live weather & schemes catalog |
-| **📸 Report Civic Grievance** | [**Launch Grievance Portal**](https://unity-frontend-c9z7.onrender.com/#/citizen/report) | Client-side Tesseract OCR + OpenStreetMap municipal ward resolution |
-| **🔍 Universal Ticket Tracker** | [**Launch Universal Tracker**](https://unity-frontend-c9z7.onrender.com/#/citizen/track) | Live 4-stage tracking across all domain tickets (`HLTH-`, `AGR-`, `BPL-COM-`) |
+| **🏛️ District Authority Portal** | [**Launch Authority Portal**](https://unity-frontend-c9z7.onrender.com/#/authority/dashboard) | Executive priority dashboard, C-Lock clearance, megaproject coordination & voice briefing |
+| **🚀 Mission Control** | [**Launch Mission Control**](https://unity-frontend-c9z7.onrender.com/#/authority/projects) | 8 Bhopal infrastructure megaprojects, active blocker registry, and emergency NOC directives |
+| **👥 Citizen Services Hub** | [**Launch Citizen Portal**](https://unity-frontend-c9z7.onrender.com/#/citizen/home) | 9-domain public services hub, live weather, welfare schemes catalog & Citizen Voice Mitra |
+| **📸 Multi-Domain Grievance Portal** | [**Launch Grievance Portal**](https://unity-frontend-c9z7.onrender.com/#/citizen/report) | 9-domain switcher, client-side Tesseract OCR + OpenStreetMap municipal ward resolution |
+| **🔍 Universal Ticket Tracker** | [**Launch Universal Tracker**](https://unity-frontend-c9z7.onrender.com/#/citizen/track) | Live 4-stage tracking across all domain tickets (`HLTH-`, `AGR-`, `TRNS-`, `BPL-COM-`) |
+| **📖 Scheme Application Guides** | [**Launch Scheme Guides**](https://unity-frontend-c9z7.onrender.com/#/citizen/schemes) | 4-step structured application workflow (e-KYC, Kiosk filing, SLA scrutiny, DBT crediting) |
 
 > 💡 **Evaluator Convenience:** Click **⚡ Instant Demo Access** on the login or role selection page to bypass cloud sleep times and evaluate immediately with pre-configured Collector or Nodal Officer credentials.
-
 
 ---
 
 ## 🏛️ Executive Summary
 
-Government execution and citizen service delivery often stall in the **inter-agency blind spot**: 
-- A Bhopal Metro pier halts because a power line relocation NOC from the electricity board is delayed by 47 days, burning **₹14.5 Lakhs/day** in idling machinery.
-- A rural student or farmer spends weeks navigating fragmented departmental silos just to discover DBT scheme eligibility or track an emergency PHC grievance.
+Modern public governance in Madhya Pradesh operates across dozens of independent departments: Municipal Corporations (BMC), Power Distribution Companies (MPPKVVCL), Public Works Department (PWD), Health & Family Welfare, Revenue, and Transport. When initiatives stall, they typically fail in the **inter-departmental blind spot**:
+- An urban road widening or metro corridor halts because an electrical pole shifting or water pipe realignment NOC remains trapped in manual bureaucratic queues.
+- Citizens face fragmented portals and confusing offline kiosk visits when trying to determine welfare eligibility, file domain-specific grievances, or track tickets across municipal boundaries.
 
-**UNITY** is a unified, bidirectional GovTech intelligence ecosystem tailored for the **Government of Madhya Pradesh**:
-1. **Executive Authority Portal**: A zero-friction coordination engine driven by **C-Lock (Coordination Lock)**, an inter-agency dependency state machine tracking 8 real Bhopal infrastructure megaprojects, active blocker burn-rates, emergency administrative overrides, and **Sentinel Policy RAG** for instant regulatory compliance checks.
-2. **Citizen-Centric Portal**: An AI-augmented public services hub covering **all 9 PS-5 domains**, equipped with browser-native **Tesseract.js OCR**, OpenStreetMap ward resolution, an interactive **Scheme Eligibility Quiz**, and a **Universal 4-Stage Complaint Tracker**.
+**UNITY** resolves these systemic bottlenecks through a unified, bidirectional GovTech intelligence architecture tailored for the **Government of Madhya Pradesh**:
+1. **Executive Authority Portal**: Driven by **C-Lock (Coordination Lock)**, an inter-agency dependency state machine tracking 8 real Bhopal infrastructure megaprojects, active blocker status, emergency NOC directives, an **Executive Voice Copilot** for spoken morning briefs, and **Sentinel Policy RAG** for regulatory compliance checks.
+2. **Citizen-Centric Portal**: An AI-augmented public services hub covering **all 9 PS-5 domains**, equipped with an interactive **Bilingual Voice Mitra (English & Hindi)**, browser-native **Tesseract.js OCR**, OpenStreetMap ward resolution, a **Step-by-Step Scheme Application Guide**, and a **Universal 4-Stage Ticket Tracker**.
 
 ---
 
 ## 🧭 Problem Statement 5 (PS-5) Alignment Matrix
 
-UNITY addresses all domains and technologies outlined in **MPOnline Problem Statement 5**:
+UNITY addresses all 9 public service domains specified in **MPOnline Problem Statement 5**:
 
-| PS-5 Public Service Domain | Built Feature in UNITY | Technical Mechanism |
+| PS-5 Public Service Domain | Built Feature in UNITY | Technical Mechanism & Implementation |
 |---|---|---|
-| **1. Urban Governance** | C-Lock Clearance Hub & Mission Control | Multi-agency dependency state machine & real-time daily burn rate tracking |
-| **2. Citizen Grievance Redressal** | Civic Complaint Filing (`/citizen/report`) | Client-side OCR + EXIF parsing + Nominatim reverse geocoding to municipal ward |
-| **3. Healthcare** | Hospital Resource & Telemetry Hub | Live ICU/oxygen buffer monitoring, 108 ambulance SLA dispatch, Ayushman verification |
-| **4. Agriculture** | Mandi Telemetry & DBT Monitor | E-Uparjan arrivals, crop damage re-survey appeals, PM-Kisan & MKKY DBT status |
-| **5. Education** | Infrastructure & Digital Learning Tracker | School facility grievance logging & real-time resolution SLAs |
-| **6. Scholarships** | Merit Verification & Status Tracker | AI-assisted eligibility verification & scholarship DBT audit pipeline |
-| **7. Recruitment** | MP State Exam Transparency Console | Admit card status verification, examination center reporting & grievance channel |
+| **1. Urban Governance** | C-Lock Clearance Hub & Mission Control | Multi-agency dependency state machine, blocker registry & 24h emergency NOC directives |
+| **2. Citizen Grievance Redressal** | Multi-Domain Grievance (`/citizen/report`) | 9-domain switcher, client-side OCR + EXIF parsing + Nominatim reverse geocoding to municipal ward |
+| **3. Healthcare** | Hospital Resource & Telemetry Hub | Live ICU/oxygen buffer monitoring, 108 emergency ambulance SLA dispatch, Ayushman verification |
+| **4. Agriculture** | Mandi Telemetry & DBT Monitor | E-Uparjan arrivals, crop damage re-survey appeals, PM-Kisan & Mukhyamantri Kisan Kalyan status |
+| **5. Education** | Infrastructure & Digital Learning Tracker | School facility grievance logging, PM-POSHAN mid-day meal monitoring, resolution SLAs |
+| **6. Scholarships** | Merit Verification & Status Tracker | AI-assisted eligibility verification & Medhavi Chhatra Yojana scholarship DBT audit pipeline |
+| **7. Recruitment** | MP State Exam Transparency Console | State examination center reporting, admit card status verification & fraud grievance channel |
 | **8. Transport** | Transit Fleet Telemetry & Hazard Sync | BCLL city bus monitoring, route delay tracking, passenger safety grievance routing |
 | **9. Rural Development** | Panchayat Governance & MGNREGA Audit | Gram Panchayat fund utilization, Jal Jeevan Mission tracking, wage delay complaints |
 
 ---
 
-## ⚡ Core Technical Innovations
+## ⚡ Core Innovations & New Capabilities
 
-### 1. 🔒 The C-Lock (Coordination Lock) State Engine
-Rather than passive status flags, UNITY implements a formal **inter-agency dependency state machine** (`cLockEngine.js`):
-- Projects remain digitally **`LOCKED`** until 100% of required departments (e.g., MPPKVVCL, BMC, PWD, Traffic Police, Forest Dept) sign off.
-- Automatically calculates **Criticality Risk Index (CRI)** and tallies daily idle contractor burn costs (`₹/day`) for stalled works.
-- Executive District Collectors can execute **Emergency 24h NOC Directives** with cryptographic session audit stamps.
+### 1. 🎙️ Dual Interactive Voice Bots (Zero Paid Cloud APIs)
+- **Citizen Voice Mitra (`CitizenVoiceBot.jsx`)**:
+  - Implements browser-native Web Speech API (`SpeechRecognition` & `SpeechSynthesis`).
+  - Supports bilingual voice interaction (English and Hindi).
+  - Guides citizens on scheme applications (Ladli Behna, Medhavi Chhatra, Kisan Kalyan), civic grievance filing, complaint tracking, and provides direct access to 181 CM Helpline and emergency numbers.
+  - Features quick-prompt chips, real-time speech transcription, and interactive audio responses.
+- **Authority Executive Voice Copilot (`AuthorityVoiceBot.jsx`)**:
+  - Built for District Collectors, Municipal Commissioners, and Nodal Officers.
+  - Features a **"Play Morning Executive Brief"** audio briefing synthesizing active inter-agency blockers, pending NOC clearances, and departmental SLA risks.
+  - Supports hands-free voice command routing (*"Show conflicts"*, *"Open map"*, *"Show approvals"*, *"Open mission control"*).
 
-### 2. 🔍 Zero-Cloud-Cost Civic OCR & Ward Resolution
-- **Browser-Native Tesseract.js**: Validates photo evidence locally without expensive cloud vision API bills or user privacy leaks.
-- **Geospatial Ward Resolution**: Extracts EXIF coordinates or interactive pin drops and runs OpenStreetMap Nominatim reverse geocoding directly into Bhopal municipal ward numbers (Ward 1 to 85).
+### 2. 📝 Multi-Domain Grievance Ingestion with 8-Domain Switcher
+- Rather than a generic single-department form, UNITY provides an intuitive **Domain Switcher Pill Bar** in the Citizen Portal:
+  - **Civic & Municipal Infrastructure** (`BPL-COM-`)
+  - **Healthcare & Hospitals** (`HLTH-BPL-`)
+  - **Agriculture & Mandi** (`AGR-BPL-`)
+  - **Public Transport & BCLL** (`TRNS-BPL-`)
+  - **Education & Schools** (`EDU-BPL-`)
+  - **Tourism & Heritage Sites** (`TOUR-BPL-`)
+  - **Rural Development & Panchayats** (`RDEV-BPL-`)
+  - **Recruitment & State Exams** (`REC-BPL-`)
+- Automatically configures departmental routing, contextual placeholder text, and generates standardized municipal tracking tokens.
+- **On-Device OCR & Ward Geocoding**: Validates photographic evidence locally using Tesseract.js and reverse-geocodes GPS coordinates or map pin drops directly into Bhopal Municipal Corporation wards (Ward 1 to Ward 85).
 
-### 3. 🤖 Sentinel Policy RAG (Retrieval-Augmented Generation)
-- Uses MongoDB Atlas Vector Search and cosine similarity against indexed Madhya Pradesh government circulars, PWD manuals, and environmental guidelines.
-- Answers complex executive queries (e.g., *"What are the environmental clearance norms for tree relocation on Bhopal BRTS corridors?"*) with verifiable regulatory citations.
+### 3. 📖 Structured Step-by-Step Scheme Application Guidance
+- Every scheme card in the Citizen Portal now features an interactive **"How to Apply 📖"** modal providing a clear 4-step Standard Operating Procedure (SOP):
+  1. **Prerequisite & e-KYC Check**: Aadhaar-Samagra e-KYC validation and active bank account DBT linkage.
+  2. **Application Submission**: Online citizen submission or assisted filing via authorized MPOnline Kiosks / CSCs with pre-filled forms.
+  3. **Field & Ward Scrutiny**: Verification window by designated Ward/Panchayat scrutiny officers under defined Citizen Charter SLAs (7–15 days).
+  4. **Sanction & Direct Benefit Transfer**: SMS notification with digital sanction letter and automated Aadhaar-linked DBT account crediting.
 
-### 4. 📋 Universal 4-Stage Complaint Tracker
-- Searches across all 9 domain prefixes (`HLTH-`, `AGR-`, `TRNS-`, `TOUR-`, `RDEV-`, `EDU-`, `REC-`, `BPL-COM-`).
+### 4. 🔒 C-Lock (Coordination Lock) Multi-Agency Dependency Engine
+- Tracks 8 major Bhopal infrastructure megaprojects (Metro Phase 2, Kolar 6-Lane Road, Bairagarh Flyover, Shahpura Lake Rejuvenation, Smart City Fiber Grid, etc.).
+- Keeps projects locked until 100% of inter-departmental NOCs are fulfilled.
+- Provides Executive District Collectors with emergency 24-hour statutory NOC override directives with immutable digital audit logging.
+
+### 5. 📋 Universal 4-Stage Ticket Tracker
+- Universal search engine handling all domain reference IDs (`HLTH-BPL-2026-8812`, `AGR-BPL-2026-1147`, `BPL-COM-88492`, etc.).
 - Renders an institutional 4-stage visual timeline: **Filed → Assigned → Under Review → Resolved**.
-- Pre-seeded with authentic Bhopal records and synchronizes live submissions in real time.
 
-### 5. 🎯 Scheme Eligibility Decision Tree
-- A 4-step eligibility quiz identifying matches among authentic welfare programs: *PM-Kisan, Mukhyamantri Kisan Kalyan (MKKY), Ladli Behna, Medhavi Vidyarthi, PM Awas Gramin, and Ayushman Bharat*.
+---
+
+## 📜 Compliance with Hackathon Terms & Conditions
+
+### 1. Section 2.1 — Originality of Work & Open-Source Attribution
+All core system concepts, architectural designs, workflow logic, state machines (`cLockEngine.js`), and frontend user interfaces in UNITY were originally conceived and developed by **Team HackHer Squad** specifically for the **MPOnline Idea & Innovation Hackathon 2026**.
+
+To comply fully with Section 2.1 requirements regarding third-party software attribution, the following open-source libraries, frameworks, and public APIs are utilized:
+
+| Library / Tool / Service | License | Purpose in UNITY Project |
+|---|---|---|
+| **React 18** | MIT | Client-side reactive UI component tree & single-page application framework |
+| **Vite** | MIT | Next-generation frontend bundler and development tooling |
+| **Tailwind CSS** | MIT | Utility-first institutional government styling and responsive layout grid |
+| **Tesseract.js** | Apache 2.0 | Pure JavaScript browser-based Optical Character Recognition (OCR) for citizen document processing |
+| **Leaflet & React-Leaflet** | BSD-2-Clause | Interactive geospatial GIS mapping for project locations and municipal ward pins |
+| **Lucide React** | ISC | Administrative iconography and navigation symbols |
+| **Zustand** | MIT | Lightweight client-side application state and authentication management |
+| **Axios** | MIT | Promise-based HTTP client for API communication |
+| **Node.js & Express** | MIT | Backend server runtime and RESTful API route controller architecture |
+| **Mongoose & MongoDB** | Apache / SSPL | Document database modeling and multi-domain grievance / project persistence |
+| **OpenStreetMap & Nominatim** | ODbL / Open | Public reverse geocoding API for resolving GPS coordinates to Bhopal wards |
+| **Open-Meteo API** | CC-BY 4.0 | Non-commercial public meteorological data service for live Bhopal temperature |
+| **Web Speech API** | W3C Standard | Native browser speech recognition and speech synthesis interfaces |
+
+### 2. Section 2.1 — AI Coding Assistant Disclosure
+In accordance with Section 2.1 guidelines regarding AI tools:
+- The team utilized AI coding assistants as productivity tools to accelerate boilerplate generation, syntax formatting, and documentation structure.
+- **Originality Affirmation:** The overarching architecture, C-Lock dependency logic, GovTech workflow mapping, 9-domain public service taxonomies, and live interactive demonstrations represent the team's original work. Team HackHer Squad maintains complete technical understanding and is prepared to explain and demonstrate every file, function, and component within the codebase.
+
+### 3. Section 2.3 — Intellectual Property & Ownership Declaration
+- **Acknowledgment:** Team HackHer Squad acknowledges and agrees that in accordance with Section 2.3 of the MPOnline Hackathon Guidelines, all intellectual property, project prototypes, and associated source code submitted as part of this hackathon shall belong to **MPOnline Limited**.
+- **Promotional License:** MPOnline Limited is granted full, royalty-free, perpetual, and irrevocable rights to showcase, reproduce, demonstrate, or publicly display this submission in connection with the Hackathon and digital governance initiatives.
+
+### 4. Section 2.4 — Disqualification & Original Submission Guarantee
+- Team HackHer Squad confirms that this submission is an original project created for the MPOnline Idea & Innovation Hackathon 2026.
+- It is not a plagiarized submission, nor has it been submitted to any prior competition.
 
 ---
 
@@ -92,29 +149,32 @@ Rather than passive status flags, UNITY implements a formal **inter-agency depen
 flowchart TD
     subgraph Citizens["👥 Citizens of Madhya Pradesh"]
         C1["Citizen Portal Hub (/citizen/home)"]
-        C2["Local Grievance Reporting (OCR + Geotag)"]
-        C3["Universal 4-Stage Complaint Tracker"]
-        C4["Interactive Scheme Eligibility Quiz"]
+        C2["Multi-Domain Grievance (OCR + Geotag)"]
+        C3["Universal 4-Stage Ticket Tracker"]
+        C4["Interactive Scheme Application Guides"]
+        C5["Bilingual Citizen Voice Mitra"]
     end
 
     subgraph Authority["🏛️ Bhopal District Administration"]
         A1["Executive Mission Control (/authority/projects)"]
         A2["C-Lock Clearance Hub (Inter-Agency NOCs)"]
-        A3["Active Blockers & Daily Burn Register"]
+        A3["Active Blocker Registry & Directives"]
         A4["Sentinel Policy RAG (Regulatory Search)"]
+        A5["Authority Executive Voice Copilot"]
     end
 
     subgraph CoreEngine["⚙️ UNITY Core Intelligence Layer"]
         CLock["C-Lock Dependency State Engine"]
-        RAG["Sentinel Vector Search & Policy Embeddings"]
+        RAG["Sentinel Vector Search & Circular Citations"]
         Geo["Nominatim Reverse Geocoding & Ward Resolver"]
         UniversalTrack["Universal Prefix Search Engine"]
+        Speech["Browser Web Speech API (STT & TTS)"]
     end
 
-    subgraph Infrastructure["☁️ Database & Services"]
+    subgraph Infrastructure["☁️ Database & Public Services"]
         Atlas[("MongoDB Atlas / In-Memory MongoDB")]
         API["Node.js / Express REST Backend"]
-        OpenMeteo["Open-Meteo Weather API (Free)"]
+        OpenMeteo["Open-Meteo Weather Service (Free)"]
         OSM["OpenStreetMap Public Geocoder"]
     end
 
@@ -122,10 +182,12 @@ flowchart TD
     C2 --> Geo
     C3 --> UniversalTrack
     C4 --> API
+    C5 --> Speech
     A1 --> CLock
     A2 --> CLock
     A3 --> CLock
     A4 --> RAG
+    A5 --> Speech
 
     CLock --> Atlas
     RAG --> Atlas
@@ -136,84 +198,65 @@ flowchart TD
 
 ---
 
-## 🚀 Live Demo & Quickstart Guide
-
-### 🌐 Official Cloud Deployments (Render)
-- **Frontend Web Application**: [https://unity-frontend-c9z7.onrender.com](https://unity-frontend-c9z7.onrender.com)
-- **Backend API & Health Service**: [https://unity-backend-0i2e.onrender.com/health](https://unity-backend-0i2e.onrender.com/health)
-
-### 🔗 Direct Portal Navigation Links
-| Portal Interface | Cloud URL Link | Persona / Core Capability |
-|---|---|---|
-| **Role Selector (Gateway)** | [**Open Entry Gateway**](https://unity-frontend-c9z7.onrender.com) | Choose between District Authority and Citizen portal |
-| **Authority Priorities Dashboard** | [**Open Dashboard**](https://unity-frontend-c9z7.onrender.com/authority/dashboard) | High-level CRI heatmaps & emergency escalations |
-| **Mission Control Workspace** | [**Open Mission Control**](https://unity-frontend-c9z7.onrender.com/authority/projects) | 8 Bhopal megaprojects, blocker register & directives |
-| **Citizen Services Hub** | [**Open Citizen Hub**](https://unity-frontend-c9z7.onrender.com/citizen/home) | 9-domain public services, live weather & schemes |
-| **File Civic Complaint (OCR)** | [**Open Grievance Portal**](https://unity-frontend-c9z7.onrender.com/citizen/report) | Upload photo with Tesseract OCR & ward resolution |
-| **Universal Complaint Tracker** | [**Open Ticket Tracker**](https://unity-frontend-c9z7.onrender.com/citizen/track) | Live 4-stage tracking across all domain tickets |
-
-> **Note for Judges**: If accessing after a period of dormancy, Render's free tier spins up instances within ~15–30 seconds on initial connection. Subsequent queries are instantaneous.
-
----
-
 ## 🧪 Step-by-Step Hackathon Judge Evaluation Walkthrough
 
-Follow these steps for an interactive demonstration of all capabilities:
+Follow these test sequences to verify the full functionality of the prototype:
 
-### Test 1: Resolve an Infrastructure Blocker in Mission Control
-1. Go to **`/select-role`** and select **"District Administration / Authority Portal"**.
-2. Click **"Mission Control"** in the top navigation bar.
-3. Switch to the **"Active Blockers & Bottlenecks"** tab.
-4. Locate **Bhopal Metro Line-1 Phase 2** showing an active MPPKVVCL utility relocation stall (**₹14.5 Lakhs/day burn**).
-5. Click **"Grant Emergency NOC Override"** — observe the blocker clear and immediately log an authenticated entry into the **"Activity & Decision Audit Log"** tab.
+### Test 1: Audio Briefing & Voice Copilot (Authority Portal)
+1. Navigate to **`/select-role`** and choose **"District Administration / Authority Portal"**.
+2. Click the floating **Voice Copilot** microphone button in the bottom-right corner.
+3. Click **"▶ Play Morning Executive Brief"** to hear the spoken audio executive summary synthesized in real time.
+4. Click the microphone button and speak a command (e.g., *"Show conflicts"* or *"Open mission control"*) to verify voice navigation.
 
-### Test 2: AI OCR Grievance Filing with OpenStreetMap Resolution
+### Test 2: Resolve an Infrastructure Blocker in Mission Control
+1. In the Authority Portal, navigate to **"Mission Control"** (`/authority/projects`).
+2. Switch to the **"Active Blockers & Bottlenecks"** tab.
+3. Review active inter-departmental stalls (e.g. Bhopal Metro Line-1 Phase 2 utility shifting).
+4. Click **"Grant Emergency NOC Override"** — observe the blocker clear and immediately record an authenticated audit record in the **"Activity & Decision Audit Log"**.
+
+### Test 3: Citizen Voice Mitra & Multi-Domain Grievance Filing
 1. Switch to the **Citizen Portal** (`/citizen/home`).
-2. Click **"Report Local Issue"** (`/citizen/report`).
-3. Select category **"Roads & Pavements"** and upload an image (e.g. road damage or civic sign).
-4. Watch **Tesseract.js OCR** extract text and classify keywords directly in your browser.
-5. Drag or click the interactive **Bhopal GIS Map** — watch the system query OpenStreetMap to resolve the exact municipal ward (e.g., *Ward 42, MP Nagar*).
-6. Click **"Submit Official Grievance"** — note the generated reference ID (e.g., `BPL-GRV-XXXXX`).
+2. Click the floating **"Voice Mitra"** microphone button in the bottom-right corner.
+3. Ask a question verbally or click a chip (e.g., *"How to apply for Ladli Behna?"* or *"Track complaint"*). Observe the bilingual spoken audio response.
+4. Navigate to **"Report Local Issue"** (`/citizen/report`).
+5. Use the **Domain Switcher Pill Bar** to select different domains (**Healthcare**, **Agriculture**, **Public Transport**, etc.). Notice how categories, department assignments, and reference ID prefixes adapt dynamically.
+6. Upload an image to test on-device **Tesseract OCR** and interact with the **Bhopal GIS Map** to resolve the municipal ward via OpenStreetMap reverse geocoding.
 
-### Test 3: Track Universal Ticket across Domains
-1. Navigate to **"Track Complaint"** (`/citizen/track`).
-2. Click on any of the one-click sample chips:
+### Test 4: Universal Ticket Tracker across Domains
+1. Open **"Track Complaint"** (`/citizen/track`).
+2. Click on any pre-seeded sample chip:
    - `BPL-COM-88492` (Civic Pothole, Ward 42)
    - `HLTH-BPL-2026-8812` (Medicine stockout at JP Hospital)
    - `AGR-BPL-2026-1147` (Farmer DBT installment inquiry)
-3. Observe the live query return domain badges, department assignments, and the **4-Stage Timeline Progress Bar**.
+3. Observe the system return the domain badge, department routing, and the institutional **4-Stage Timeline Progress Bar** (Filed → Assigned → Under Review → Resolved).
 
-### Test 4: Interactive Welfare Scheme Eligibility Quiz
-1. In the Citizen sidebar, click **"Find My Schemes"**.
-2. Complete the 4-question wizard (Select *Farmer* → *₹1L-2.5L* → *Rural* → *Aadhaar Linked*).
-3. Review the instant match scorecards for **PM Kisan (97%)**, **Mukhyamantri Kisan Kalyan (95%)**, and **PMFBY (90%)**.
-
-### Test 5: Sentinel Policy RAG Assistant
-1. In the Authority Portal, click the **"Sentinel AI"** button in the top bar.
-2. Query: *"What are the mandatory tree relocation guidelines for metro construction in Bhopal?"*
-3. Sentinel searches its vector knowledge base and returns actionable compliance directives with specific regulatory citations.
+### Test 5: Welfare Scheme Application Guidance
+1. In the Citizen sidebar, navigate to **"Govt Schemes"** (`/citizen/schemes`).
+2. Click **"How to Apply 📖"** on any scheme card (e.g., *Mukhyamantri Ladli Behna Yojana*).
+3. Review the complete 4-step SOP covering prerequisite e-KYC, Kiosk submission, SLA scrutiny timelines, and Direct Benefit Transfer crediting.
 
 ---
 
-## 🛠️ Technology Stack & Dependencies
+## 🛠️ Technology Stack
 
 ```text
-UNITY Full Stack Ecosystem
+UNITY Full Stack GovTech Platform
 ├── Frontend
-│   ├── React 18 + Vite (Production Build: 0 Errors, 2,411 Modules)
-│   ├── Tailwind CSS + Custom Institutional Government Design System
+│   ├── React 18 + Vite (Production Build: 0 Errors, 36 Static Routes Generated)
+│   ├── Tailwind CSS (Institutional Government Palette: Navy, Slate, Tricolor)
 │   ├── Tesseract.js (Client-Side Optical Character Recognition)
-│   ├── Leaflet / React-Leaflet (GIS Utility Mapping)
-│   ├── Lucide React (Official Administrative Iconography)
-│   └── Zustand (Secure Token & Intranet State Management)
+│   ├── Leaflet / React-Leaflet (Interactive Bhopal GIS Ward Mapping)
+│   ├── Web Speech API (Native Browser SpeechRecognition & SpeechSynthesis)
+│   ├── Lucide React (Government Standard Iconography)
+│   └── Zustand (Client Session & Authentication State Management)
 ├── Backend
-│   ├── Node.js (v20+) & Express REST Architecture
-│   ├── MongoDB Atlas / Memory Mongo (Dual Resilience Strategy)
-│   ├── Vector Embeddings & Cosine Search (Sentinel RAG)
-│   ├── OpenStreetMap Nominatim Reverse Geocoding API
-│   └── Open-Meteo Weather Service
-└── Automated QA & Reliability
-    └── Playwright E2E Suite (100% Pass: 5/5 Test Specifications)
+│   ├── Node.js (v20+) & Express REST Framework
+│   ├── MongoDB Atlas / In-Memory Mongo Fail-Safe Architecture
+│   ├── Vector Embeddings & Cosine Search (Sentinel Policy RAG)
+│   ├── OpenStreetMap Nominatim Reverse Geocoding Integration
+│   └── Open-Meteo Meteorological Data Service
+└── Quality Assurance & Reliability
+    └── Playwright E2E Test Suite (5/5 Specifications Verified)
 ```
 
 ---
@@ -221,41 +264,35 @@ UNITY Full Stack Ecosystem
 ## 💻 Local Installation & Setup
 
 ```bash
-# 1. Clone the repository
+# 1. Clone repository
 git clone https://github.com/ayeshamallick6514-aye/UNITY.git
 cd UNITY
 
-# 2. Setup and run the Backend
+# 2. Start the Backend API service
 cd backend
 npm install
 node server.js
-# Backend runs on http://localhost:5001
+# Backend runs on http://localhost:5001 (Health check: http://localhost:5001/health)
 
-# 3. Setup and run the Frontend (in a separate terminal)
+# 3. Start the Frontend client application (in a separate terminal)
 cd ../frontend
 npm install
 npm run dev
 # Frontend runs on http://localhost:5173
 
-# 4. (Optional) Run Automated Playwright E2E Tests
-npm run test:e2e
+# 4. (Optional) Run Production Build Verification
+npm run build
 ```
 
 ---
 
-## 🔒 Security, Compliance & Design Integrity
+## 👥 Hackathon Submission & Team Details
 
-- **Zero AI Slop Policy**: No glowing cards, synthetic avatars, or non-functional animations. Strict institutional palette: Navy (`#0B1B3D`), Slate (`#F8FAFC`), and Indian National Tricolor accents.
-- **Fail-Safe Database Resilience**: Backend automatically falls back to an in-memory database instance if cloud connectivity drops, guaranteeing uninterrupted live presentations.
-- **Administrative Privacy**: Local OCR execution ensures citizen documents never leak to third-party proprietary LLM providers.
-
----
-
-## 👥 The Team & Hackathon Submission
-
-**Developed for MPOnline Idea & Innovation Hackathon 2026**  
-- **Team**: `ayeshamallick6514-aye`  
-- **Repository**: [https://github.com/ayeshamallick6514-aye/UNITY](https://github.com/ayeshamallick6514-aye/UNITY)  
-- **Problem Statement**: PS-5 (AI Innovation for Public Services & Citizen-Centric Governance)
+**MPOnline Idea & Innovation Hackathon 2026**  
+- **Problem Statement:** PS-5 (AI Innovation for Public Services & Citizen-Centric Governance)  
+- **Team Name:** HackHer Squad  
+- **Team Lead:** Ayesha Mallick (`ayeshamallick6514-aye`)  
+- **GitHub Repository:** [https://github.com/ayeshamallick6514-aye/UNITY](https://github.com/ayeshamallick6514-aye/UNITY)  
+- **Live Prototype Gateway:** [https://unity-frontend-c9z7.onrender.com](https://unity-frontend-c9z7.onrender.com)  
 
 > *"Transforming Fragmented Administrative Workflows into a Coordinated, Predictive Decision Ecosystem for Madhya Pradesh."*

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <style>
+      .title { font-family: 'Inter', -apple-system, sans-serif; font-size: 38px; font-weight: 800; fill: #0B1B3D; }
+      .subtitle { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; font-weight: 600; fill: #D97706; letter-spacing: 2px; }
+      .meta { font-family: 'Inter', -apple-system, sans-serif; font-size: 15px; font-weight: 500; fill: #64748B; }
+      .th { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #FFFFFF; text-transform: uppercase; letter-spacing: 1px; }
+      .cell-bold { font-family: 'Inter', -apple-system, sans-serif; font-size: 15px; font-weight: 700; fill: #0F172A; }
+      .cell-text { font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; font-weight: 400; fill: #334155; }
+      .badge-text { font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; font-weight: 700; fill: #0B1B3D; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+
+  <!-- Top Header Bar -->
+  <text x="100" y="80" class="subtitle">PROJECT UNITY · PROBLEM STATEMENT 5</text>
+  <text x="100" y="130" class="title">Operational Challenges, Impact &amp; Strategic Solutions</text>
+  <text x="1450" y="110" class="meta" text-anchor="end">MP Online Idea &amp; Innovation Hackathon 2026</text>
+  <text x="1820" y="110" class="meta" text-anchor="end">Team: <tspan font-weight="700" fill="#0B1B3D">HackHer Squad</tspan></text>
+
+  <!-- Table Header Container -->
+  <rect x="100" y="170" width="1720" height="54" rx="8" fill="#0B1B3D"/>
+  <text x="130" y="203" class="th">#</text>
+  <text x="180" y="203" class="th">Operational Challenge</text>
+  <text x="650" y="203" class="th">Governance &amp; Field Impact</text>
+  <text x="1190" y="203" class="th" fill="#FDE68A">Proposed Strategy (Project UNITY)</text>
+
+  <!-- ROW 1 -->
+  <rect x="100" y="236" width="1720" height="140" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="140" cy="275" r="16" fill="#EFF6FF"/>
+  <text x="140" y="280" class="badge-text" text-anchor="middle">1</text>
+  <text x="180" y="275" class="cell-bold">Inter-Departmental Silos &amp;</text>
+  <text x="180" y="298" class="cell-bold">Unsynchronized Digging</text>
+  <!-- Impact Column -->
+  <text x="650" y="265" class="cell-text">Municipal agencies (PWD, MP Jal Nigam, Discoms) schedule civil</text>
+  <text x="650" y="288" class="cell-text">works in isolation, causing freshly paved roads to be repeatedly</text>
+  <text x="650" y="311" class="cell-text">excavated for utility lines, wasting funds and disrupting traffic.</text>
+  <!-- Strategy Column -->
+  <text x="1190" y="265" class="cell-bold" fill="#0369A1">Proactive GIS Spatial Buffer Engine:</text>
+  <text x="1190" y="288" class="cell-text">Aggregates multi-agency project timelines onto a shared GIS map,</text>
+  <text x="1190" y="311" class="cell-text">automatically halting excavation permits until joint scheduling is locked.</text>
+
+  <!-- ROW 2 -->
+  <rect x="100" y="388" width="1720" height="140" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="140" cy="427" r="16" fill="#FEF3C7"/>
+  <text x="140" y="432" class="badge-text" text-anchor="middle">2</text>
+  <text x="180" y="427" class="cell-bold">Unsustainable Cloud Vision</text>
+  <text x="180" y="450" class="cell-bold">Recurring API Costs</text>
+  <!-- Impact Column -->
+  <text x="650" y="417" class="cell-text">Inspecting civic complaint photos via commercial cloud vision APIs</text>
+  <text x="650" y="440" class="cell-text">incurs high recurring per-query licensing expenses for the state and</text>
+  <text x="650" y="463" class="cell-text">presents citizen data privacy and sovereignty concerns.</text>
+  <!-- Strategy Column -->
+  <text x="1190" y="417" class="cell-bold" fill="#0369A1">Zero-Cost Edge AI (Tesseract.js OCR):</text>
+  <text x="1190" y="440" class="cell-text">Deploys open-source, WASM-powered OCR in the browser and backend,</text>
+  <text x="1190" y="463" class="cell-text">parsing signboard text on-device with zero external API fees.</text>
+
+  <!-- ROW 3 -->
+  <rect x="100" y="540" width="1720" height="140" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="140" cy="579" r="16" fill="#FEE2E2"/>
+  <text x="140" y="584" class="badge-text" text-anchor="middle">3</text>
+  <text x="180" y="579" class="cell-bold">Unverified &amp; Out-of-Ward</text>
+  <text x="180" y="602" class="cell-bold">Grievance Submissions</text>
+  <!-- Impact Column -->
+  <text x="650" y="569" class="cell-text">Municipal helplines are flooded with recycled internet downloads,</text>
+  <text x="650" y="592" class="cell-text">blurry images, and misallocated complaints, overburdening ward</text>
+  <text x="650" y="615" class="cell-text">officers with manual verification and false leads.</text>
+  <!-- Strategy Column -->
+  <text x="1190" y="569" class="cell-bold" fill="#0369A1">Anti-Fraud Live Camera &amp; Nominatim Geocoding:</text>
+  <text x="1190" y="592" class="cell-text">Mandates WebRTC live stream with GPS/IST coordinate watermarking</text>
+  <text x="1190" y="615" class="cell-text">and reverse-geocodes tickets to the exact municipal ward engineer.</text>
+
+  <!-- ROW 4 -->
+  <rect x="100" y="692" width="1720" height="140" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="140" cy="731" r="16" fill="#ECFDF5"/>
+  <text x="140" y="736" class="badge-text" text-anchor="middle">4</text>
+  <text x="180" y="731" class="cell-bold">Fragmented Multi-Agency</text>
+  <text x="180" y="754" class="cell-bold">Public Service Portals</text>
+  <!-- Impact Column -->
+  <text x="650" y="721" class="cell-text">Citizens must navigate separate portals for electricity, sanitation,</text>
+  <text x="650" y="744" class="cell-text">potholes, and water supply, causing tracking opacity and lost</text>
+  <text x="650" y="767" class="cell-text">complaints across departmental jurisdictions.</text>
+  <!-- Strategy Column -->
+  <text x="1190" y="721" class="cell-bold" fill="#0369A1">Universal Cross-Domain Lifecycle Architecture:</text>
+  <text x="1190" y="744" class="cell-text">Single citizen window backed by a standardized 4-stage tracker</text>
+  <text x="1190" y="767" class="cell-text">(Filed → Assigned → Review → Resolved) across all municipal sectors.</text>
+
+  <!-- ROW 5 -->
+  <rect x="100" y="844" width="1720" height="140" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="140" cy="883" r="16" fill="#F3E8FF"/>
+  <text x="140" y="888" class="badge-text" text-anchor="middle">5</text>
+  <text x="180" y="883" class="cell-bold">Lack of Inter-Agency</text>
+  <text x="180" y="906" class="cell-bold">Accountability &amp; Escalation</text>
+  <!-- Impact Column -->
+  <text x="650" y="873" class="cell-text">Clashing utilities result in mutual blame-shifting between civil</text>
+  <text x="650" y="896" class="cell-text">departments, with no centralized oversight for District Collectors</text>
+  <text x="650" y="919" class="cell-text">to track dispute resolution.</text>
+  <!-- Strategy Column -->
+  <text x="1190" y="873" class="cell-bold" fill="#0369A1">Collector Command Matrix &amp; Digital NOC:</text>
+  <text x="1190" y="896" class="cell-text">Enforces mandatory digital inter-agency sign-offs, automated</text>
+  <text x="1190" y="919" class="cell-text">escalation triggers, and real-time departmental KPI oversight.</text>
+
+  <!-- Footer -->
+  <rect x="100" y="1000" width="1720" height="40" rx="6" fill="#0B1B3D"/>
+  <text x="130" y="1025" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#93C5FD">ALIGNMENT:</text>
+  <text x="230" y="1025" font-family="'Inter', sans-serif" font-size="13" font-weight="500" fill="#FFFFFF">Viksit Bharat 2047 · Transparent Digital Governance · Municipal Capital Expenditure Safeguard</text>
+  <text x="1780" y="1025" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FBBF24" text-anchor="end">100% Open Standards &amp; Verified Cloud Prototype</text>
+</svg>

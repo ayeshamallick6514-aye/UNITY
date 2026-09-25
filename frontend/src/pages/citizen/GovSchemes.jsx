@@ -543,18 +543,20 @@ export default function GovSchemes() {
               </div>
 
               {/* Footer */}
-              <div className="px-5 py-3 flex items-center justify-between bg-slate-50/50 rounded-b-xl">
+              <div className="px-5 py-3 flex items-center justify-between bg-slate-50/50 rounded-b-xl gap-2">
                 <button
                   onClick={() => setViewDetailsScheme(scheme)}
-                  className="text-[10px] font-bold text-blue-900 hover:underline"
+                  className="text-[10px] font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1"
                 >
-                  View Details
+                  <span>How to Apply</span>
+                  <span className="text-[9px]">📖</span>
                 </button>
                 <button
                   onClick={() => setApplyScheme(scheme)}
-                  className="text-[10px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-0.5 transition-colors"
+                  className="text-[10px] font-bold bg-blue-900 hover:bg-blue-800 text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors"
                 >
-                  Apply Online <ArrowRight size={11} />
+                  <span>Apply Online</span>
+                  <ArrowRight size={11} />
                 </button>
               </div>
             </div>
@@ -628,14 +630,64 @@ export default function GovSchemes() {
               </div>
 
               <div className="space-y-2 pt-2 border-t border-slate-100">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Required Documents</span>
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Required Documents Checklist</span>
                 <div className="grid grid-cols-2 gap-2">
                   {viewDetailsScheme.docs.map((doc, i) => (
                     <div key={i} className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2">
-                      <FileText size={12} className="text-slate-400 shrink-0" />
+                      <FileText size={12} className="text-blue-600 shrink-0" />
                       <span className="text-[10px] font-bold text-slate-700 truncate">{doc}</span>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Step-by-Step Application Guide */}
+              <div className="space-y-2.5 pt-3 border-t border-slate-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black text-blue-900 uppercase tracking-widest block">
+                    How to Apply — Step-by-Step Procedure
+                  </span>
+                  <span className="text-[9px] font-mono font-bold bg-blue-50 text-blue-800 px-2 py-0.5 rounded border border-blue-200">
+                    SLA: 7-15 Working Days
+                  </span>
+                </div>
+                <div className="space-y-2 text-xs">
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
+                    <div>
+                      <strong className="text-slate-900 block font-bold text-[11px]">e-KYC &amp; Bank DBT Linking</strong>
+                      <span className="text-[10px] text-slate-600 leading-normal block mt-0.5">
+                        Verify your Samagra ID is linked with Aadhaar via biometric/OTP on <a href="https://samagra.gov.in" target="_blank" rel="noreferrer" className="text-blue-700 underline font-semibold">samagra.gov.in</a> and your bank account has active NPCI DBT enabled.
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
+                    <div>
+                      <strong className="text-slate-900 block font-bold text-[11px]">Application Submission</strong>
+                      <span className="text-[10px] text-slate-600 leading-normal block mt-0.5">
+                        Submit online via our portal ("Apply Online" button below), at any authorized MPOnline Kiosk / CSC Centre, or through the departmental state portal.
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
+                    <div>
+                      <strong className="text-slate-900 block font-bold text-[11px]">Verification by Zonal / Tehsil Officer</strong>
+                      <span className="text-[10px] text-slate-600 leading-normal block mt-0.5">
+                        Your application is scrutinized by the Ward Officer (Urban) or Gram Panchayat Secretary (Rural) against state revenue and domicile databases.
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">4</span>
+                    <div>
+                      <strong className="text-slate-900 block font-bold text-[11px]">Digital Sanction &amp; DBT Transfer</strong>
+                      <span className="text-[10px] text-slate-600 leading-normal block mt-0.5">
+                        Sanction letter is issued online; monetary benefits are deposited directly to your bank account with real-time SMS alerts.
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import AuthorityTopBar from '../components/shared/AuthorityTopBar';
+import AuthorityVoiceBot from '../components/authority/AuthorityVoiceBot';
 
 // ─── Page titles (used if any consumer still reads them) ──────────────────────
 const PAGE_TITLES = {
@@ -39,6 +40,9 @@ export default function AuthorityLayout() {
           <Outlet />
         </div>
       </main>
+
+      {/* Nodal Command Voice Copilot */}
+      <AuthorityVoiceBot />
 
     </div>
   );

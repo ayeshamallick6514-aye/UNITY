@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project UNITY - Operational Workflow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #F8FAFC;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 56px 80px;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <div class="flex items-center justify-between border-b-2 border-slate-200/80 pb-6">
+    <div class="flex items-center gap-4">
+      <div class="bg-[#0B1B3D] text-amber-400 px-5 py-2 rounded-xl text-xs font-bold tracking-widest uppercase border border-amber-400/30">
+        Project UNITY
+      </div>
+      <div>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight">End-to-End Operational Workflow</h1>
+        <p class="text-xs text-slate-500 font-semibold mt-0.5">Dual-Engine Infrastructure Coordination (G2G) &amp; Citizen Grievance Redressal (G2C)</p>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="text-xs font-bold text-slate-800 font-mono">MP ONLINE HACKATHON 2026</div>
+      <div class="text-xs font-semibold text-amber-600 mt-0.5">Problem Statement 5 · Team HackHer Squad</div>
+    </div>
+  </div>
+
+  <!-- 5-Stage Linear Workflow -->
+  <div class="grid grid-cols-5 gap-5 my-auto">
+
+    <!-- STEP 1 -->
+    <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative">
+      <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center text-xs font-bold z-10 shadow">
+        →
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <span class="mono text-2xl font-black text-blue-600">01</span>
+          <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-md uppercase tracking-wider">Ingestion</span>
+        </div>
+        <h3 class="text-base font-extrabold text-slate-900 mb-3 leading-snug">Multi-Source Ingestion</h3>
+        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+          <li class="flex items-start gap-1.5">
+            <span class="text-blue-500 font-bold">•</span>
+            <span><strong>Civil Projects:</strong> PWD, Jal Nigam, and Discoms log road excavation schedules.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="text-blue-500 font-bold">•</span>
+            <span><strong>Civic Reports:</strong> Citizens capture live issues via web/mobile portal.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-6 pt-3 border-t border-slate-100">
+        <span class="text-[10px] font-bold mono text-slate-400 uppercase tracking-wider block mb-1">Key Tech:</span>
+        <span class="text-xs font-bold text-slate-700 bg-slate-100 px-2 py-1 rounded inline-block">WebRTC &amp; REST APIs</span>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="bg-white border-2 border-indigo-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative">
+      <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center text-xs font-bold z-10 shadow">
+        →
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <span class="mono text-2xl font-black text-indigo-600">02</span>
+          <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-md uppercase tracking-wider">Edge AI</span>
+        </div>
+        <h3 class="text-base font-extrabold text-slate-900 mb-3 leading-snug">Client OCR &amp; Geotagging</h3>
+        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+          <li class="flex items-start gap-1.5">
+            <span class="text-indigo-500 font-bold">•</span>
+            <span><strong>Tesseract.js OCR:</strong> Extracts text from signboards locally with zero cloud API fees.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="text-indigo-500 font-bold">•</span>
+            <span><strong>Anti-Fraud Stamping:</strong> Imprints GPS Lat/Long and IST timestamp on canvas.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-6 pt-3 border-t border-slate-100">
+        <span class="text-[10px] font-bold mono text-slate-400 uppercase tracking-wider block mb-1">Key Tech:</span>
+        <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-1 rounded inline-block">Tesseract.js (WASM)</span>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="bg-amber-50/50 border-2 border-amber-300 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative">
+      <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center text-xs font-bold z-10 shadow">
+        →
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <span class="mono text-2xl font-black text-amber-600">03</span>
+          <span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[10px] font-bold rounded-md uppercase tracking-wider">Core AI Engine</span>
+        </div>
+        <h3 class="text-base font-extrabold text-slate-900 mb-3 leading-snug">Spatial Collision Shield</h3>
+        <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+          <li class="flex items-start gap-1.5">
+            <span class="text-amber-600 font-bold">•</span>
+            <span><strong>Geometric Buffering:</strong> Automatically checks route overlaps across departments.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="text-amber-600 font-bold">•</span>
+            <span><strong>Pre-Permit Block:</strong> Halts excavation if road re-carpeting is active or recent.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-6 pt-3 border-t border-amber-200/60">
+        <span class="text-[10px] font-bold mono text-amber-700 uppercase tracking-wider block mb-1">Key Tech:</span>
+        <span class="text-xs font-bold text-amber-900 bg-amber-100 px-2 py-1 rounded inline-block">Leaflet GIS Buffer Engine</span>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="bg-white border-2 border-emerald-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative">
+      <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center text-xs font-bold z-10 shadow">
+        →
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <span class="mono text-2xl font-black text-emerald-600">04</span>
+          <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-md uppercase tracking-wider">Routing</span>
+        </div>
+        <h3 class="text-base font-extrabold text-slate-900 mb-3 leading-snug">Ward Routing &amp; NOC</h3>
+        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+          <li class="flex items-start gap-1.5">
+            <span class="text-emerald-500 font-bold">•</span>
+            <span><strong>Ward Geocoding:</strong> Nominatim reverse-geocodes tickets to the exact municipal ward.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="text-emerald-500 font-bold">•</span>
+            <span><strong>Digital NOC Gate:</strong> Enforces cross-agency sign-off before work permits activate.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-6 pt-3 border-t border-slate-100">
+        <span class="text-[10px] font-bold mono text-slate-400 uppercase tracking-wider block mb-1">Key Tech:</span>
+        <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded inline-block">Nominatim &amp; Express Router</span>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="bg-white border-2 border-slate-900 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <span class="mono text-2xl font-black text-slate-900">05</span>
+          <span class="px-2.5 py-1 bg-slate-900 text-amber-400 text-[10px] font-bold rounded-md uppercase tracking-wider">Resolution</span>
+        </div>
+        <h3 class="text-base font-extrabold text-slate-900 mb-3 leading-snug">Universal Public Tracking</h3>
+        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+          <li class="flex items-start gap-1.5">
+            <span class="text-slate-900 font-bold">•</span>
+            <span><strong>4-Stage Timeline:</strong> Real-time progression (*Filed → Assigned → Review → Resolved*).</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="text-slate-900 font-bold">•</span>
+            <span><strong>Collector KPIs:</strong> Executive dashboard tracks resolution SLA compliance.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-6 pt-3 border-t border-slate-100">
+        <span class="text-[10px] font-bold mono text-slate-400 uppercase tracking-wider block mb-1">Key Tech:</span>
+        <span class="text-xs font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded inline-block">MongoDB &amp; React Hub</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom GovTech Banner -->
+  <div class="bg-[#0B1B3D] text-white rounded-2xl px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-6 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span class="font-bold text-slate-200">G2G Pillar:</span>
+        <span class="text-slate-400">Proactive Road Excavation Prevention &amp; Inter-Agency Digital NOC</span>
+      </div>
+      <div class="h-4 w-px bg-slate-700"></div>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+        <span class="font-bold text-slate-200">G2C Pillar:</span>
+        <span class="text-slate-400">On-Device Tesseract.js OCR, Anti-Fraud Evidence &amp; 4-Stage Tracking</span>
+      </div>
+    </div>
+    <div class="text-xs font-bold text-amber-400 tracking-wider uppercase font-mono">
+      Viksit Bharat 2047 · 100% Open Standards
+    </div>
+  </div>
+
+</body>
+</html>

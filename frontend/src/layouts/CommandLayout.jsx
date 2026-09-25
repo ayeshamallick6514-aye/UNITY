@@ -3,6 +3,8 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Bell, LogOut, ShieldCheck } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 
+import AuthorityVoiceBot from '../components/authority/AuthorityVoiceBot';
+
 // ─── Command Centre Navigation ───────────────────────────────────────────────
 const NAV_ITEMS = [
   { label: 'Mission Overview',    to: '/command/overview'     },
@@ -119,6 +121,9 @@ export default function CommandLayout() {
           <Outlet />
         </div>
       </main>
+
+      {/* Nodal Voice Copilot */}
+      <AuthorityVoiceBot />
     </div>
   );
 }

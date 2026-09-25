@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project UNITY - Solution Presentation | MP Online Hackathon 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b132b;
+      color: #1e293b;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+    .slide-card {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      display: none;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+    .slide-card.active {
+      display: flex;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.985); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      body { background: white !important; }
+      .no-print { display: none !important; }
+      .slide-container { height: auto !important; padding: 0 !important; }
+      .slide-card {
+        display: flex !important;
+        page-break-after: always;
+        break-after: page;
+        box-shadow: none !important;
+        border: none !important;
+        margin-bottom: 2rem;
+        aspect-ratio: 16 / 9;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body class="select-none">
+
+  <!-- Floating Nav Controls -->
+  <div class="no-print fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-md px-6 py-3 rounded-full border border-slate-700/80 shadow-2xl flex items-center gap-4 text-white text-xs font-semibold">
+    <button onclick="prevSlide()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 transition flex items-center gap-1">
+      <span>←</span> Prev
+    </button>
+    <span class="text-slate-400 font-mono tracking-widest text-[11px]">
+      SLIDE <span id="currentSlideNum" class="text-amber-400 font-bold">1</span> / <span id="totalSlidesNum">10</span>
+    </span>
+    <button onclick="nextSlide()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition flex items-center gap-1 font-bold">
+      Next <span>→</span>
+    </button>
+    <div class="h-4 w-px bg-slate-700"></div>
+    <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 transition flex items-center gap-1 font-bold">
+      🖨️ Export PDF
+    </button>
+  </div>
+
+  <div class="slide-container">
+
+    <!-- SLIDE 1: COVER -->
+    <div class="slide-card active p-10 justify-between bg-gradient-to-br from-slate-950 via-[#0B1B3D] to-slate-900 text-white border-0">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-5">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full border border-amber-500/40 uppercase tracking-widest">
+            MP Online Hackathon 2026
+          </span>
+          <span class="text-slate-400 text-xs">Problem Statement 5 (PS-5)</span>
+        </div>
+        <div class="text-xs font-mono text-slate-400">Team: <strong class="text-white">HackHer Squad</strong></div>
+      </div>
+
+      <div class="space-y-4 my-auto">
+        <div class="inline-block px-3 py-1 bg-blue-500/10 text-blue-300 text-xs font-semibold rounded border border-blue-500/30">
+          GovTech · Artificial Intelligence · Digital Public Services
+        </div>
+        <h1 class="text-5xl font-extrabold tracking-tight text-white leading-tight">
+          Project <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-200">UNITY</span>
+        </h1>
+        <p class="text-xl text-slate-300 max-w-3xl font-medium">
+          Unified Nodal Interface for Tactical Infrastructure Yield & Governance
+        </p>
+        <p class="text-sm text-slate-400 max-w-2xl leading-relaxed">
+          An AI-powered inter-departmental infrastructure coordination platform and citizen-centric governance portal preventing redundant road excavation and authenticating public grievances for Madhya Pradesh.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-between border-t border-slate-800/80 pt-5 text-xs text-slate-400">
+        <div>Evaluation Pillars: <strong>Concept · Approach · Innovation · Overall Solution</strong></div>
+        <div class="text-amber-400 font-medium">Live Working Prototype Verified</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: PILLAR 1 - CONCEPT -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Pillar 1: Concept Evaluation</span>
+          <h2 class="text-2xl font-bold text-slate-900">The Problem & The Vision</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">PS-5 Alignment</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 my-auto">
+        <div class="bg-red-50/70 border border-red-200 rounded-xl p-5 space-y-3">
+          <div class="flex items-center gap-2 text-red-700 font-bold text-sm uppercase tracking-wider">
+            <span>⚠️</span> The Problem in Madhya Pradesh
+          </div>
+          <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+            <li><strong>Departmental Silos:</strong> PWD, Municipal Corporations, MP Jal Nigam, and Discoms plan works independently without shared excavation schedules.</li>
+            <li><strong>Infrastructure Destruction:</strong> Freshly surfaced roads are repeatedly cut open for underground pipelines and power conduits.</li>
+            <li><strong>Unstructured Grievance Influx:</strong> Helplines receive duplicate, blurry, or unverified complaint images, overloading field engineers with false leads.</li>
+          </ul>
+        </div>
+
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-5 space-y-3">
+          <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm uppercase tracking-wider">
+            <span>🎯</span> The Project UNITY Concept
+          </div>
+          <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+            <li><strong>Unified Nodal Layer:</strong> Consolidates civil works timelines across departments onto a single geospatial map.</li>
+            <li><strong>Proactive Spatial Buffering:</strong> Algorithms detect scheduling overlaps before permits are issued, enforcing joint execution windows.</li>
+            <li><strong>Intelligent Citizen Grievances:</strong> On-device AI (Tesseract.js OCR) and live-camera GPS watermarking guarantee genuine, geo-located citizen submissions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600 flex justify-between items-center">
+        <span>Target Beneficiaries: <strong>District Collectors, Municipal Commissioners, Chief Engineers & All Citizens of MP</strong></span>
+        <span class="font-semibold text-slate-800">Concept Score: Direct Problem-Solution Fit</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: CONCEPT - PROBLEM-SOLUTION MATRIX -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Pillar 1: Concept Viability</span>
+          <h2 class="text-2xl font-bold text-slate-900">Comparative Value: Legacy vs UNITY</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">Operational Impact</span>
+      </div>
+
+      <div class="overflow-hidden border border-slate-200 rounded-xl my-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-white font-semibold">
+              <th class="p-3 w-1/4">Operational Dimension</th>
+              <th class="p-3 w-3/8 text-slate-300">Legacy Administrative Approach</th>
+              <th class="p-3 w-3/8 text-amber-300">Project UNITY Unified Engine</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr class="bg-white">
+              <td class="p-3 font-bold text-slate-900">Project Visibility</td>
+              <td class="p-3">Paper files or isolated intra-departmental portals.</td>
+              <td class="p-3 bg-blue-50/40 text-blue-900 font-medium">Shared multi-agency GIS map with coordinate overlays.</td>
+            </tr>
+            <tr class="bg-slate-50">
+              <td class="p-3 font-bold text-slate-900">Conflict Detection</td>
+              <td class="p-3">Reactive: discovered only after road is dug up.</td>
+              <td class="p-3 bg-blue-50/40 text-blue-900 font-medium">Proactive: automated buffer algorithm flags permits before approval.</td>
+            </tr>
+            <tr class="bg-white">
+              <td class="p-3 font-bold text-slate-900">Public Grievances</td>
+              <td class="p-3">Manual ticket triaging, no image text verification.</td>
+              <td class="p-3 bg-blue-50/40 text-blue-900 font-medium">Tesseract.js OCR extracts signage/billboards on client device.</td>
+            </tr>
+            <tr class="bg-slate-50">
+              <td class="p-3 font-bold text-slate-900">Image Authenticity</td>
+              <td class="p-3">Unverified gallery uploads vulnerable to internet downloads.</td>
+              <td class="p-3 bg-blue-50/40 text-blue-900 font-medium">Live camera mode with embedded Lat/Lng and IST timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-xs text-slate-500 italic text-center">
+        UNITY bridges the critical gap between multi-departmental capital expenditure and verified citizen grievance resolution.
+      </div>
+    </div>
+
+    <!-- SLIDE 4: PILLAR 2 - APPROACH & ARCHITECTURE -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Pillar 2: Technical Approach</span>
+          <h2 class="text-2xl font-bold text-slate-900">Dual-Engine System Architecture</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">Robust & Scalable</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 my-auto">
+        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-indigo-700 uppercase tracking-wider mb-2">1. G2C Citizen Portal</div>
+            <h3 class="font-bold text-slate-900 text-sm mb-2">Accessible Public Interface</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5">
+              <li>• Responsive React + Tailwind UI</li>
+              <li>• HTML5 WebRTC Live Camera</li>
+              <li>• Client-side Tesseract.js OCR</li>
+              <li>• Universal 4-Stage Tracker</li>
+              <li>• Scheme Eligibility Assistant</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-mono">Role: Citizen / Beneficiary</div>
+        </div>
+
+        <div class="border border-blue-200 rounded-xl p-4 bg-blue-50/50 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">2. G2G Authority Matrix</div>
+            <h3 class="font-bold text-slate-900 text-sm mb-2">Inter-Agency Coordination</h3>
+            <ul class="text-xs text-slate-700 space-y-1.5">
+              <li>• Leaflet GIS Spatial Mapping</li>
+              <li>• Automated Conflict Detection</li>
+              <li>• Cross-Agency NOC Approvals</li>
+              <li>• Departmental Status Filters</li>
+              <li>• Collector Escalation Feed</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-2 border-t border-blue-200 text-[10px] text-blue-700 font-mono">Role: PWD, Jal Nigam, Discom</div>
+        </div>
+
+        <div class="border border-amber-200 rounded-xl p-4 bg-amber-50/50 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">3. Command Center</div>
+            <h3 class="font-bold text-slate-900 text-sm mb-2">Executive Governance</h3>
+            <ul class="text-xs text-slate-700 space-y-1.5">
+              <li>• Mission Overview & KPIs</li>
+              <li>• Spatial Buffer Calculations</li>
+              <li>• In-Memory / DB Registries</li>
+              <li>• Live Bhopal Weather Sync</li>
+              <li>• Auditable System Health</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-2 border-t border-amber-200 text-[10px] text-amber-800 font-mono">Role: District Collector & ULB</div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 text-white rounded-lg p-3 text-xs flex justify-between items-center">
+        <span>Stack: <strong>React · Node.js · Express · MongoDB · Leaflet · Tesseract.js · Nominatim API</strong></span>
+        <span class="text-amber-400 font-bold">100% Open Standards · Zero Vendor Lock-in</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4B: TECHNICAL APPROACH ARCHITECTURE DIAGRAM -->
+    <div class="slide-card p-8 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Pillar 2: Technical Approach Diagram</span>
+          <h2 class="text-2xl font-bold text-slate-900">High-Level 3-Tier System Architecture</h2>
+        </div>
+        <span class="text-xs font-mono bg-blue-50 text-blue-700 px-2.5 py-1 rounded font-semibold border border-blue-200">System Blueprint</span>
+      </div>
+
+      <div class="my-auto flex items-center justify-center p-2">
+        <img src="./tech_stack_template.jpg" alt="Technical Approach Template Diagram" class="max-h-[500px] w-auto rounded-xl border border-slate-300 shadow-md object-contain">
+      </div>
+
+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-600 flex justify-between items-center">
+        <span>G2C Citizen Service Hub ➔ Core Nodal Intelligence Engine ➔ G2G Departmental & Authority Matrix</span>
+        <span class="font-bold text-slate-800">Direct End-to-End GovTech Flow</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: APPROACH - DATA FLOW & ALGORITHMS -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Pillar 2: Technical Approach</span>
+          <h2 class="text-2xl font-bold text-slate-900">Intelligence Pipeline: Ingestion to Resolution</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">End-to-End Logic</span>
+      </div>
+
+      <div class="my-auto space-y-4">
+        <div class="grid grid-cols-4 gap-3 text-xs">
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">1</div>
+            <div class="font-bold text-slate-800 mb-1">Evidence Capture</div>
+            <div class="text-slate-500 text-[11px]">Citizen captures live photo; browser stamps GPS coords and timestamp IST.</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <div class="w-7 h-7 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">2</div>
+            <div class="font-bold text-slate-800 mb-1">Tesseract.js OCR</div>
+            <div class="text-slate-500 text-[11px]">WASM-powered OCR extracts street signs, posters, and notice texts locally.</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <div class="w-7 h-7 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">3</div>
+            <div class="font-bold text-slate-800 mb-1">Spatial Buffering</div>
+            <div class="text-slate-500 text-[11px]">Backend checks active project perimeter and routes ticket to exact ward.</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <div class="w-7 h-7 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">4</div>
+            <div class="font-bold text-slate-800 mb-1">Nodal Resolution</div>
+            <div class="text-slate-500 text-[11px]">Assigned engineer completes work; status syncs live on 4-stage public tracker.</div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4">
+          <div class="text-xs font-bold text-blue-900 mb-1">Proactive Infrastructure Conflict Logic:</div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            When Agency A (e.g., MP Jal Nigam) registers an excavation project, the geospatial engine calculates a geometric buffer around the route. If Agency B (e.g., PWD) has a scheduled road-surfacing project overlapping in that zone within a concurrent timeline window, an automatic <strong>Inter-Departmental Conflict Block</strong> is triggered, requiring joint sign-off before digging authorization.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 text-center font-mono">
+        Algorithm: Coordinate Bounding-Box Proximity + Scheduled Date Collision Matching
+      </div>
+    </div>
+
+    <!-- SLIDE 6: PILLAR 3 - INNOVATION & UNIQUENESS -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Pillar 3: Innovation Highlights</span>
+          <h2 class="text-2xl font-bold text-slate-900">What Makes UNITY Truly Novel?</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">Key Differentiators</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5 my-auto">
+        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm space-y-2">
+          <div class="text-lg">⚡</div>
+          <h3 class="font-bold text-slate-900 text-sm">1. Zero-Cloud-Cost On-Device AI</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Instead of routing citizen photos to expensive third-party Cloud Vision APIs (which charge per query and pose data sovereignty concerns), UNITY embeds <strong>Tesseract.js</strong> directly on the edge. This provides free, instant, and privacy-preserving text extraction for municipal evidence.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm space-y-2">
+          <div class="text-lg">🛡️</div>
+          <h3 class="font-bold text-slate-900 text-sm">2. Anti-Fraud Live Evidence Mode</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Eliminates internet-downloaded or fabricated grievance submissions by enforcing HTML5 WebRTC live camera streams with device GPS overlays and timestamps, preventing stale or forged complaints from polluting government queues.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm space-y-2">
+          <div class="text-lg">🗺️</div>
+          <h3 class="font-bold text-slate-900 text-sm">3. Pre-Excavation Spatial Shield</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Shifts the entire paradigm from reactive repair to proactive prevention. Civil departments are prevented from damaging newly paved corridors by enforcing mandatory synchronized utility digging windows.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm space-y-2">
+          <div class="text-lg">🔗</div>
+          <h3 class="font-bold text-slate-900 text-sm">4. Universal Multi-Domain Architecture</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            A single, standardized 4-stage tracking engine (Filed → Assigned → Under Review → Resolved) serving public health, agriculture, urban works, electricity, and rural development under one nodal framework.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 text-center font-medium">
+        Designed for operational sustainability, public data security, and long-term state adoption.
+      </div>
+    </div>
+
+    <!-- SLIDE 7: PILLAR 3 - INNOVATION ARCHITECTURE -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Pillar 3: Innovation Architecture</span>
+          <h2 class="text-2xl font-bold text-slate-900">Edge Intelligence & Digital Public Goods</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">Open Tech Stack</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 my-auto">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+          <div class="text-2xl mb-2">👁️</div>
+          <div class="font-bold text-slate-900 text-xs mb-1">Tesseract.js Engine</div>
+          <div class="text-[11px] text-slate-600">Open-source WebAssembly OCR. Operates client-side in the citizen's browser with Node.js fallback on backend.</div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+          <div class="text-2xl mb-2">📍</div>
+          <div class="font-bold text-slate-900 text-xs mb-1">Nominatim / OSM GIS</div>
+          <div class="text-[11px] text-slate-600">Zero-fee open mapping and reverse-geocoding, ensuring independence from paid proprietary mapping services.</div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+          <div class="text-2xl mb-2">🔐</div>
+          <div class="font-bold text-slate-900 text-xs mb-1">Stateless Security</div>
+          <div class="text-[11px] text-slate-600">Role-based JWT access controls, sanitized multipart image streams, and defensive session storage.</div>
+        </div>
+      </div>
+
+      <div class="bg-amber-50/80 border border-amber-200 rounded-lg p-3 text-xs text-amber-900">
+        <strong>Government Advantage:</strong> Fully complies with Digital India's open-source policy. No ongoing per-transaction licensing fees to foreign cloud providers, making district-wide rollout financially sustainable.
+      </div>
+    </div>
+
+    <!-- SLIDE 8: PILLAR 4 - OVERALL SOLUTION & PROTOTYPE -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Pillar 4: Overall Solution</span>
+          <h2 class="text-2xl font-bold text-slate-900">Prototype Completeness & Verification</h2>
+        </div>
+        <span class="text-xs font-mono bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded font-bold">100% Functional</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 my-auto">
+        <div class="space-y-3">
+          <div class="text-xs font-bold text-slate-800 uppercase tracking-wider">Live Tested Modules:</div>
+          <ul class="text-xs text-slate-700 space-y-2">
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Interactive GIS Map:</strong> Real-time project plots with department filters and conflict overlays.</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Tesseract OCR Reporting:</strong> Image upload, text parsing, and automatic ward geocoding.</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Universal Tracking API:</strong> Search by reference ID across civic, health, transport, and rural sectors.</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Multi-Role Authentication:</strong> Seamless switching between Citizen, Authority, and Command Center.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+          <div class="text-xs font-bold text-slate-800 uppercase tracking-wider">Production Readiness:</div>
+          <div class="text-xs text-slate-600 space-y-1.5">
+            <div>• <strong>Automated E2E Tests:</strong> 5/5 Playwright test suites passing across all critical citizen & authority journeys.</div>
+            <div>• <strong>Live Cloud Deployment:</strong> Hosted with decoupled frontend/backend microservice infrastructure.</div>
+            <div>• <strong>Zero 404 Pre-generation:</strong> 36 distinct application routes pre-compiled for flawless client navigation.</div>
+          </div>
+          <div class="pt-2">
+            <span class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded text-[11px] font-bold">
+              Ready for Administrative Demonstration
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-100 rounded-lg p-3 text-xs text-slate-600 flex justify-between items-center">
+        <span>Cloud Deployment: <strong>Fully Accessible on Desktop & Mobile Viewports</strong></span>
+        <span class="text-slate-900 font-semibold">Ready for MP State Pilot</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: PILLAR 4 - SCALABILITY & VIKSIT BHARAT -->
+    <div class="slide-card p-10 justify-between">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Pillar 4: Overall Impact</span>
+          <h2 class="text-2xl font-bold text-slate-900">Scalability & Viksit Bharat 2047 Alignment</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">Governance Scale</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 my-auto">
+        <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-3">
+          <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <span>🏛️</span> Public Expenditure & Asset Longevity
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            By preventing unscheduled road re-excavation, UNITY directly preserves municipal capital assets. Road lifespans are maintained, utility pipeline bursts from accidental digging are avoided, and administrative overheads for damage litigation between departments are eliminated.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-3">
+          <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <span>🇮🇳</span> Citizen Trust & Viksit Bharat 2047
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            In alignment with the Viksit Bharat 2047 vision for smart, citizen-centric digital governance, UNITY democratizes access to public digital infrastructure. Citizens experience transparent, accountable resolution with real-time tracking, fostering mutual trust between residents and the government of Madhya Pradesh.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-900 flex justify-between items-center">
+        <span>Statewide Scalability: <strong>Architected for all 55 Districts & 413 Urban Local Bodies of MP</strong></span>
+        <span class="font-bold text-blue-950">Modular · Microservice Ready</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: CONCLUSION & SUMMARY -->
+    <div class="slide-card p-10 justify-between bg-slate-950 text-white border-0">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Executive Summary</span>
+          <h2 class="text-2xl font-bold text-white">Project UNITY: Why It Deserves Selection</h2>
+        </div>
+        <span class="text-xs font-mono bg-slate-800 text-slate-300 px-2.5 py-1 rounded">HackHer Squad</span>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 my-auto">
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">1. Concept</div>
+          <p class="text-xs text-slate-300">Solves the tangible, daily administrative crisis of uncoordinated municipal digging and unverified civic tickets.</p>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="text-indigo-400 font-bold text-xs uppercase tracking-wider">2. Approach</div>
+          <p class="text-xs text-slate-300">Dual-engine G2G + G2C architecture powered by Leaflet GIS spatial buffering and full RESTful integration.</p>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="text-emerald-400 font-bold text-xs uppercase tracking-wider">3. Innovation</div>
+          <p class="text-xs text-slate-300">Zero-cloud-cost on-device Tesseract.js OCR and live camera anti-fraud evidence protection.</p>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="text-blue-400 font-bold text-xs uppercase tracking-wider">4. Completeness</div>
+          <p class="text-xs text-slate-300">Live cloud prototype with passing automated tests, ready for immediate pilot across Madhya Pradesh.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between border-t border-slate-800 pt-4 text-xs text-slate-400">
+        <div>MP Online Idea and Innovation Hackathon 2026 · PS-5 Track</div>
+        <div class="text-amber-400 font-semibold">Thank You · HackHer Squad</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide-card');
+    const totalSlides = slides.length;
+    document.getElementById('totalSlidesNum').innerText = totalSlides;
+
+    function showSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      currentSlide = index;
+      document.getElementById('currentSlideNum').innerText = index + 1;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

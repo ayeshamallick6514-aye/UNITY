@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <style>
+      .tag { font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; font-weight: 700; fill: #D97706; letter-spacing: 2px; text-transform: uppercase; }
+      .title { font-family: 'Inter', -apple-system, sans-serif; font-size: 42px; font-weight: 800; fill: #0B1B3D; }
+      .meta { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; font-weight: 600; fill: #64748B; }
+      .th { font-family: 'Inter', -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #FFFFFF; text-transform: uppercase; letter-spacing: 1px; }
+      .th-accent { font-family: 'Inter', -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #FDE68A; text-transform: uppercase; letter-spacing: 1px; }
+      .col1 { font-family: 'Inter', -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #0F172A; }
+      .col2 { font-family: 'Inter', -apple-system, sans-serif; font-size: 17px; font-weight: 500; fill: #475569; }
+      .col3-bold { font-family: 'Inter', -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #0369A1; }
+      .col3-sub { font-family: 'Inter', -apple-system, sans-serif; font-size: 17px; font-weight: 500; fill: #1E293B; }
+      .num { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #0B1B3D; }
+    </style>
+  </defs>
+
+  <!-- Clean Background -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+
+  <!-- Header -->
+  <text x="120" y="90" class="tag">Problem Statement 5 · Project UNITY</text>
+  <text x="120" y="145" class="title">Challenge, Impact &amp; Strategy</text>
+  <text x="1800" y="120" class="meta" text-anchor="end">Team: <tspan font-weight="800" fill="#0B1B3D">HackHer Squad</tspan> | MP Online Hackathon 2026</text>
+
+  <!-- Table Header -->
+  <rect x="120" y="185" width="1680" height="60" rx="10" fill="#0B1B3D"/>
+  <text x="160" y="222" class="th">#</text>
+  <text x="220" y="222" class="th">Challenge</text>
+  <text x="660" y="222" class="th">Field Impact</text>
+  <text x="1180" y="222" class="th-accent">Proposed Strategy (Project UNITY)</text>
+
+  <!-- Row 1 -->
+  <rect x="120" y="260" width="1680" height="115" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <circle cx="170" cy="317" r="18" fill="#EFF6FF"/>
+  <text x="170" y="323" class="num" text-anchor="middle">1</text>
+  <text x="220" y="323" class="col1">Departmental Silos</text>
+  <text x="660" y="323" class="col2">Fresh roads repeatedly dug for pipes &amp; cables</text>
+  <text x="1180" y="323">
+    <tspan class="col3-bold">GIS Buffer Engine: </tspan>
+    <tspan class="col3-sub">Auto-blocks conflicting excavation permits</tspan>
+  </text>
+
+  <!-- Row 2 -->
+  <rect x="120" y="390" width="1680" height="115" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <circle cx="170" cy="447" r="18" fill="#FEF3C7"/>
+  <text x="170" y="453" class="num" text-anchor="middle">2</text>
+  <text x="220" y="453" class="col1">Cloud Vision Costs</text>
+  <text x="660" y="453" class="col2">High per-query fees &amp; data sovereignty risks</text>
+  <text x="1180" y="453">
+    <tspan class="col3-bold">Edge Tesseract OCR: </tspan>
+    <tspan class="col3-sub">Zero-cost, client-side text extraction</tspan>
+  </text>
+
+  <!-- Row 3 -->
+  <rect x="120" y="520" width="1680" height="115" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <circle cx="170" cy="577" r="18" fill="#FEE2E2"/>
+  <text x="170" y="583" class="num" text-anchor="middle">3</text>
+  <text x="220" y="583" class="col1">Fake Grievances</text>
+  <text x="660" y="583" class="col2">Web downloads &amp; blurry out-of-ward reports</text>
+  <text x="1180" y="583">
+    <tspan class="col3-bold">Live WebRTC Camera: </tspan>
+    <tspan class="col3-sub">GPS watermarking &amp; ward auto-routing</tspan>
+  </text>
+
+  <!-- Row 4 -->
+  <rect x="120" y="650" width="1680" height="115" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <circle cx="170" cy="707" r="18" fill="#ECFDF5"/>
+  <text x="170" y="713" class="num" text-anchor="middle">4</text>
+  <text x="220" y="713" class="col1">Portal Fragmentation</text>
+  <text x="660" y="713" class="col2">Disjointed logins across power, water &amp; roads</text>
+  <text x="1180" y="713">
+    <tspan class="col3-bold">Universal Tracker: </tspan>
+    <tspan class="col3-sub">Standard 4-stage lifecycle across all sectors</tspan>
+  </text>
+
+  <!-- Row 5 -->
+  <rect x="120" y="780" width="1680" height="115" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <circle cx="170" cy="837" r="18" fill="#F3E8FF"/>
+  <text x="170" y="843" class="num" text-anchor="middle">5</text>
+  <text x="220" y="843" class="col1">Dispute Blindspots</text>
+  <text x="660" y="843" class="col2">Agency blame-shifting &amp; delayed escalation</text>
+  <text x="1180" y="843">
+    <tspan class="col3-bold">Command Matrix: </tspan>
+    <tspan class="col3-sub">Mandatory digital NOC &amp; Collector oversight</tspan>
+  </text>
+
+  <!-- Bottom Accent Banner -->
+  <rect x="120" y="920" width="1680" height="50" rx="8" fill="#0B1B3D"/>
+  <text x="160" y="951" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#FBBF24">ALIGNMENT:</text>
+  <text x="270" y="951" font-family="'Inter', sans-serif" font-size="14" font-weight="500" fill="#FFFFFF">Viksit Bharat 2047 · Transparent Digital Governance · Municipal Capital Asset Preservation</text>
+  <text x="1760" y="951" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#38BDF8" text-anchor="end">100% Cloud-Deployed Working Prototype</text>
+</svg>

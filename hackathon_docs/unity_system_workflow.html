@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project UNITY - System Architecture &amp; Telemetry Workflow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 32px 48px;
+      background: #ffffff;
+      width: 1400px;
+      height: 750px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .orange-box {
+      border: 2px solid #FDBA74;
+      border-radius: 28px;
+      background: #FFFFFF;
+    }
+    .pill-capsule {
+      border: 2px solid #FDBA74;
+      border-radius: 9999px;
+      background: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Title Bar -->
+  <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-2xl font-black text-[#1E3A8A] tracking-tight">
+        Project UNITY: Geospatial Nodal Architecture &amp; Telemetry Flow
+      </h1>
+      <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+        PS-5 · GovTech
+      </span>
+    </div>
+    <div class="text-xs font-bold text-slate-500 font-mono flex items-center gap-2">
+      <span>MP ONLINE HACKATHON 2026</span>
+      <span class="text-slate-300">|</span>
+      <span class="text-slate-800">Team: HackHer Squad</span>
+    </div>
+  </div>
+
+  <!-- Main Architecture Diagram Area -->
+  <div class="relative flex items-center justify-between my-auto pt-2" style="height: 620px;">
+
+    <!-- LEFT SECTION (Upper Box + Lower Box) -->
+    <div class="flex flex-col justify-between" style="width: 680px; height: 520px;">
+
+      <!-- UPPER BOX: G2C Citizen & Intelligence Interface -->
+      <div class="orange-box p-5 flex items-center justify-around text-center shadow-xs">
+        
+        <!-- Item 1 -->
+        <div class="flex flex-col items-center w-36">
+          <div class="w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center text-2xl mb-2 border border-red-100">
+            📷
+          </div>
+          <span class="text-xs font-extrabold text-slate-900 leading-snug">Live WebRTC<br>Camera</span>
+          <span class="text-[10px] text-slate-500 mt-1 font-medium">GPS Watermark</span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="flex flex-col items-center w-36">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl mb-2 border border-blue-100">
+            🔲
+          </div>
+          <span class="text-xs font-extrabold text-slate-900 leading-snug">Edge Tesseract<br>OCR Engine</span>
+          <span class="text-[10px] text-slate-500 mt-1 font-medium">On-Device WASM</span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="flex flex-col items-center w-36">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl mb-2 border border-purple-100">
+            🗺️
+          </div>
+          <span class="text-xs font-extrabold text-slate-900 leading-snug">Nominatim<br>Ward Geocoder</span>
+          <span class="text-[10px] text-slate-500 mt-1 font-medium">Auto Municipal Routing</span>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="flex flex-col items-center w-36">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl mb-2 border border-emerald-100">
+            📋
+          </div>
+          <span class="text-xs font-extrabold text-slate-900 leading-snug">Universal 4-Stage<br>Complaint Tracker</span>
+          <span class="text-[10px] text-slate-500 mt-1 font-medium">Filed to Resolved</span>
+        </div>
+
+      </div>
+
+      <!-- Arrow between lower and upper box -->
+      <div class="flex justify-center -my-3 z-10">
+        <div class="bg-white border-2 border-slate-700 text-slate-900 rounded-full w-7 h-7 flex items-center justify-center font-bold text-xs shadow-xs">
+          ↑
+        </div>
+      </div>
+
+      <!-- LOWER BOX: Core Technology & Intelligence Stack -->
+      <div class="orange-box p-4 flex items-center justify-between text-center shadow-xs">
+
+        <!-- Stack 1 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center text-lg mb-1.5 border border-slate-200">
+            ☁️
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">Node.js /<br>Express</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">REST APIs</span>
+        </div>
+
+        <!-- Stack 2 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-1.5 border border-blue-200">
+            📦
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">MongoDB<br>Cluster</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">Data Store</span>
+        </div>
+
+        <!-- Stack 3 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-1.5 border border-amber-200">
+            ⚙️
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">GIS Spatial<br>Buffer Engine</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">Collision Logic</span>
+        </div>
+
+        <!-- Stack 4 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-green-50 text-green-700 flex items-center justify-center text-lg mb-1.5 border border-green-200">
+            🌐
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">OpenStreet<br>Map (OSM)</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">Zero API Fee</span>
+        </div>
+
+        <!-- Stack 5 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-yellow-50 text-yellow-600 flex items-center justify-center text-lg mb-1.5 border border-yellow-200">
+            ⚡
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">Client-Side<br>WASM AI</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">Edge Privacy</span>
+        </div>
+
+        <!-- Stack 6 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg mb-1.5 border border-indigo-200">
+            🔐
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">Security /<br>Compliance</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">JWT &amp; SHA-256</span>
+        </div>
+
+        <!-- Stack 7 -->
+        <div class="flex flex-col items-center w-22">
+          <div class="w-10 h-10 rounded-lg bg-slate-50 text-slate-800 flex items-center justify-center text-lg mb-1.5 border border-slate-200">
+            🏛️
+          </div>
+          <span class="text-[11px] font-bold text-slate-900 leading-tight">MP SDC<br>Host-Ready</span>
+          <span class="text-[9px] text-slate-400 mt-0.5">Open Standards</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CONNECTOR: Arrow to Database -->
+    <div class="flex flex-col items-center justify-center px-3">
+      <div class="text-slate-800 font-black text-xl">➔</div>
+    </div>
+
+    <!-- CENTER CYLINDER DATABASE -->
+    <div class="flex flex-col items-center text-center justify-center w-40">
+      <!-- 3-tier Cylinder Graphic -->
+      <div class="w-20 h-24 flex flex-col items-center justify-center mb-2">
+        <svg viewBox="0 0 64 72" class="w-16 h-18 text-slate-900 fill-current">
+          <ellipse cx="32" cy="12" rx="28" ry="10" fill="#0F172A"/>
+          <path d="M4 12 v16 c0 5.5 12.5 10 28 10 s28 -4.5 28 -10 V12 Z" fill="#1E293B"/>
+          <path d="M4 28 v16 c0 5.5 12.5 10 28 10 s28 -4.5 28 -10 V28 Z" fill="#0F172A"/>
+          <path d="M4 44 v16 c0 5.5 12.5 10 28 10 s28 -4.5 28 -10 V44 Z" fill="#1E293B"/>
+          <ellipse cx="32" cy="12" rx="26" ry="8" fill="#38BDF8"/>
+        </svg>
+      </div>
+      <span class="text-xs font-black text-slate-900 leading-tight">
+        Central Geospatial<br>Nodal Registry
+      </span>
+      <span class="text-[10px] text-slate-500 mt-1 font-semibold">Real-Time Data Core</span>
+    </div>
+
+    <!-- CONNECTOR: Arrow to Management -->
+    <div class="flex flex-col items-center justify-center px-3">
+      <div class="text-slate-800 font-black text-xl">➔</div>
+    </div>
+
+    <!-- MIDDLE PILLAR: Nodal Administration & Field Execution -->
+    <div class="pill-capsule py-7 px-5 flex flex-col items-center justify-between text-center shadow-xs" style="width: 170px; height: 500px;">
+      
+      <!-- Tier 1 -->
+      <div class="flex flex-col items-center">
+        <div class="w-14 h-14 rounded-full bg-slate-900 text-white flex items-center justify-center text-2xl mb-1 shadow-sm">
+          👨‍💼
+        </div>
+        <span class="text-xs font-black text-slate-900 leading-tight">District Collector<br>&amp; Commissioner</span>
+        <span class="text-[10px] text-slate-500 font-semibold">Executive Leadership</span>
+      </div>
+
+      <!-- Arrow Down -->
+      <div class="text-slate-800 font-black text-sm">↓</div>
+
+      <!-- Tier 2 -->
+      <div class="flex flex-col items-center">
+        <div class="w-14 h-14 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-2xl mb-1 border border-blue-200">
+          🏛️
+        </div>
+        <span class="text-xs font-black text-slate-900 leading-tight">Department Heads</span>
+        <span class="text-[10px] text-slate-600 font-semibold mt-0.5">PWD · Jal Nigam · Discom</span>
+      </div>
+
+      <!-- Arrow Down -->
+      <div class="text-slate-800 font-black text-sm">↓</div>
+
+      <!-- Tier 3: ALL Circle -->
+      <div class="flex flex-col items-center">
+        <div class="w-14 h-14 rounded-full border-3 border-orange-500 text-orange-600 flex items-center justify-center text-xs font-black tracking-widest bg-orange-50">
+          ALL
+        </div>
+        <span class="text-[10px] font-black text-slate-800 mt-1 uppercase tracking-wider">Joint Sync</span>
+      </div>
+
+    </div>
+
+    <!-- CONNECTOR: Arrows to Outputs -->
+    <div class="flex flex-col items-center justify-around h-72 px-2">
+      <div class="text-slate-800 font-black text-lg">➔</div>
+      <div class="text-slate-800 font-black text-lg">➔</div>
+      <div class="text-slate-800 font-black text-lg">➔</div>
+      <div class="text-slate-800 font-black text-lg">➔</div>
+    </div>
+
+    <!-- RIGHT SECTION: Nodal Action & Governance Outputs -->
+    <div class="orange-box p-6 flex flex-col justify-between shadow-xs" style="width: 250px; height: 500px;">
+
+      <!-- Output 1 -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-red-50 text-red-500 flex items-center justify-center text-xl shrink-0 border border-red-100">
+          🚨
+        </div>
+        <div>
+          <span class="text-xs font-black text-slate-900 block leading-tight">Conflict Alerts</span>
+          <span class="text-[10px] text-slate-500">Halts overlapping road cuts</span>
+        </div>
+      </div>
+
+      <!-- Output 2 -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0 border border-amber-100">
+          📝
+        </div>
+        <div>
+          <span class="text-xs font-black text-slate-900 block leading-tight">Digital NOC Gate</span>
+          <span class="text-[10px] text-slate-500">Multi-agency sign-off</span>
+        </div>
+      </div>
+
+      <!-- Output 3 -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0 border border-blue-100">
+          🛡️
+        </div>
+        <div>
+          <span class="text-xs font-black text-slate-900 block leading-tight">Verified Evidence</span>
+          <span class="text-[10px] text-slate-500">GPS &amp; IST watermarked</span>
+        </div>
+      </div>
+
+      <!-- Output 4 -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 border border-emerald-100">
+          📈
+        </div>
+        <div>
+          <span class="text-xs font-black text-slate-900 block leading-tight">SLA Performance</span>
+          <span class="text-[10px] text-slate-500">Collector analytics</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Feedback Loop Bar -->
+  <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 pt-2 border-t border-slate-100">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+      <span>Continuous Feedback Loop: Real-time public tracking syncs automatically with departmental NOC closures</span>
+    </div>
+    <div class="text-amber-600 font-mono">
+      Viksit Bharat 2047 · Zero Paid API Dependency
+    </div>
+  </div>
+
+</body>
+</html>

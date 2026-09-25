@@ -8,15 +8,16 @@ import { APP_NAME } from '../utils/constants';
 import UnityLogo from '../components/shared/UnityLogo';
 import useAuthStore from '../store/authStore';
 import SchemeEligibilityQuiz from '../components/citizen/SchemeEligibilityQuiz';
+import CitizenVoiceBot from '../components/citizen/CitizenVoiceBot';
 
 const NAV_ITEMS = [
-  { label: 'Home',     to: '/citizen/home',          icon: Home          },
-  { label: 'Report',   to: '/citizen/report',        icon: ClipboardList },
-  { label: 'Projects', to: '/citizen/projects',      icon: Layers        },
-  { label: 'Schemes',  to: '/citizen/schemes',       icon: BookOpen      },
-  { label: 'Track',    to: '/citizen/track',         icon: Search        },
-  { label: 'Alerts',   to: '/citizen/notifications', icon: Bell          },
-  { label: 'Profile',  to: '/citizen/profile',       icon: User          },
+  { label: 'Home',          to: '/citizen/home',          icon: Home          },
+  { label: 'Report Issue',  to: '/citizen/report',        icon: ClipboardList, badge: '9 Domains' },
+  { label: 'Govt Schemes',  to: '/citizen/schemes',       icon: BookOpen,      badge: 'Apply Guide' },
+  { label: 'Track Ticket',  to: '/citizen/track',         icon: Search        },
+  { label: 'Live Projects', to: '/citizen/projects',      icon: Layers        },
+  { label: 'Alerts',        to: '/citizen/notifications', icon: Bell          },
+  { label: 'Profile',       to: '/citizen/profile',       icon: User          },
 ];
 
 export default function CitizenLayout() {
@@ -70,15 +71,22 @@ export default function CitizenLayout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all border border-transparent ${
+                `flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold transition-all border border-transparent ${
                   isActive
                     ? 'bg-blue-950 text-white border-blue-900/50 shadow-inner'
                     : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40'
                 }`
               }
             >
-              <item.icon size={15} className="shrink-0" />
-              <span>{item.label}</span>
+              <div className="flex items-center gap-3 truncate">
+                <item.icon size={15} className="shrink-0" />
+                <span className="truncate">{item.label}</span>
+              </div>
+              {item.badge && (
+                <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-blue-900/60 text-amber-300 border border-blue-800 shrink-0">
+                  {item.badge}
+                </span>
+              )}
             </NavLink>
           ))}
 
@@ -240,6 +248,9 @@ export default function CitizenLayout() {
             </NavLink>
           ))}
         </nav>
+
+        {/* ─── Floating Citizen Voice Mitra Assistant ───────────── */}
+        <CitizenVoiceBot />
 
       </div>
 

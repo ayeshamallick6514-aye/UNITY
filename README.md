@@ -28,7 +28,7 @@
 | **🔍 Universal Ticket Tracker** | [**Launch Universal Tracker**](https://unity-frontend-c9z7.onrender.com/#/citizen/track) | Live 4-stage tracking across all domain tickets (`HLTH-`, `AGR-`, `TRNS-`, `BPL-COM-`) |
 | **📖 Scheme Application Guides** | [**Launch Scheme Guides**](https://unity-frontend-c9z7.onrender.com/#/citizen/schemes) | 4-step structured application workflow (e-KYC, Kiosk filing, SLA scrutiny, DBT crediting) |
 
-> ⚡ **Cloud Availability & Evaluation Reliability for Hackathon Judges:**
+> ⚡ **Cloud Availability & Evaluation Reliability:**
 > - **Zero-Cold-Start Static CDN:** The frontend application is deployed as a Render Static Site distributed on Cloudflare's edge CDN, loading in under 1 second with 0s latency.
 > - **Silent Background Pre-Warm:** The application automatically initiates a background wake-up ping to `/health` the moment an evaluator lands on the website.
 > - **24/7 Automated Keep-Alive:** The backend health endpoint (`https://unity-backend-0i2e.onrender.com/health`) is monitored continuously to eliminate cloud inactivity spin-downs.

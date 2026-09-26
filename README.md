@@ -28,7 +28,16 @@
 | **🔍 Universal Ticket Tracker** | [**Launch Universal Tracker**](https://unity-frontend-c9z7.onrender.com/#/citizen/track) | Live 4-stage tracking across all domain tickets (`HLTH-`, `AGR-`, `TRNS-`, `BPL-COM-`) |
 | **📖 Scheme Application Guides** | [**Launch Scheme Guides**](https://unity-frontend-c9z7.onrender.com/#/citizen/schemes) | 4-step structured application workflow (e-KYC, Kiosk filing, SLA scrutiny, DBT crediting) |
 
-> ⚡ **Cloud Availability & Evaluation Reliability:**
+> 🔑 **Demo Credentials (if prompted or navigating deep links directly):**  
+> | Persona / Workspace | Direct Target Route | Employee ID / User | Password / OTP |
+> |---|---|---|---|
+> | **District Collector (Authority)** | [`/authority/dashboard`](https://unity-frontend-c9z7.onrender.com/#/authority/dashboard) | `collector.bhopal@mp.gov.in` | `Demo@2026` *(or `GovBhopal@Admin2026`)* |
+> | **State Nodal Officer (Command)** | [`/command/overview`](https://unity-frontend-c9z7.onrender.com/#/command/overview) | `nodal@bhopal.mp.gov.in` | `Demo@2026` |
+> | **Citizen Public Services** | [`/citizen/home`](https://unity-frontend-c9z7.onrender.com/#/citizen/home) | `9876543210` *(Public Access)* | `1234` *(Auto-Verified)* |
+> 
+> *Tip: You can also click **⚡ Instant Demo Access** on the role selection page to bypass all logins and enter immediately with one click.*
+
+> ⚡ **Cloud Availability & Evaluation Reliability for Hackathon Judges:**
 > - **Zero-Cold-Start Static CDN:** The frontend application is deployed as a Render Static Site distributed on Cloudflare's edge CDN, loading in under 1 second with 0s latency.
 > - **Silent Background Pre-Warm:** The application automatically initiates a background wake-up ping to `/health` the moment an evaluator lands on the website.
 > - **24/7 Automated Keep-Alive:** The backend health endpoint (`https://unity-backend-0i2e.onrender.com/health`) is monitored continuously to eliminate cloud inactivity spin-downs.
@@ -46,6 +55,16 @@ Modern public governance in Madhya Pradesh operates across dozens of independent
 **UNITY** resolves these systemic bottlenecks through a unified, bidirectional GovTech intelligence architecture tailored for the **Government of Madhya Pradesh**:
 1. **Executive Authority Portal**: Driven by **C-Lock (Coordination Lock)**, an inter-agency dependency state machine tracking 8 real Bhopal infrastructure megaprojects, active blocker status, emergency NOC directives, an **Executive Voice Copilot** for spoken morning briefs, and **Sentinel Policy RAG** for regulatory compliance checks.
 2. **Citizen-Centric Portal**: An AI-augmented public services hub covering **all 9 PS-5 domains**, equipped with an interactive **Bilingual Voice Mitra (English & Hindi)**, browser-native **Tesseract.js OCR**, OpenStreetMap ward resolution, a **Step-by-Step Scheme Application Guide**, and a **Universal 4-Stage Ticket Tracker**.
+
+### 📸 Live Prototype Interface Previews
+
+#### 1. Executive Authority Portal — C-Lock Clearance Matrix & Blocker Governance
+![C-Lock Coordination Matrix & Megaproject Governance](hackathon_docs/screenshots/c_lock_coordination_matrix.png)
+*Figure 1: District Administration Mission Control showing C-Lock Inter-Agency Clearance Matrix, active blocker registry, daily burn tracking, and emergency administrative override directives.*
+
+#### 2. Citizen Services Hub — Multi-Domain Grievance & Bhopal GIS Ward Resolution
+![Multi-Domain Grievance Filing and GIS Ward Resolution](hackathon_docs/screenshots/citizen_gis_ward_picker.png)
+*Figure 2: Citizen Portal featuring 8-domain grievance switcher, client-side Tesseract OCR document parsing, and interactive Bhopal municipal ward resolution via OpenStreetMap.*
 
 ---
 
@@ -288,6 +307,36 @@ npm run dev
 
 # 4. (Optional) Run Production Build Verification
 npm run build
+```
+
+### ⚙️ Environment Variables Configuration (`.env.example`)
+
+UNITY runs zero-config out of the box with resilient default fallbacks (in-memory MongoDB, embedded JWT secrets, and auto-proxying). For customized local testing or cloud staging deployments, configure the following variables:
+
+```env
+# ==============================================================================
+# Backend Configuration (backend/.env or Render Web Service environment variables)
+# ==============================================================================
+PORT=5001
+NODE_ENV=production
+
+# MongoDB Connection String (Optional — in-memory Mongo starts automatically as fallback)
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/unity?retryWrites=true&w=majority
+
+# JWT Authentication Secrets & Expiration
+JWT_SECRET=unity_govt_bhopal_secret_key_2025_mp
+JWT_REFRESH_SECRET=unity_refresh_bhopal_secret_key_2025_mp
+JWT_EXPIRES_IN=8h
+JWT_REFRESH_EXPIRES_IN=7d
+
+# Default Password for Demonstration Personas
+DEMO_USER_PASSWORD=Demo@2026
+
+# ==============================================================================
+# Frontend Configuration (frontend/.env or Render Static Site environment variables)
+# ==============================================================================
+# Base URL pointing to deployed backend API gateway
+VITE_API_URL=https://unity-backend-0i2e.onrender.com/api/v1
 ```
 
 ---

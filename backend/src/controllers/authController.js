@@ -74,8 +74,11 @@ const DEMO_USERS = [
 function findUser(identifier) {
   if (!identifier) return null;
   const id = identifier.trim().toLowerCase();
+  if (id === 'collector.bhopal@mp.gov.in' || id === 'collector@bhopal.mp.gov.in') {
+    return DEMO_USERS[0];
+  }
   return DEMO_USERS.find(
-    (u) => u.email === id || (u.employeeId && u.employeeId.toLowerCase() === id)
+    (u) => u.email.toLowerCase() === id || (u.employeeId && u.employeeId.toLowerCase() === id)
   ) || DEMO_USERS.find(
     (u) => u.email === identifier.trim() || u.employeeId === identifier.trim()
   ) || null;
@@ -128,7 +131,7 @@ async function login(req, res) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
 
-    const isDemoPass = password === DEFAULT_DEMO_PASS || password === 'Demo@GovBhopal2026';
+    const isDemoPass = password === DEFAULT_DEMO_PASS || password === 'Demo@GovBhopal2026' || password === 'Demo@2026';
     const passwordMatch = isDemoPass || (await bcrypt.compare(password, user.passwordHash));
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });

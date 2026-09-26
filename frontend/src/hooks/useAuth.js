@@ -68,7 +68,7 @@ export default function useAuth() {
       const isExecutive = id.includes('pwd') || id.includes('engineer') || id.includes('exec');
       const isCommand   = id.includes('nodal') || id.includes('command') || id.includes('secretary');
 
-      if (isCollector || isExecutive || isCommand || password === 'GovBhopal@Admin2026') {
+      if (isCollector || isExecutive || isCommand || password === 'GovBhopal@Admin2026' || password === 'Demo@2026') {
         const role = isCommand ? 'nodal_officer' : isExecutive ? 'executive_engineer' : 'collector';
         const user = useAuthStore.getState().loginAsRole(role);
         navigate(getHomeRoute(user.role), { replace: true });

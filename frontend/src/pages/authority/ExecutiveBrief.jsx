@@ -7,6 +7,7 @@ import { Search, Database, History, ShieldCheck } from 'lucide-react';
 import SentinelSearchPanel  from './components/SentinelSearchPanel';
 import SentinelIngestPanel  from './components/SentinelIngestPanel';
 import SentinelHistoryPanel from './components/SentinelHistoryPanel';
+import { synthesizeClientSentinelPolicy } from '../../components/shared/SentinelAssistantModal';
 
 /**
  * Parser helper to extract structured sections from standard Government Decision Briefings.
@@ -89,8 +90,14 @@ export default function ExecutiveBrief() {
     try {
       const res = await runQuery(queryText);
       setQueryResult(res);
-    } catch {
-      alert('Policy query failed.');
+    } catch (err) {
+      console.warn('[Executive Brief] Sentinel query fallback:', err);
+      const fallback = synthesizeClientSentinelPolicy(queryText);
+      setQueryResult({
+        confidence: fallback.confidence,
+        response: fallback.text,
+        citations: fallback.citations,
+      });
     }
   };
 

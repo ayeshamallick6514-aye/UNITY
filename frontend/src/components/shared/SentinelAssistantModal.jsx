@@ -15,7 +15,7 @@ const SAMPLE_PROMPTS = [
   'How are mechanized tree relocation guidelines enforced in Bhopal BRTS?',
 ];
 
-function synthesizeClientSentinelPolicy(queryText) {
+export function synthesizeClientSentinelPolicy(queryText) {
   const q = (queryText || '').toLowerCase();
 
   if (q.includes('142') || (q.includes('utility') && (q.includes('shift') || q.includes('relocat'))) || q.includes('mpeb') || q.includes('mppkvvcl') || (q.includes('pole') && q.includes('shift'))) {
@@ -232,13 +232,14 @@ export default function SentinelAssistantModal({ isOpen, onClose }) {
       const sysMsg = {
         id: sysMsgId,
         sender: 'system',
-        roleTag: res.meta?.roleToken || '[SYSTEM: SENTINEL_RAG_V2.1]',
-        text: res.response || 'No policy record found matching requested criteria.',
-        citations: res.citations || [],
-        confidence: res.confidence || 88.0,
-        chunks: res.retrievedChunks || [],
+        roleTag: res?.meta?.roleToken || '[SYSTEM: SENTINEL_RAG_V2.1]',
+        text: res?.response || 'No policy record found matching requested criteria.',
+        citations: res?.citations || [],
+        confidence: res?.confidence || 88.0,
+        chunks: res?.retrievedChunks || [],
         timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false }) + ' IST'
       };
+      setMessages(prev => [...prev, sysMsg]);
     } catch (err) {
       console.warn('[Sentinel Modal] Network fallback triggered:', err);
       // Seamlessly synthesize dynamic response client-side so user is never stranded

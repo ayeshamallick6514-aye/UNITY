@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mic, MicOff, Volume2, VolumeX, X, Sparkles, Send, ChevronRight, Play, Square } from 'lucide-react';
+import { Mic, MicOff, Volume2, VolumeX, X, Sparkles, Send, ChevronRight, Play, Square, AlertCircle, Info } from 'lucide-react';
+import api from '../../services/api';
+import { synthesizeClientSentinelPolicy } from '../shared/SentinelAssistantModal';
 
 const KNOWLEDGE_BASE = [
   {
@@ -120,46 +122,77 @@ export default function CitizenVoiceBot() {
     }
   }, [language]);
 
-  // Helper to pick the best voice
+  // Voice selector: identifies genuine native Hindi voice
+  const isNativeHindiVoice = (v) => {
+    if (!v) return false;
+    const l = (v.lang || '').toLowerCase();
+    const n = (v.name || '').toLowerCase();
+    return l.startsWith('hi') || n.includes('hindi') || n.includes('हिन्दी');
+  };
+
   const getBestVoice = (targetLang) => {
-    const available = voices.length > 0 ? voices : (window.speechSynthesis?.getVoices() || []);
+    const available = window.speechSynthesis?.getVoices() || voices || [];
     if (!available || available.length === 0) return null;
 
     if (targetLang === 'hi') {
-      // Find dedicated Hindi voices
-      return available.find(v => v.lang.toLowerCase() === 'hi-in' || v.lang.toLowerCase() === 'hi_in') ||
-             available.find(v => v.lang.toLowerCase().startsWith('hi')) ||
-             available.find(v => v.name.toLowerCase().includes('hindi') || v.name.includes('हिन्दी')) ||
-             available.find(v => v.lang.toLowerCase().includes('in')) ||
-             null;
+      // Find dedicated native Hindi voices
+      return available.find(isNativeHindiVoice) || null;
     } else {
       // Find Indian English or standard English
       return available.find(v => v.lang.toLowerCase() === 'en-in') ||
              available.find(v => v.lang.toLowerCase().startsWith('en')) ||
-             null;
+             available[0] || null;
     }
   };
 
-  // Robust Speech Synthesis Helper
-  const speakText = (textToSpeak, targetLang = language) => {
+  // Robust Speech Synthesis Helper with Audio Fallback
+  const speakText = (textToSpeak, targetLang = language, fallbackEnglishText = '') => {
     if (!soundEnabled || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     if (!textToSpeak || !textToSpeak.trim()) return;
 
     try {
-      // Cancel previous speech and resume synthesis queue
       window.speechSynthesis.cancel();
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
       }
 
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = targetLang === 'hi' ? 'hi-IN' : 'en-IN';
-      utterance.rate = targetLang === 'hi' ? 0.95 : 1.0;
+      const availableVoices = window.speechSynthesis.getVoices() || voices || [];
+      const hindiVoice = availableVoices.find(isNativeHindiVoice);
+      
+      let finalSpeechText = textToSpeak;
+      let finalLang = targetLang === 'hi' ? 'hi-IN' : 'en-IN';
+      let selectedVoice = null;
+
+      if (targetLang === 'hi') {
+        if (hindiVoice) {
+          selectedVoice = hindiVoice;
+          finalLang = 'hi-IN';
+          finalSpeechText = textToSpeak;
+        } else {
+          // No native Hindi TTS voice pack on this OS (common on standard Windows installs).
+          // Fall back to English speech so audio is loud & clear rather than silent failure!
+          const englishVoice = availableVoices.find(v => v.lang.toLowerCase() === 'en-in') ||
+                               availableVoices.find(v => v.lang.toLowerCase().startsWith('en')) ||
+                               availableVoices[0] || null;
+          selectedVoice = englishVoice;
+          finalLang = 'en-IN';
+          finalSpeechText = fallbackEnglishText || textToSpeak;
+        }
+      } else {
+        selectedVoice = availableVoices.find(v => v.lang.toLowerCase() === 'en-in') ||
+                        availableVoices.find(v => v.lang.toLowerCase().startsWith('en')) ||
+                        availableVoices[0] || null;
+        finalLang = 'en-IN';
+        finalSpeechText = textToSpeak;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(finalSpeechText);
+      utterance.lang = finalLang;
+      utterance.rate = 1.0;
       utterance.pitch = 1.0;
 
-      const matchedVoice = getBestVoice(targetLang);
-      if (matchedVoice) {
-        utterance.voice = matchedVoice;
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
       }
 
       utterance.onstart = () => {
@@ -181,20 +214,9 @@ export default function CitizenVoiceBot() {
 
       // Keep reference to prevent GC in Chromium
       activeUtteranceRef.current = utterance;
+      window._activeCitizenUtterance = utterance;
 
-      // Small delay allows cancel() to clear cleanly on audio thread
-      setTimeout(() => {
-        try {
-          if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-          }
-          window.speechSynthesis.speak(utterance);
-        } catch (innerErr) {
-          console.error('Audio playback error:', innerErr);
-          setIsSpeaking(false);
-        }
-      }, 50);
-
+      window.speechSynthesis.speak(utterance);
     } catch (err) {
       console.error('TTS speech error:', err);
       setIsSpeaking(false);
@@ -228,11 +250,12 @@ export default function CitizenVoiceBot() {
     }
   };
 
-  const handleUserQuery = (userText) => {
+  const handleUserQuery = async (userText) => {
     if (!userText.trim()) return;
 
     // Add user message
     const newMessages = [...messages, { sender: 'user', text: userText }];
+    setMessages([...newMessages]);
     setQuery('');
 
     // Process intent
@@ -247,26 +270,47 @@ export default function CitizenVoiceBot() {
     }
 
     let botResponseText = '';
+    let botResponseEn = '';
     let navRoute = null;
 
     if (matched) {
       botResponseText = language === 'hi' ? matched.answerHi : matched.answer;
+      botResponseEn = matched.answer;
       navRoute = matched.route;
     } else {
-      botResponseText = language === 'hi'
-        ? 'मैं आपकी बात समझ रहा हूँ। आप लाडली बहना, किसान कल्याण, सड़क के गड्ढे या शिकायत ट्रैक करने के बारे में पूछ सकते हैं।'
-        : 'I can assist you with MP government schemes (Ladli Behna, Medhavi Chhatra, Kisan Kalyan), reporting civic or health grievances, and complaint tracking. What would you like to do?';
+      // Query Sentinel AI dynamically for statutory/civic issues
+      try {
+        const res = await api.sentinelQuery(userText);
+        if (res && res.response) {
+          botResponseEn = res.response;
+          botResponseText = language === 'hi' 
+            ? `सेंटिनल एआई विश्लेषण: ${res.response}` 
+            : res.response;
+        } else {
+          const fallback = synthesizeClientSentinelPolicy(userText);
+          botResponseEn = fallback.text;
+          botResponseText = language === 'hi'
+            ? `सेंटिनल एआई विश्लेषण: ${fallback.text}`
+            : fallback.text;
+        }
+      } catch (_) {
+        const fallback = synthesizeClientSentinelPolicy(userText);
+        botResponseEn = fallback.text;
+        botResponseText = language === 'hi'
+          ? `सेंटिनल एआई विश्लेषण: ${fallback.text}`
+          : fallback.text;
+      }
     }
 
-    newMessages.push({
+    const botMsg = {
       sender: 'bot',
-      text: botResponseText,
+      text: botResponseEn || botResponseText,
       textHi: language === 'hi' ? botResponseText : undefined,
       route: navRoute
-    });
+    };
 
-    setMessages(newMessages);
-    speakText(botResponseText, language);
+    setMessages([...newMessages, botMsg]);
+    speakText(botResponseText, language, botResponseEn);
   };
 
   return (
@@ -396,7 +440,7 @@ export default function CitizenVoiceBot() {
                       {/* Speak this response button */}
                       {m.sender === 'bot' && (
                         <button
-                          onClick={() => speakText(displayText, language)}
+                          onClick={() => speakText(displayText, language, m.text)}
                           className="flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2 py-0.5 rounded transition-colors"
                           title="Play audio / बोलकर सुनें"
                         >

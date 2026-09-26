@@ -78,25 +78,29 @@ export default function AuthorityVoiceBot() {
     }
   }, [language]);
 
-  // Voice selector
+  // Voice selector: identifies genuine native Hindi voice
+  const isNativeHindiVoice = (v) => {
+    if (!v) return false;
+    const l = (v.lang || '').toLowerCase();
+    const n = (v.name || '').toLowerCase();
+    return l.startsWith('hi') || n.includes('hindi') || n.includes('हिन्दी');
+  };
+
   const getBestVoice = (targetLang) => {
-    const available = voices.length > 0 ? voices : (window.speechSynthesis?.getVoices() || []);
+    const available = window.speechSynthesis?.getVoices() || voices || [];
     if (!available || available.length === 0) return null;
 
     if (targetLang === 'hi') {
-      return available.find(v => v.lang.toLowerCase() === 'hi-in' || v.lang.toLowerCase() === 'hi_in') ||
-             available.find(v => v.lang.toLowerCase().startsWith('hi')) ||
-             available.find(v => v.name.toLowerCase().includes('hindi') || v.name.includes('हिन्दी')) ||
-             null;
+      return available.find(isNativeHindiVoice) || null;
     } else {
       return available.find(v => v.lang.toLowerCase() === 'en-in') ||
              available.find(v => v.lang.toLowerCase().startsWith('en')) ||
-             null;
+             available[0] || null;
     }
   };
 
-  // Robust Speech Output
-  const speakText = (text, targetLang = language) => {
+  // Robust Speech Output with audible fallback
+  const speakText = (text, targetLang = language, fallbackEnglishText = '') => {
     if (!soundEnabled || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     if (!text || !text.trim()) return;
 
@@ -106,14 +110,43 @@ export default function AuthorityVoiceBot() {
         window.speechSynthesis.resume();
       }
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = targetLang === 'hi' ? 'hi-IN' : 'en-IN';
-      utterance.rate = targetLang === 'hi' ? 0.95 : 1.0;
+      const availableVoices = window.speechSynthesis.getVoices() || voices || [];
+      const hindiVoice = availableVoices.find(isNativeHindiVoice);
+      
+      let finalSpeechText = text;
+      let finalLang = targetLang === 'hi' ? 'hi-IN' : 'en-IN';
+      let selectedVoice = null;
+
+      if (targetLang === 'hi') {
+        if (hindiVoice) {
+          selectedVoice = hindiVoice;
+          finalLang = 'hi-IN';
+          finalSpeechText = text;
+        } else {
+          // Native Hindi TTS pack missing on OS; speak English text so audio is crystal clear
+          const englishVoice = availableVoices.find(v => v.lang.toLowerCase() === 'en-in') ||
+                               availableVoices.find(v => v.lang.toLowerCase().startsWith('en')) ||
+                               availableVoices[0] || null;
+          selectedVoice = englishVoice;
+          finalLang = 'en-IN';
+          finalSpeechText = fallbackEnglishText || text;
+          setStatusLog(prev => [...prev, '💡 सिस्टम पर हिंदी TTS पैक नहीं मिला - अंग्रेजी ऑडियो सुनाया जा रहा है।']);
+        }
+      } else {
+        selectedVoice = availableVoices.find(v => v.lang.toLowerCase() === 'en-in') ||
+                        availableVoices.find(v => v.lang.toLowerCase().startsWith('en')) ||
+                        availableVoices[0] || null;
+        finalLang = 'en-IN';
+        finalSpeechText = text;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(finalSpeechText);
+      utterance.lang = finalLang;
+      utterance.rate = 1.0;
       utterance.pitch = 1.0;
 
-      const voice = getBestVoice(targetLang);
-      if (voice) {
-        utterance.voice = voice;
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
       }
 
       utterance.onstart = () => {
@@ -134,18 +167,9 @@ export default function AuthorityVoiceBot() {
       };
 
       activeUtteranceRef.current = utterance;
+      window._activeAuthorityUtterance = utterance;
 
-      setTimeout(() => {
-        try {
-          if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-          }
-          window.speechSynthesis.speak(utterance);
-        } catch (_) {
-          setIsSpeaking(false);
-        }
-      }, 50);
-
+      window.speechSynthesis.speak(utterance);
     } catch (err) {
       console.error('TTS execution error:', err);
       setIsSpeaking(false);
@@ -164,7 +188,7 @@ export default function AuthorityVoiceBot() {
     const briefText = language === 'hi' ? EXECUTIVE_BRIEF_SCRIPT_HI : EXECUTIVE_BRIEF_SCRIPT_EN;
     const label = language === 'hi' ? '▶ दैनिक प्रशासनिक एवं अवसंरचना ब्रीफिंग चल रही है...' : '▶ Playing daily municipal executive briefing...';
     setStatusLog(prev => [...prev, label]);
-    speakText(briefText, language);
+    speakText(briefText, language, EXECUTIVE_BRIEF_SCRIPT_EN);
   };
 
   const handleVoiceCommand = (command) => {
@@ -177,36 +201,41 @@ export default function AuthorityVoiceBot() {
       const reply = language === 'hi'
         ? "अंतर-विभागीय समन्वय और सी-लॉक मैट्रिक्स खोल रहे हैं।"
         : "Navigating to Inter-Agency Coordination Matrix.";
+      const replyEn = "Navigating to Inter-Agency Coordination Matrix.";
       setStatusLog(prev => [...prev, `🤖 ${reply}`]);
-      speakText(reply, language);
+      speakText(reply, language, replyEn);
       navigate('/authority/coordination');
     } else if (cmd.includes('map') || cmd.includes('geospatial') || cmd.includes('gis') || cmd.includes('नक्शा') || cmd.includes('मैप')) {
       const reply = language === 'hi'
         ? "भोपाल का लाइव परिचालन समन्वय मानचित्र खोला जा रहा है।"
         : "Opening Operational Coordination Map for Bhopal.";
+      const replyEn = "Opening Operational Coordination Map for Bhopal.";
       setStatusLog(prev => [...prev, `🤖 ${reply}`]);
-      speakText(reply, language);
+      speakText(reply, language, replyEn);
       navigate('/authority/map');
     } else if (cmd.includes('approval') || cmd.includes('clearance') || cmd.includes('noc') || cmd.includes('मंजूरी') || cmd.includes('एनओसी') || cmd.includes('अनुमोदन')) {
       const reply = language === 'hi'
         ? "डिजिटल एनओसी एवं क्लीयरेंस कंसोल खोला जा रहा है।"
         : "Opening Clearance and Digital NOC Console.";
+      const replyEn = "Opening Clearance and Digital NOC Console.";
       setStatusLog(prev => [...prev, `🤖 ${reply}`]);
-      speakText(reply, language);
+      speakText(reply, language, replyEn);
       navigate('/authority/approvals');
     } else if (cmd.includes('project') || cmd.includes('mission') || cmd.includes('परियोजना') || cmd.includes('प्रोजेक्ट')) {
       const reply = language === 'hi'
         ? "मिशन कंट्रोल वर्कस्पेस खोला जा रहा है।"
         : "Opening Mission Workspace.";
+      const replyEn = "Opening Mission Workspace.";
       setStatusLog(prev => [...prev, `🤖 ${reply}`]);
-      speakText(reply, language);
+      speakText(reply, language, replyEn);
       navigate('/authority/projects');
     } else {
       const reply = language === 'hi'
         ? "कमांड दर्ज हुई। आप कह सकते हैं: 'ब्रीफिंग सुनाएं', 'टकराव दिखाएं', 'मैप खोलें' या 'मंजूरी दिखाएं'।"
         : "Command logged. You can say: 'Play brief', 'Show conflicts', 'Open map', or 'Show approvals'.";
+      const replyEn = "Command logged. You can say: 'Play brief', 'Show conflicts', 'Open map', or 'Show approvals'.";
       setStatusLog(prev => [...prev, `🤖 ${reply}`]);
-      speakText(reply, language);
+      speakText(reply, language, replyEn);
     }
   };
 

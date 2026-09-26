@@ -1,6 +1,7 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { API_BASE } from './utils/constants';
 
 // Shared core items
 import ProtectedRoute      from './components/shared/ProtectedRoute';
@@ -89,6 +90,14 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  // Silent pre-warm ping to wake up cloud backend immediately on site visit
+  useEffect(() => {
+    try {
+      const healthUrl = API_BASE ? API_BASE.replace('/api/v1', '') + '/health' : 'https://unity-backend-0i2e.onrender.com/health';
+      fetch(healthUrl, { method: 'GET', mode: 'cors' }).catch(() => {});
+    } catch (_) {}
+  }, []);
+
   const [booting, setBooting] = useState(() => {
     try {
       return !sessionStorage.getItem('unity_booted');

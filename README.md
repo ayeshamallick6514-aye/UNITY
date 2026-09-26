@@ -37,7 +37,7 @@
 > 
 > *Tip: You can also click **⚡ Instant Demo Access** on the role selection page to bypass all logins and enter immediately with one click.*
 
-> ⚡ **Cloud Availability & Evaluation Reliability for Hackathon Judges:**
+> ⚡ **Cloud Availability & Evaluation Reliability:**
 > - **Zero-Cold-Start Static CDN:** The frontend application is deployed as a Render Static Site distributed on Cloudflare's edge CDN, loading in under 1 second with 0s latency.
 > - **Silent Background Pre-Warm:** The application automatically initiates a background wake-up ping to `/health` the moment an evaluator lands on the website.
 > - **24/7 Automated Keep-Alive:** The backend health endpoint (`https://unity-backend-0i2e.onrender.com/health`) is monitored continuously to eliminate cloud inactivity spin-downs.
